@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp", "InternetBankingApp\InternetBankingApp.csproj", "{C99D998D-3460-4E52-9217-9463A1ACAB19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarpetaPruebaRama1", "CarpetaPruebaRama1", "{E3281DD0-7E18-44EC-B857-E6DC4D97147E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nueva carpeta", "Nueva carpeta", "{C252C72B-FB29-4E76-B351-2D44C1F55F91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +22,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C252C72B-FB29-4E76-B351-2D44C1F55F91} = {E3281DD0-7E18-44EC-B857-E6DC4D97147E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD77D8CB-E132-4046-9943-2AFCFFB86E9F}
