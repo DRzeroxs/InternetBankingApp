@@ -1,3 +1,6 @@
+using InternetBankingApp.Infrastructure.Persistence;
+using InternetBankingApp.Infrastructure.Identity;
+using InternetBankingApp.Core.Application;
 namespace InternetBankingApp
 {
     public class Program
@@ -8,7 +11,9 @@ namespace InternetBankingApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddPersistenceLayer(builder.Configuration);
+            builder.Services.AddIdentityInfrastructure(builder.Configuration);
+            builder.Services.AddApplicationLayer();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
