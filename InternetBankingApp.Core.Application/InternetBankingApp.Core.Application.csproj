@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Dtos\Email\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
