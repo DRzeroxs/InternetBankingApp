@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Account\" />
     <Folder Include="Dtos\Email\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\IAccount\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
