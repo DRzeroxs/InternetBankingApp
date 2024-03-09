@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniRedSocial.Core.Domain.Common
+namespace InternetBankingApp.Core.Domain.Common
 {
     public class AuditableBaseEntity
     {
