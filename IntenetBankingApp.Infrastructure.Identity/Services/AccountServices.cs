@@ -48,7 +48,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             }
 
 
-
             response.Id = user.Id;
             response.Email = user.Email;
             response.UserName = user.UserName;
@@ -153,7 +152,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 Email = request.Email,
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
-
 
             };
 
