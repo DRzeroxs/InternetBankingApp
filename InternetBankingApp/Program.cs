@@ -1,11 +1,13 @@
 using InternetBankingApp.Infrastructure.Persistence;
 using InternetBankingApp.Infrastructure.Identity;
 using InternetBankingApp.Core.Application;
+using InternetBankingApp.Infrastructure.Identity.Seeds;
+
 namespace InternetBankingApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@ namespace InternetBankingApp
             builder.Services.AddIdentityInfrastructure(builder.Configuration);
             builder.Services.AddApplicationLayer();
             var app = builder.Build();
+
+            await app.Services.AddIdentitySeedsConfiguration();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
