@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp", "Inter
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarpetaPruebaRama1", "CarpetaPruebaRama1", "{E3281DD0-7E18-44EC-B857-E6DC4D97147E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nueva carpeta", "Nueva carpeta", "{C252C72B-FB29-4E76-B351-2D44C1F55F91}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "New", "New", "{3462E103-0153-4BA6-8818-A76CD03184EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,7 +24,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C252C72B-FB29-4E76-B351-2D44C1F55F91} = {E3281DD0-7E18-44EC-B857-E6DC4D97147E}
+		{3462E103-0153-4BA6-8818-A76CD03184EE} = {E3281DD0-7E18-44EC-B857-E6DC4D97147E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD77D8CB-E132-4046-9943-2AFCFFB86E9F}
