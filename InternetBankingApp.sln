@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp", "InternetBankingApp\InternetBankingApp.csproj", "{C99D998D-3460-4E52-9217-9463A1ACAB19}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SourcePruebar", "SourcePruebar", "{08781C40-470C-4909-90A8-E01EEF102677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
