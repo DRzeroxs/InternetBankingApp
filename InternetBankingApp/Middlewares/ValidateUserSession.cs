@@ -14,7 +14,7 @@ namespace InternetBankingApp.Middlewares
 
         public bool HasUser()
         {
-            AuthenticationResponse usuarioViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
+            AuthenticationResponse usuarioViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("Admin");
 
             if (usuarioViewModel == null)
             {

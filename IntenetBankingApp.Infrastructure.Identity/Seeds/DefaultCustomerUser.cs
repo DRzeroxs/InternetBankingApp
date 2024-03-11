@@ -27,6 +27,10 @@ namespace InternetBankingApp.Infrastructure.Identity.Seeds
 
             defaultUser.PhoneNumberConfirmed = true;
 
+            defaultUser.TypeOfUser = "Customer";
+
+            defaultUser.StartAmount = "0";
+
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
                 var user = userManager.FindByEmailAsync(defaultUser.Email);
