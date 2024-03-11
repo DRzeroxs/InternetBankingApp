@@ -7,7 +7,8 @@
 <h1>CreateUser</h1>
 
 <section>
-     <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="mdo">Make Post</button>
+     <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="mdo">Create User</button>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -22,6 +23,7 @@
                         <div class="mb-3">
                             <label asp-for="FirstName" class="col-form-label">Fist Name:</label>
                             <input type="text" asp-for="FirstName" class="mt-3 form-control">
+                            <span asp-validation-for="FirstName"></span>
 
                         </div>
 
