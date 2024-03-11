@@ -23,7 +23,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Seeds
 
             defaultUser.EmailConfirmed = true;
 
-            defaultUser.UserName = "Cleimer";
+            defaultUser.UserName = "Antonio";
 
             defaultUser.PhoneNumberConfirmed = true;
 

@@ -16,6 +16,9 @@ namespace InternetBankingApp
             builder.Services.AddPersistenceLayer(builder.Configuration);
             builder.Services.AddIdentityInfrastructure(builder.Configuration);
             builder.Services.AddApplicationLayer();
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddSession();
             var app = builder.Build();
 
             await app.Services.AddIdentitySeedsConfiguration();
@@ -30,14 +33,16 @@ namespace InternetBankingApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=User}/{action=Index}/{id?}");
 
             app.Run();
         }

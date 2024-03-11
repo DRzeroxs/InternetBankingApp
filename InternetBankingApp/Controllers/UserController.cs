@@ -31,6 +31,7 @@ namespace InternetBankingApp.Controllers
             if (userAuthenticate != null && userAuthenticate.HasError != true)
             {
                 HttpContext.Session.set<AuthenticationResponse>("user", userAuthenticate);
+
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
             else
