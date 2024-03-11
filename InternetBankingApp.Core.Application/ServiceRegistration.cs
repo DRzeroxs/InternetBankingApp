@@ -15,6 +15,10 @@ namespace InternetBankingApp.Core.Application
         public static void AddApplicationLayer(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            #region "Services"
+            services.AddTransient<IUserService, UserService>();
+            #endregion
         }
     }
 }

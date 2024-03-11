@@ -1,5 +1,9 @@
 ﻿
+using InternetBankingApp.Core.Application.Interfaces.IAccount;
 using InternetBankingApp.Infrastructure.Identity.Context;
+using InternetBankingApp.Infrastructure.Identity.Entities;
+using InternetBankingApp.Infrastructure.Identity.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,10 +23,21 @@ namespace InternetBankingApp.Infrastructure.Identity
                 services.AddDbContext<IdentityContext>(options =>
                 {
                     options.EnableSensitiveDataLogging();
-                    options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"),
+                    options.UseSqlServer(configuration.GetConnectionString("Identityconexion"),
                     m => m.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName));
                 });
-            
+
+          
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+             .AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
+
+
+            services.AddAuthentication();
+
+            #region"Service"
+            services.AddTransient<IAccountServices, AccountServices>();
+            #endregion
+
         }
     }
 }
