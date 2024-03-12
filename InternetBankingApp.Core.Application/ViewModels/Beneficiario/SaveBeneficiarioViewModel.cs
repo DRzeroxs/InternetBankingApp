@@ -9,6 +9,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.Beneficiario
 {
     public class SaveBeneficiarioViewModel
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Debe ingresar un nombre para el beneficiario")]
         public string Name { get; set; }
 

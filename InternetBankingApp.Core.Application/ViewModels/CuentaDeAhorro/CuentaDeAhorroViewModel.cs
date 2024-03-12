@@ -1,0 +1,18 @@
+﻿using InternetBankingApp.Core.Application.ViewModels.Cliente;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro
+{
+    public class CuentaDeAhorroViewModel
+    {
+        public int Id { get; set; }
+        public double Balance { get; set; }
+        public bool Main { get; set; }
+        public int ClienteId { get; set; }
+        public ClienteViewModel Cliente { get; set; }
+    }
+}
