@@ -11,6 +11,11 @@ namespace InternetBankingApp.Core.Application.Mappings
 {
     public class GeneralProfile : Profile
     {
+
+        #region Beneficiario
+            
+        #endregion
+
         public GeneralProfile() 
         {
             #region "User"
