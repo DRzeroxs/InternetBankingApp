@@ -210,9 +210,23 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 TypeOfUser = u.TypeOfUser,
                 IsActive = u.IsActive
             };
-            return UserVm;
-               
+            return UserVm;  
         }
+
+        public async Task<ActiveInactiveViewModel> GetByUserId(string Id)
+        {
+            var u = await _userManager.FindByIdAsync(Id);
+
+            ActiveInactiveViewModel UserVm = new()
+            {
+                Id = u.Id,
+                IsActive = u.IsActive
+            };
+            return UserVm;
+        }
+
+
+
         public async Task<List<UserViewModel>> GetAllUserAsync()
         {
             var userList = await _userManager.Users.ToListAsync();

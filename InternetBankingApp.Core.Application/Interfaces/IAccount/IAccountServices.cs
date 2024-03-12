@@ -13,5 +13,6 @@ public interface IAccountServices
     Task SingOutAsync();
     Task<List<UserViewModel>> GetAllUserAsync();
     Task<UserViewModel> GetById(string Id);
+    Task<ActiveInactiveViewModel> GetByUserId(string Id);
 
 }

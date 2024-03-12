@@ -79,5 +79,11 @@ namespace InternetBankingApp.Core.Application.Services
 
             return user;
         }
+        // Para buscar usuario activo o inactivo
+        public async Task<ActiveInactiveViewModel> GetByUserId(string Id)
+        {
+            var user = await _accountServices.GetByUserId(Id);
+            return user;
+        }
     }
 }
