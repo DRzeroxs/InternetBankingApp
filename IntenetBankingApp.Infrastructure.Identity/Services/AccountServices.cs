@@ -1,9 +1,12 @@
 ﻿using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Interfaces.IAccount;
+using InternetBankingApp.Core.Application.ViewModels.User;
+using InternetBankingApp.Infrastructure.Identity.Context;
 using InternetBankingApp.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +20,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
         public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _signInManager = signInManager;
@@ -103,8 +105,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 Email = request.Email,
                 UserName = request.UserName,
                 TypeOfUser = request.TypeOfUser,
-                StartAmount = "0"
-
+                IsActive = request.IsActive
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -157,8 +158,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 Email = request.Email,
                 UserName = request.UserName,
                 TypeOfUser = request.TypeOfUser,
-                StartAmount = request.StartAmount,
-
+                IsActive = request.IsActive,
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -195,6 +195,26 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             {
                 return $"An Error ocurred while confirming {user.Email}";
             }
+        }
+
+        public async Task<List<UserViewModel>> GetAllUserAsync()
+        {
+            var userList = await _userManager.Users.ToListAsync();
+            List<UserViewModel> userViewModel = new();
+
+            foreach (var user in userList)
+            {
+                foreach (var item in userViewModel)
+                {
+                    item.FirstName = user.FirstName;
+                    item.LastName = user.LatsName;
+                    item.Email = user.Email;
+                    item.UserName = user.UserName;
+                    item.IsActive = user.IsActive;
+                    item.TypeOfUser = user.TypeOfUser;
+                }
+            }
+            return userViewModel;
         }
     }
 }

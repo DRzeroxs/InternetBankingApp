@@ -49,9 +49,15 @@ namespace InternetBankingApp.Core.Application.Services
         }
 
             // Metodo de deslogueo
-            public async Task SignOutAsync()
+        public async Task SignOutAsync()
         {
             await _accountServices.SingOutAsync();
+        }
+
+        // obtener todo los usuarios del sistema
+        public async Task<List<UserViewModel>> GetAllUser()
+        {
+            return await _accountServices.GetAllUserAsync();
         }
 
     }

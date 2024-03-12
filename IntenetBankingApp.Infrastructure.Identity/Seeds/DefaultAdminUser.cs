@@ -30,7 +30,8 @@ namespace InternetBankingApp.Infrastructure.Identity.Seeds
 
             defaultUser.TypeOfUser = "Admin";
 
-            defaultUser.StartAmount = "0";
+            defaultUser.IsActive = true;
+
 
             if(userManager.Users.All(u => u.Id != defaultUser.Id))
             {

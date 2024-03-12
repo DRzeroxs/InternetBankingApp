@@ -14,9 +14,10 @@ namespace InternetBankingApp.Controllers
         {
             _userService = userService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userService.GetAllUser();
+            return View(user);
         }
 
         public async Task <IActionResult> UsersManagement()
