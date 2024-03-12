@@ -19,7 +19,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
 
         //visores
         public ClienteViewModel? Cliente { get; set; }
-        public CuentaDeAhorroViewModel? CuentaDeOrigen { get; set; }
-        public CuentaDeAhorroViewModel?CuentaDeDestino { get; set; }
+        public CuentaDeAhorroViewModel? CuentaOrigen { get; set; }
+        public CuentaDeAhorroViewModel?CuentaDestino { get; set; }
     }
 }
