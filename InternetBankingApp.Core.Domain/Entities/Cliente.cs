@@ -5,7 +5,10 @@ namespace InternetBankingApp.Core.Domain.Entities
 {
     public class Cliente : AuditableBaseEntity
     {
-        public string UserID { get; set; }
+        public string UserId { get; set; }
+
+        public string FirstName { get; set; }
+        public string LatsName { get; set; }
 
         //conductores
         [InverseProperty("Cliente")]

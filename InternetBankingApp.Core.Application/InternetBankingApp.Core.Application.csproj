@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Dtos\Email\" />
+    <Folder Include="Helpers\" />
+
   </ItemGroup>
 
   <ItemGroup>
