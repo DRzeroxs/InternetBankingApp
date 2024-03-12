@@ -23,9 +23,13 @@ namespace InternetBankingApp.Infrastructure.Identity.Seeds
 
             defaultUser.EmailConfirmed = true;
 
-            defaultUser.UserName = "Cleimer";
+            defaultUser.UserName = "Antonio";
 
             defaultUser.PhoneNumberConfirmed = true;
+
+            defaultUser.TypeOfUser = "Customer";
+
+            defaultUser.StartAmount = "0";
 
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {

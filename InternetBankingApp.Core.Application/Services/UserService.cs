@@ -29,9 +29,27 @@ namespace InternetBankingApp.Core.Application.Services
             AuthenticationResponse authenticationResponse = await _accountServices.AuthenticateASYNC(loginRequest);
             return authenticationResponse;
         }
+        // Metodo para Registrar Usuario Administrador
+        public async Task<RegistrerResponse> RegisterAdminAsync(RegisterViewModel vm, string origin)
+        {
+            RegistrerRequest registerRequest = _mapper.Map<RegistrerRequest>(vm);
 
-        // Metodo de deslogueo
-        public async Task SignOutAsync()
+
+            return await _accountServices.RegistrerAdminUserAsync(registerRequest, origin);
+        }
+
+        // Metodo para Registrar Usuario Cliente
+        public async Task<RegistrerResponse> RegisterCustomerAsync(RegisterViewModel vm, string origin)
+        {
+
+            RegistrerRequest registerRequest = _mapper.Map<RegistrerRequest>(vm);
+
+
+            return await _accountServices.RegistrerCustomerUserAsync(registerRequest, origin);
+        }
+
+            // Metodo de deslogueo
+            public async Task SignOutAsync()
         {
             await _accountServices.SingOutAsync();
         }

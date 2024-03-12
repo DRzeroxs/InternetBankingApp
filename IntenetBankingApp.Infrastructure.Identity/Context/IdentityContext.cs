@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Infrastructure.Identity.Context
 {
-    public class IdentityContext : IdentityDbContext
+    public class IdentityContext : IdentityDbContext<ApplicationUser>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {

@@ -23,7 +23,7 @@ namespace InternetBankingApp.Infrastructure.Identity
                 services.AddDbContext<IdentityContext>(options =>
                 {
                     options.EnableSensitiveDataLogging();
-                    options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"),
+                    options.UseSqlServer(configuration.GetConnectionString("Identityconexion"),
                     m => m.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName));
                 });
 
@@ -31,6 +31,8 @@ namespace InternetBankingApp.Infrastructure.Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
              .AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
 
+
+            services.AddAuthentication();
 
             #region"Service"
             services.AddTransient<IAccountServices, AccountServices>();

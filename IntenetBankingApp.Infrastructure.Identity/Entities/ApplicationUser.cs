@@ -11,6 +11,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Entities
     {
         public string FirstName { get; set; }
         public string LatsName { get; set; }
-
+        public string TypeOfUser { get; set; }  
+        public string StartAmount { get; set; }
     }
 }

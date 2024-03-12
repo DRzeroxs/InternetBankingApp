@@ -14,12 +14,12 @@ namespace InternetBankingApp.Controllers
         {
             _userService = userService;
         }
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View(new LoginViewModel());
         }
         [HttpPost]
-        public async Task<IActionResult> Index(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -30,7 +30,14 @@ namespace InternetBankingApp.Controllers
 
             if (userAuthenticate != null && userAuthenticate.HasError != true)
             {
-                HttpContext.Session.set<AuthenticationResponse>("user", userAuthenticate);
+                HttpContext.Session.set<AuthenticationResponse>($"{userAuthenticate.Roles[0]}", userAuthenticate);
+                var userRole = userAuthenticate.Roles[0];
+
+            if ( userRole == "Admin")
+            {
+                return RedirectToAction("Index", "Administrator");
+            }
+
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
             else

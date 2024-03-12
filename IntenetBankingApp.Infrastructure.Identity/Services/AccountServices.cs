@@ -18,6 +18,11 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+        }
         public async Task<AuthenticationResponse> AuthenticateASYNC(AuthenticationRequest requuest)
         {
             AuthenticationResponse response = new();
@@ -97,8 +102,8 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 LatsName = request.LastName,
                 Email = request.Email,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber,
-
+                TypeOfUser = request.TypeOfUser,
+                StartAmount = "0"
 
             };
 
@@ -151,7 +156,8 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 LatsName = request.LastName,
                 Email = request.Email,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber,
+                TypeOfUser = request.TypeOfUser,
+                StartAmount = request.StartAmount,
 
             };
 
