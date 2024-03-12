@@ -14,6 +14,7 @@
     <Folder Include="ViewModels\Transaccion\" />
     <Folder Include="ViewModels\TarjetaDeCredito\" />
     <Folder Include="ViewModels\Prestamo\" />
+
   </ItemGroup>
 
   <ItemGroup>
