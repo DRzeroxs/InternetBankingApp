@@ -28,8 +28,7 @@ namespace InternetBankingApp.Core.Application.Mappings
                 .ForMember(x => x.LastModifiedDate, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
-                .ForMember(x => x.Cliente, opt => opt.Ignore())
-                .ForMember(x => x.CuentaDeAhorro, opt => opt.Ignore());
+                .ForMember(x => x.Cliente, opt => opt.Ignore());
 
             CreateMap<Beneficiario, BeneficiarioViewModel>()
                 .ForMember(x => x.Cliente, opt => opt.Ignore())
@@ -38,8 +37,7 @@ namespace InternetBankingApp.Core.Application.Mappings
                 .ForMember(x => x.LastModifiedDate, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
-                .ForMember(x => x.Cliente, opt => opt.Ignore())
-                .ForMember(x => x.CuentaDeAhorro, opt => opt.Ignore());
+                .ForMember(x => x.Cliente, opt => opt.Ignore());
             #endregion
 
             #region Cliente

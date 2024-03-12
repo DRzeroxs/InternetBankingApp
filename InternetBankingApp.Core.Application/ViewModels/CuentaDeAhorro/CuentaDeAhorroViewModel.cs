@@ -12,6 +12,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro
         public int Id { get; set; }
         public double Balance { get; set; }
         public bool Main { get; set; }
+        public int Identifier { get; set; }
         public int ClienteId { get; set; }
         public ClienteViewModel Cliente { get; set; }
     }

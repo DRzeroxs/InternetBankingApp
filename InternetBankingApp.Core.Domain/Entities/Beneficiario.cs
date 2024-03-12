@@ -15,12 +15,9 @@ namespace InternetBankingApp.Core.Domain.Entities
         //Laves foraneas
         [ForeignKey("Cliente")]
         public int ClienteId { get; set; }
-
-        [ForeignKey("CuentaDeAhorro")]
-        public int CuentaDeAhorroId { get; set; }
+        public int CuentaIdentifier { get; set; }
 
         //Conductores
         public Cliente Cliente { get; set; }
-        public CuentaDeAhorro CuentaDeAhorro { get; set; }
     }
 }

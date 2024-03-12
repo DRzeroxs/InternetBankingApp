@@ -16,6 +16,8 @@ namespace InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro
         public double balance { get; set; }
         public bool Main { get; set; } = false;
 
+        public int Identifier { get; set; } 
+
         [Required(ErrorMessage = "Seleccione un monto minimo")]
         [Range(1, int.MaxValue, ErrorMessage = "Seleccione un monto Cliente valido")]
         public int ClienteId { get; set; }

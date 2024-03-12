@@ -10,22 +10,21 @@ namespace InternetBankingApp.Core.Domain.Entities
 {
     public class Transaccion : AuditableBaseEntity
     {
-        public int Tipe {  get; set; }
+        public int Tipe { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; set; }
 
-        //Llaves foraneas
+        // Llaves foraneas
         [ForeignKey("Cliente")]
         public int ClienteId { get; set; }
+
         [ForeignKey("CuentaOrigen")]
         public int CuentaOrigenId { get; set; }
-        [ForeignKey("CuestaDestino")]
         public int CuentaDestinoId { get; set; }
 
-        //Conductores
+        // Conductores
         public Cliente Cliente { get; set; }
         public CuentaDeAhorro CuentaOrigen { get; set; }
         public CuentaDeAhorro CuentaDestino { get; set; }
-
     }
 }

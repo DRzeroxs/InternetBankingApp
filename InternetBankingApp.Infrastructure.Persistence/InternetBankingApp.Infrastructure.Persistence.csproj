@@ -16,4 +16,8 @@
     <ProjectReference Include="..\InternetBankingApp.Core.Domain\InternetBankingApp.Core.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
