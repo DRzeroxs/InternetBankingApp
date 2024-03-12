@@ -60,5 +60,24 @@ namespace InternetBankingApp.Core.Application.Services
             return await _accountServices.GetAllUserAsync();
         }
 
+
+        // Confirmar Usuario
+        public async Task ConfirnUserAsync(string Id)
+        {
+          await  _accountServices.ConfirmAccountAsync(Id);
+        }
+        // Inactivar Usuario
+        public async Task InactiveUserAsync(string Id)
+        {
+            await _accountServices.InactiveAccountAsync(Id);
+        }
+
+        // Buscar por el ID
+        public async Task<UserViewModel> GetByIdAsync(string Id)
+        {
+            var user = await _accountServices.GetById(Id);
+
+            return user;
+        }
     }
 }

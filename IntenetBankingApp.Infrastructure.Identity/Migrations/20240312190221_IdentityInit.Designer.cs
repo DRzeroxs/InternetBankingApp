@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBankingApp.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240312175138_AddFieldIsActive")]
-    partial class AddFieldIsActive
+    [Migration("20240312190221_IdentityInit")]
+    partial class IdentityInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

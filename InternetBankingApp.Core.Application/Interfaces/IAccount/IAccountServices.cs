@@ -6,9 +6,12 @@ namespace InternetBankingApp.Core.Application.Interfaces.IAccount;
 public interface IAccountServices
 {
     Task<AuthenticationResponse> AuthenticateASYNC(AuthenticationRequest requuest);
-    Task<string> ConfirmAccountAsync(string userId, string token);
+    Task ConfirmAccountAsync(string userId);
+    Task InactiveAccountAsync(string userId);
     Task<RegistrerResponse> RegistrerAdminUserAsync(RegistrerRequest request, string origin);
     Task<RegistrerResponse> RegistrerCustomerUserAsync(RegistrerRequest request, string origin);
     Task SingOutAsync();
     Task<List<UserViewModel>> GetAllUserAsync();
+    Task<UserViewModel> GetById(string Id);
+
 }

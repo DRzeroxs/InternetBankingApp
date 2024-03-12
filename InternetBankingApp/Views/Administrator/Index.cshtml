@@ -29,7 +29,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            @foreach (InternetBankingApp.Core.Application.ViewModels.User.UserViewModel item in Model)
+                            @foreach (var item in Model)
                             {
                                 <tbody class="text-center" style="background-color: #fff0f3">
                                     <tr>
@@ -41,7 +41,15 @@
                                         <td>@item.IsActive</td>
 
                                         <td align="center">
-                                            <a asp-controller="Patient" asp-action="Edit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            @if(item.IsActive == true)
+                                            {
+                                                <a asp-controller="Administrator" asp-action="InactiveUser" asp-route-userId="@item.Id"><i class="fa-solid fa-toggle-on"></i></a>
+                                            }
+                                            else if(item.IsActive == false)
+                                            {
+                                                <a asp-controller="Administrator" asp-action="ConfirnUser" asp-route-UserId="@item.Id" class="btn btn-secondary"><i class="fa-solid fa-toggle-off"></i></a>
+                                            } 
+
                                             <a asp-controller="Patient" asp-action="Edit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                             <a asp-controller="Patient" asp-action="Delete" class="btn btn-danger"><i class="fa-solid fa-delete-left"></i></a>
                                         </td>

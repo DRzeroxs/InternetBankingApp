@@ -177,32 +177,49 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             return response;
         }
 
-        public async Task<string> ConfirmAccountAsync(string userId, string token)
+        public async Task ConfirmAccountAsync(string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return $"No Account Registrer with this User";
-            }
 
-            token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
-            {
-                return $"Accound confirmed for {user.Email} You can now use the app";
-            }
-            else
-            {
-                return $"An Error ocurred while confirming {user.Email}";
-            }
+            var user = await _userManager.FindByIdAsync(userId);  
+
+            user.IsActive = true;
+
+           var result = await _userManager.UpdateAsync(user);
         }
 
+        public async Task InactiveAccountAsync(string userId)
+        {
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            user.IsActive = false;
+
+            var result = await _userManager.UpdateAsync(user);
+        }
+        public async Task<UserViewModel> GetById(string Id)
+        {
+            var u = await _userManager.FindByIdAsync(Id);
+
+            UserViewModel UserVm = new()
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LatsName,
+                UserName = u.UserName,
+                Email = u.Email,
+                TypeOfUser = u.TypeOfUser,
+                IsActive = u.IsActive
+            };
+            return UserVm;
+               
+        }
         public async Task<List<UserViewModel>> GetAllUserAsync()
         {
             var userList = await _userManager.Users.ToListAsync();
            
             return userList.Select(u => new UserViewModel
             {
+                Id = u.Id,
                 FirstName = u.FirstName,
                 LastName = u.LatsName,
                 UserName = u.UserName,

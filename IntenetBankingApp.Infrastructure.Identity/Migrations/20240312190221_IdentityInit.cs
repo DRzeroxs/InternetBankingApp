@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InternetBankingApp.Infrastructure.Identity.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class IdentityInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LatsName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartAmount = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
