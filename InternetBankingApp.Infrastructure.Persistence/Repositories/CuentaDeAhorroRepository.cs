@@ -1,6 +1,7 @@
 ﻿using InternetBankingApp.Core.Application.Interfaces.IRepository;
 using InternetBankingApp.Core.Domain.Entities;
 using InternetBankingApp.Infrastructure.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,14 @@ namespace InternetBankingApp.Infrastructure.Persistence.Repositories
         public CuentaDeAhorroRepository(ApplicationContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<CuentaDeAhorro> GetByIdentifierAsync(int identifier)
+        {
+            var entity = await _context.Set<CuentaDeAhorro>()
+                .FirstOrDefaultAsync(c => c.Identifier == identifier);
+
+            return entity;
         }
     }
 }
