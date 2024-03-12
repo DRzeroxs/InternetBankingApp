@@ -9,5 +9,8 @@ namespace InternetBankingApp.Core.Application.Mappings
 {
     public class GeneralProfile : Profile
     {
+        #region Beneficiario
+
+        #endregion
     }
 }

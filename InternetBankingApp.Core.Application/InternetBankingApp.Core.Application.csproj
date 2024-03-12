@@ -9,7 +9,11 @@
   <ItemGroup>
     <Folder Include="Dtos\Email\" />
     <Folder Include="Helpers\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Cliente\" />
+    <Folder Include="ViewModels\CuentaDeAhorro\" />
+    <Folder Include="ViewModels\Transaccion\" />
+    <Folder Include="ViewModels\TarjetaDeCredito\" />
+    <Folder Include="ViewModels\Prestamo\" />
   </ItemGroup>
 
   <ItemGroup>
