@@ -200,21 +200,17 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
         public async Task<List<UserViewModel>> GetAllUserAsync()
         {
             var userList = await _userManager.Users.ToListAsync();
-            List<UserViewModel> userViewModel = new();
-
-            foreach (var user in userList)
+           
+            return userList.Select(u => new UserViewModel
             {
-                foreach (var item in userViewModel)
-                {
-                    item.FirstName = user.FirstName;
-                    item.LastName = user.LatsName;
-                    item.Email = user.Email;
-                    item.UserName = user.UserName;
-                    item.IsActive = user.IsActive;
-                    item.TypeOfUser = user.TypeOfUser;
-                }
-            }
-            return userViewModel;
+                FirstName = u.FirstName,
+                LastName = u.LatsName,
+                UserName = u.UserName,
+                Email = u.Email,
+                TypeOfUser = u.TypeOfUser,
+                IsActive = u.IsActive
+                
+            }).ToList();
         }
     }
 }
