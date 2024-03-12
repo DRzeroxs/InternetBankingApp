@@ -18,7 +18,6 @@ namespace InternetBankingApp.Core.Application.Mappings
 
 
             #region Beneficiario
-
             CreateMap<Beneficiario, SaveBeneficiarioViewModel>()
                 .ReverseMap()
                 .ForMember(x => x.CreatedDate, opt => opt.Ignore())
