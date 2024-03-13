@@ -46,6 +46,9 @@ namespace InternetBankingApp.Infrastructure.Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LatsName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,10 +77,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StartAmount")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

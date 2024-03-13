@@ -14,9 +14,10 @@ namespace InternetBankingApp.Controllers
         {
             _userService = userService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userService.GetAllUser();
+            return View(user);
         }
 
         public async Task <IActionResult> UsersManagement()
@@ -67,6 +68,33 @@ namespace InternetBankingApp.Controllers
             }
 
             return View("UsersManagement");
+        }
+
+        public async Task<IActionResult> ActiveUser(string UserId)
+        {
+            var user = await _userService.GetByUserId(UserId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActiveUserPost(ActiveInactiveViewModel vm)
+        {
+            await _userService.ConfirnUserAsync(vm.Id);
+            return View("Index", await _userService.GetAllUser());
+        }
+
+        public async Task<IActionResult> InactiveUser(string userId)
+        {
+            var user = await _userService.GetByUserId(userId);
+
+            return View(user);  
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InactiveUserPost(ActiveInactiveViewModel vm)
+        {
+            await _userService.InactiveUserAsync(vm.Id);
+            return View("Index", await _userService.GetAllUser());
         }
     }
 }

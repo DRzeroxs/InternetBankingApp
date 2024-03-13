@@ -49,10 +49,41 @@ namespace InternetBankingApp.Core.Application.Services
         }
 
             // Metodo de deslogueo
-            public async Task SignOutAsync()
+        public async Task SignOutAsync()
         {
             await _accountServices.SingOutAsync();
         }
 
+        // obtener todo los usuarios del sistema
+        public async Task<List<UserViewModel>> GetAllUser()
+        {
+            return await _accountServices.GetAllUserAsync();
+        }
+
+
+        // Confirmar Usuario
+        public async Task ConfirnUserAsync(string Id)
+        {
+          await  _accountServices.ConfirmAccountAsync(Id);
+        }
+        // Inactivar Usuario
+        public async Task InactiveUserAsync(string Id)
+        {
+            await _accountServices.InactiveAccountAsync(Id);
+        }
+
+        // Buscar por el ID
+        public async Task<UserViewModel> GetByIdAsync(string Id)
+        {
+            var user = await _accountServices.GetById(Id);
+
+            return user;
+        }
+        // Para buscar usuario activo o inactivo
+        public async Task<ActiveInactiveViewModel> GetByUserId(string Id)
+        {
+            var user = await _accountServices.GetByUserId(Id);
+            return user;
+        }
     }
 }

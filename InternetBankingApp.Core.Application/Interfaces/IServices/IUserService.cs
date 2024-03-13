@@ -14,5 +14,10 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
         Task SignOutAsync();
         Task<RegistrerResponse> RegisterAdminAsync(RegisterViewModel vm, string origin);
         Task<RegistrerResponse> RegisterCustomerAsync(RegisterViewModel vm, string origin);
+        Task<List<UserViewModel>> GetAllUser();
+        Task ConfirnUserAsync(string Id);
+        Task InactiveUserAsync(string Id);
+        Task<UserViewModel> GetByIdAsync(string Id);
+        Task<ActiveInactiveViewModel> GetByUserId(string Id);
     }
 }

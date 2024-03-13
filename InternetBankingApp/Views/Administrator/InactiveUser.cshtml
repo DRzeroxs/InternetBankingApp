@@ -1,0 +1,19 @@
+﻿@model InternetBankingApp.Core.Application.ViewModels.User.ActiveInactiveViewModel
+@{
+    ViewData["Title"] = "InactiveUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="card-header bg-white text-dark">
+        <h5>Are you sure that you want to inactive this user? </h5>
+    </div>
+
+    <div class="card-body" style="background-color: #d3d3d3">
+        <form method="post" asp-controller="Administrator" asp-action="InactiveUserPost" >
+            <input type="hidden" asp-for="Id" />
+            <button class="btn btn-danger">Inactive</button>
+            <a asp-controller="Administrator" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>

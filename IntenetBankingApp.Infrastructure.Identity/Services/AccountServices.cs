@@ -1,9 +1,12 @@
 ﻿using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Interfaces.IAccount;
+using InternetBankingApp.Core.Application.ViewModels.User;
+using InternetBankingApp.Infrastructure.Identity.Context;
 using InternetBankingApp.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +20,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
         public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _signInManager = signInManager;
@@ -103,8 +105,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 Email = request.Email,
                 UserName = request.UserName,
                 TypeOfUser = request.TypeOfUser,
-                StartAmount = "0"
-
+                IsActive = request.IsActive
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -157,8 +158,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 Email = request.Email,
                 UserName = request.UserName,
                 TypeOfUser = request.TypeOfUser,
-                StartAmount = request.StartAmount,
-
+                IsActive = request.IsActive,
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -177,24 +177,71 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             return response;
         }
 
-        public async Task<string> ConfirmAccountAsync(string userId, string token)
+        public async Task ConfirmAccountAsync(string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return $"No Account Registrer with this User";
-            }
 
-            token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
+            var user = await _userManager.FindByIdAsync(userId);  
+
+            user.IsActive = true;
+
+           var result = await _userManager.UpdateAsync(user);
+        }
+
+        public async Task InactiveAccountAsync(string userId)
+        {
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            user.IsActive = false;
+
+            var result = await _userManager.UpdateAsync(user);
+        }
+        public async Task<UserViewModel> GetById(string Id)
+        {
+            var u = await _userManager.FindByIdAsync(Id);
+
+            UserViewModel UserVm = new()
             {
-                return $"Accound confirmed for {user.Email} You can now use the app";
-            }
-            else
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LatsName,
+                UserName = u.UserName,
+                Email = u.Email,
+                TypeOfUser = u.TypeOfUser,
+                IsActive = u.IsActive
+            };
+            return UserVm;  
+        }
+
+        public async Task<ActiveInactiveViewModel> GetByUserId(string Id)
+        {
+            var u = await _userManager.FindByIdAsync(Id);
+
+            ActiveInactiveViewModel UserVm = new()
             {
-                return $"An Error ocurred while confirming {user.Email}";
-            }
+                Id = u.Id,
+                IsActive = u.IsActive
+            };
+            return UserVm;
+        }
+
+
+
+        public async Task<List<UserViewModel>> GetAllUserAsync()
+        {
+            var userList = await _userManager.Users.ToListAsync();
+           
+            return userList.Select(u => new UserViewModel
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LatsName,
+                UserName = u.UserName,
+                Email = u.Email,
+                TypeOfUser = u.TypeOfUser,
+                IsActive = u.IsActive
+                
+            }).ToList();
         }
     }
 }
