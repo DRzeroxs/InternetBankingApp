@@ -13,7 +13,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.Beneficiario
         public int Id { get; set; }
         public string Name { get; set; }
         public int ClienteId { get; set; }
-        public int CuentaDeAhorroId { get; set; }
+        public int CuentaIdentifier { get; set; }
 
         public ClienteViewModel? Cliente { get; set; }
     }

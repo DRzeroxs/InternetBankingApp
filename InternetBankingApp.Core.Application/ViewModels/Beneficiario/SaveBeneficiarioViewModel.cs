@@ -14,8 +14,6 @@ namespace InternetBankingApp.Core.Application.ViewModels.Beneficiario
         public string Name { get; set; }
 
         public int ClienteId { get; set; }
-
-        [Range(1, int.MaxValue, ErrorMessage ="Ingrese una cuenta de ahorro valida")]
-        public int CuentaDeAhorroId { get; set; }
+        public int CuentaIdentifier { get; set; }
     }
 }
