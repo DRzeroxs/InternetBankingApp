@@ -22,5 +22,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
         Task<int> CountUsersActiveAsync();
         Task<int> CountUsersIActiveAsync();
         Task EditUserCustomerAsync(EditClientViewModel vm);
+        Task EditUserdminAsync(EditAdminViewModel vm);
     }
 }

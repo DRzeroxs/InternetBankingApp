@@ -18,5 +18,6 @@ public interface IAccountServices
     Task<int> CountActiveUseryAsync();
     Task<int> CountIActiveUseryAsync();
     Task EditUserCustomerAsync(EditClientViewModel vm);
+    Task EditUserAdminAsync(EditAdminViewModel vm);
 
 }

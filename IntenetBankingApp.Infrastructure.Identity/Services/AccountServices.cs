@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Helpers;
@@ -250,9 +251,9 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
         {
             var user = await _userManager.FindByIdAsync(vm.Id);
 
-            var client =  await _clientService.GetByIdentityId(user.Id);
+            var client = await _clientService.GetByIdentityId(user.Id);
 
-            var cuentadeAhorro =   await _cuentaAhorro.GetByClientId(client.Id);
+            var cuentadeAhorro = await _cuentaAhorro.GetByClientId(client.Id);
 
             cuentadeAhorro.Balance = cuentadeAhorro.Balance + vm.AddAmount;
 
@@ -266,12 +267,37 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 user.Email = vm.Email;
                 user.IdentificationCard = vm.IdentificationCard;    
                 user.UserName = vm.UserName;
-                user.PasswordHash = vm.Password;
+                user.PasswordHash = await UpdatePassword(user.Id, vm.Password);
 
                 var result =  await _userManager.UpdateAsync(user);   
+             
             }
         }
+        public async Task EditUserAdminAsync(EditAdminViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(vm.Id);
 
+            if (user != null)
+            {
+                user.Id = vm.Id;
+                user.FirstName = vm.FirstName;
+                user.LatsName = vm.LastName;
+                user.Email = vm.Email;
+                user.UserName = vm.UserName;
+                user.PasswordHash = await UpdatePassword(user.Id, vm.Password);
+
+                var result = await _userManager.UpdateAsync(user);
+
+            }
+        }
+        private async Task<string> UpdatePassword(string userId, string newPassword)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            var newPasswordHash = _userManager.PasswordHasher.HashPassword(user, newPassword);
+
+            return newPasswordHash;
+        }
         public async Task<ActiveInactiveViewModel> GetByUserId(string Id)
         {
             var u = await _userManager.FindByIdAsync(Id);

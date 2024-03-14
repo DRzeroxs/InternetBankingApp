@@ -1,4 +1,5 @@
-﻿using Azure;
+﻿using AutoMapper;
+using Azure;
 using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.User;
@@ -10,9 +11,11 @@ namespace InternetBankingApp.Controllers
     public class AdministratorController : Controller
     {
         private readonly IUserService _userService;
-        public AdministratorController(IUserService userService)
+        private readonly IMapper _mapper;
+        public AdministratorController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
@@ -107,6 +110,23 @@ namespace InternetBankingApp.Controllers
             return View("Index", await _userService.GetAllUser());
         }
 
+        public async Task<IActionResult> EditUser(string userId)
+        {
+            var user = await _userService.GetByIdAsync(userId);
+
+            EditAdminViewModel userSave = _mapper.Map<EditAdminViewModel>(user);
+
+            return View(userSave);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditAdminViewModel vm)
+        {
+
+            await _userService.EditUserdminAsync(vm);
+
+            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+        }
         private async Task ActiveAndInactiveUsers()
         {
             ViewBag.UserActive = await _userService.CountUsersActiveAsync();

@@ -57,7 +57,7 @@
 
                                             @if (item.TypeOfUser == "Admin")
                                             {
-                                                <a asp-route-userId="@item.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                <a asp-route-userId="@item.Id" asp-controller="Administrator" asp-action="EditUser" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                             }
 
                                         </td>
