@@ -1,4 +1,5 @@
-﻿using InternetBankingApp.Core.Application.Interfaces.IServices;
+﻿using InternetBankingApp.Core.Application.Interfaces.IAccount;
+using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,8 +19,8 @@ namespace InternetBankingApp.Core.Application
 
             #region "Services"
             services.AddTransient<IUserService, UserService>();
-
             services.AddTransient<IClienteService, ClienteService>();
+            services.AddTransient<ICuentaDeAhorroService, CuentaDeAhorroService>();
             #endregion
         }
     }

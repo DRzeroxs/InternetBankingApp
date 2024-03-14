@@ -43,7 +43,7 @@ namespace InternetBankingApp.Controllers
 
             if(vm.StartAmount == null)
             {
-                vm.StartAmount = "0";
+                vm.StartAmount = 0.0;
             }
 
             var origin = Request.Headers["origin"];

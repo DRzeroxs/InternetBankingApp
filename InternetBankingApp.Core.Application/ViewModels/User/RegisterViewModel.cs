@@ -37,7 +37,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.User
         [DataType(DataType.Text)]
         public string TypeOfUser { get; set; }
         [DataType(DataType.Text)]
-        public string? StartAmount { get; set; } 
+        public double? StartAmount { get; set; } 
         public bool HasError { get; set; }
         public string? Error { get; set; }
     }

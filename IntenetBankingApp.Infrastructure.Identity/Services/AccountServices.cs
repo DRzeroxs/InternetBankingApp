@@ -1,8 +1,10 @@
 ﻿using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
+using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IAccount;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.Cliente;
+using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Infrastructure.Identity.Context;
 using InternetBankingApp.Infrastructure.Identity.Entities;
@@ -23,11 +25,13 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IClienteService _clientService;
-        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClienteService clientService)
+        private readonly ICuentaDeAhorroService _cuentaAhorro;
+        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClienteService clientService, ICuentaDeAhorroService cuentaAhorro)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _clientService = clientService; 
+            _clientService = clientService;
+            _cuentaAhorro = cuentaAhorro;
         }
         public async Task<AuthenticationResponse> AuthenticateASYNC(AuthenticationRequest requuest)
         {
@@ -173,12 +177,20 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             { 
                 FirstName = request.FirstName,  
                 LatsName = request.LastName, 
-               UserId = user.Id
+                UserId = user.Id
             };
 
+            var userClient =  await _clientService.AddAsync(SaveClient);
 
-            await _clientService.AddAsync(SaveClient);
+            SaveCuentaDeAhorroViewModel saveCuenta = new()
+            {
+                Main = true,
+                balance = (double) request.StartAmount,
+                ClientId = userClient.Id,
+                Identifier = IdentifierGenerator.GenerateCode()
+            };
 
+            await _cuentaAhorro.AddAsync(saveCuenta);
 
             if (result.Succeeded)
             {
