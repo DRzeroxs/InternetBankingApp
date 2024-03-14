@@ -6,7 +6,6 @@ namespace InternetBankingApp.Core.Domain.Entities
     public class Cliente : AuditableBaseEntity
     {
         public string UserId { get; set; }
-
         public string FirstName { get; set; }
         public string LatsName { get; set; }
 

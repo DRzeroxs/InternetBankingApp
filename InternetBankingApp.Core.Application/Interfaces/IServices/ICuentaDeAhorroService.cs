@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
-    public interface ICuentaDeAhorroService : IGenericService<SaveCuentaDeAhorroViewModel, CuentaDeAhorroViewModel, CuentaDeAhorro>
+    public interface ICuentaDeAhorroService : IGenericService<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel, CuentaDeAhorro>
     {
 
     }

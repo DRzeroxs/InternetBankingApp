@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Services
 {
-    public class TarjetaDeCreditoService : GenericService<SaveTarjetaDeCreditoViewModel, TarjetaDeCreditoViewModel, TarjetaDeCredito>, ITarjetaDeCreditoService
+    public class TarjetaDeCreditoService : GenericService<TarjetaDeCreditoViewModel, SaveTarjetaDeCreditoViewModel, TarjetaDeCredito>, ITarjetaDeCreditoService
     {
         private readonly ITarjetaDeCreditoRepository _repository;
         private readonly IHttpContextAccessor _contextAccessor;

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Services
 {
-    public class PrestamoService : GenericService<SavePrestamoViewModel, PrestamoViewModel, Prestamo>, IPrestamoService
+    public class PrestamoService : GenericService<PrestamoViewModel, SavePrestamoViewModel, Prestamo>, IPrestamoService
     {
         private readonly IPrestamoRepository _repository;
         private readonly IHttpContextAccessor _contextAccessor;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
-    public interface IBeneficiarioService : IGenericService<SaveBeneficiarioViewModel, BeneficiarioViewModel, Beneficiario>
+    public interface IBeneficiarioService : IGenericService<BeneficiarioViewModel, SaveBeneficiarioViewModel, Beneficiario>
     {
 
     }

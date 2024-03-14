@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
-    public interface IPrestamoService : IGenericService<SavePrestamoViewModel, PrestamoViewModel, Prestamo>
+    public interface IPrestamoService : IGenericService<PrestamoViewModel, SavePrestamoViewModel, Prestamo>
     {
     }
 }

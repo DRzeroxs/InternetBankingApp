@@ -18,6 +18,8 @@ namespace InternetBankingApp.Core.Application
 
             #region "Services"
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IClienteService, ClienteService>();
             #endregion
         }
     }

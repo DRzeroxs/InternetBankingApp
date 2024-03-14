@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Services
 {
-    public class TransaccionService : GenericService<SaveTransaccionViewModel, TransaccionViewModel, Transaccion>, ITransaccionService
+    public class TransaccionService : GenericService<TransaccionViewModel, SaveTransaccionViewModel, Transaccion>, ITransaccionService
     {
         private readonly ITransaccionRepository _repository;
         private readonly IHttpContextAccessor _contextAccessor;

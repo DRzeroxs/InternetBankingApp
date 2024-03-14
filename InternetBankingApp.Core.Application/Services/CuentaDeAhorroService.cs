@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Services
 {
-    public class CuentaDeAhorroService : GenericService<SaveCuentaDeAhorroViewModel, CuentaDeAhorroViewModel, CuentaDeAhorro>, ICuentaDeAhorroService
+    public class CuentaDeAhorroService : GenericService<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel, CuentaDeAhorro>, ICuentaDeAhorroService
     {
         private readonly ICuentaDeAhorroRepository _repository;
         private readonly IHttpContextAccessor _contextAccessor;

@@ -1,6 +1,8 @@
 ﻿using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Interfaces.IAccount;
+using InternetBankingApp.Core.Application.Interfaces.IServices;
+using InternetBankingApp.Core.Application.ViewModels.Cliente;
 using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Infrastructure.Identity.Context;
 using InternetBankingApp.Infrastructure.Identity.Entities;
@@ -20,10 +22,12 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IClienteService _clientService;
+        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClienteService clientService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _clientService = clientService; 
         }
         public async Task<AuthenticationResponse> AuthenticateASYNC(AuthenticationRequest requuest)
         {
@@ -164,6 +168,18 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
+
+            SaveClienteViewModel SaveClient = new()
+            { 
+                FirstName = request.FirstName,  
+                LatsName = request.LastName, 
+               UserId = user.Id
+            };
+
+
+            await _clientService.AddAsync(SaveClient);
+
+
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Customer.ToString());

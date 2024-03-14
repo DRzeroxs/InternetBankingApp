@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace InternetBankingApp.Core.Application.Services
 {
-    public class BeneficiarioService : GenericService<SaveBeneficiarioViewModel, BeneficiarioViewModel, Beneficiario> , IBeneficiarioService
+    public class BeneficiarioService : GenericService<BeneficiarioViewModel, SaveBeneficiarioViewModel, Beneficiario> , IBeneficiarioService
     {
         private readonly IBeneficiarioRepository _repository;
         private readonly IHttpContextAccessor _contextAccessor;
