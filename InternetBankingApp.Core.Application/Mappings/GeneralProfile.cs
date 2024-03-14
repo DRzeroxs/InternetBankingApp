@@ -168,6 +168,9 @@ namespace InternetBankingApp.Core.Application.Mappings
 
             CreateMap<UserViewModel, EditClientViewModel>()
                .ForMember(opt => opt.AddAmount, i => i.Ignore()).ReverseMap();
+
+            CreateMap<UserViewModel, EditAdminViewModel>()
+            .ReverseMap();
             #endregion
 
         }

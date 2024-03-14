@@ -105,5 +105,10 @@ namespace InternetBankingApp.Core.Application.Services
         {
             await _accountServices.EditUserCustomerAsync(vm);   
         }
+        // Metodo para editar Usuario Administrador
+        public async Task EditUserdminAsync(EditAdminViewModel vm)
+        {
+            await _accountServices.EditUserAdminAsync(vm);
+        }
     }
 }
