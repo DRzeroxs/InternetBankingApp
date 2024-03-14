@@ -71,7 +71,7 @@ namespace InternetBankingApp.Controllers
                 }
             }
 
-            return View("UsersManagement", await _userService.GetAllUser());
+            return View("UsersManagement",await  _userService.GetAllUser());
         }
 
         public async Task<IActionResult> ActiveUser(string UserId)

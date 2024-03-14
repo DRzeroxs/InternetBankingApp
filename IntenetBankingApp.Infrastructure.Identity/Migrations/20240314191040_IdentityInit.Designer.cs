@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBankingApp.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240312190221_IdentityInit")]
+    [Migration("20240314191040_IdentityInit")]
     partial class IdentityInit
     {
         /// <inheritdoc />
@@ -46,6 +46,10 @@ namespace InternetBankingApp.Infrastructure.Identity.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentificationCard")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

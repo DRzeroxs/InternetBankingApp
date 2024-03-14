@@ -104,6 +104,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 LatsName = request.LastName,
                 Email = request.Email,
                 UserName = request.UserName,
+                IdentificationCard = request.IdentificationCard,
                 TypeOfUser = request.TypeOfUser,
                 IsActive = request.IsActive
             };
@@ -156,6 +157,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 FirstName = request.FirstName,
                 LatsName = request.LastName,
                 Email = request.Email,
+                IdentificationCard = request.IdentificationCard,
                 UserName = request.UserName,
                 TypeOfUser = request.TypeOfUser,
                 IsActive = request.IsActive,

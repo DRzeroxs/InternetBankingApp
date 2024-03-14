@@ -13,5 +13,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Entities
         public string LatsName { get; set; }
         public string TypeOfUser { get; set; }  
         public bool IsActive { get; set; }
+        public string IdentificationCard { get; set; }
     }
 }

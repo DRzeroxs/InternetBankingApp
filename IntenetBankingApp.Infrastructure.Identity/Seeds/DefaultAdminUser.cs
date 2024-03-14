@@ -32,8 +32,10 @@ namespace InternetBankingApp.Infrastructure.Identity.Seeds
 
             defaultUser.IsActive = true;
 
+            defaultUser.IdentificationCard = "929282828";
 
-            if(userManager.Users.All(u => u.Id != defaultUser.Id))
+
+            if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
                 var user  = userManager.FindByEmailAsync(defaultUser.Email);    
 

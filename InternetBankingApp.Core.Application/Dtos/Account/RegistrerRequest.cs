@@ -15,5 +15,6 @@ namespace InternetBankingApp.Core.Application.Dtos.Account
         public string Password { get; set; }
         public string TypeOfUser { get; set; }
         public bool IsActive { get; set; }
+        public string IdentificationCard { get; set; }
     }
 }
