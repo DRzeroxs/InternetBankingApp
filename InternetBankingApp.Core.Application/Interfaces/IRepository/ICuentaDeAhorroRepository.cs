@@ -10,5 +10,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IRepository
     public interface ICuentaDeAhorroRepository : IGenericRepository<CuentaDeAhorro>
     {
         Task<CuentaDeAhorro> GetByIdentifierAsync(int identifier);
+
+        Task<List<int>> GetAllIdentifiersAsync();
     }
 }

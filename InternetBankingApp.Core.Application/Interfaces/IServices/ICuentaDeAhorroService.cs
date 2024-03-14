@@ -11,5 +11,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
     public interface ICuentaDeAhorroService : IGenericService<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel, CuentaDeAhorro>
     {
         Task<SaveCuentaDeAhorroViewModel> GetByClientId(int ClientId);
+        Task<List<int>> GetAllIdentifiers();
     }
 }

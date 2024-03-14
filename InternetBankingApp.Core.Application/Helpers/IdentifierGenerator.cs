@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternetBankingApp.Core.Application.Interfaces.IServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,23 +11,8 @@ namespace InternetBankingApp.Core.Application.Helpers
     {
         private static Random random = new Random();
 
-        //public static int GenerateCode(HashSet<int> generatedCodes)
-        //{
-        //    while (true)
-        //    {
-        //        int code = random.Next(100000000, 1000000000);
-
-        //        if (!generatedCodes.Contains(code))
-        //        {
-        //            return code;
-        //        }
-        //    }
-        //}
-
-        public static int GenerateCode()
+        public static int GenerateCode(List<int> generatedCodes)
         {
-            HashSet<int> generatedCodes = new HashSet<int>();
-
             while (true)
             {
                 int code = random.Next(100000000, 1000000000);
@@ -37,7 +23,5 @@ namespace InternetBankingApp.Core.Application.Helpers
                 }
             }
         }
-
-        
     }
 }

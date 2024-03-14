@@ -26,5 +26,14 @@ namespace InternetBankingApp.Infrastructure.Persistence.Repositories
 
             return entity;
         }
+
+        public async Task<List<int>> GetAllIdentifiersAsync()
+        {
+            List<int> result = await _context.Set<CuentaDeAhorro>().
+                Select(c => c.Identifier)
+                .ToListAsync();
+
+            return result;
+        }
     }
 }

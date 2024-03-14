@@ -40,5 +40,11 @@ namespace InternetBankingApp.Core.Application.Services
 
             return cuentaVm;
         }
+
+
+        public async Task<List<int>> GetAllIdentifiers()
+        {
+            return await _repository.GetAllIdentifiersAsync();
+        }
     }
 }
