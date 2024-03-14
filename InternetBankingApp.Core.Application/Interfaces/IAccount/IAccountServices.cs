@@ -17,5 +17,6 @@ public interface IAccountServices
     Task ConfirmAccountAsync(string userId);
     Task<int> CountActiveUseryAsync();
     Task<int> CountIActiveUseryAsync();
+    Task EditUserCustomerAsync(EditClientViewModel vm);
 
 }

@@ -99,5 +99,11 @@ namespace InternetBankingApp.Core.Application.Services
 
             return count;
         }
+
+        // Metodo para editar Usuario Cliente
+        public async Task EditUserCustomerAsync(EditClientViewModel vm)
+        {
+            await _accountServices.EditUserCustomerAsync(vm);   
+        }
     }
 }

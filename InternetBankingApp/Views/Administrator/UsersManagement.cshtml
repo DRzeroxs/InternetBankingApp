@@ -50,7 +50,16 @@
                                                 <a asp-controller="Administrator" asp-action="ActiveUser" asp-route-UserId="@item.Id" class="btn btn-secondary"><i class="fa-solid fa-toggle-off"></i></a>
                                             }
 
-                                            <a asp-controller="Patient" asp-action="Edit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            @if (item.TypeOfUser == "Customer")
+                                            {
+                                                <a asp-route-userId="@item.Id" asp-controller="Customer" asp-action="EditUser" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            }
+
+                                            @if (item.TypeOfUser == "Admin")
+                                            {
+                                                <a asp-route-userId="@item.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            }
+
                                         </td>
                                     </tr>
                                 </tbody>

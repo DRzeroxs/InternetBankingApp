@@ -1,0 +1,38 @@
+﻿@model InternetBankingApp.Core.Application.ViewModels.User.EditClientViewModel;
+@{
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex align-items-center justify-content-center container mt-4">
+    <form method="post" class="w-25 bg-info p-3" asp-controller="Customer" asp-action="EditUser">
+        <div class="p-2 bg-primary mb-2 ">
+            <h1 style="color: white;" class="text-center ">Edit Customer</h1>
+        </div> @Html.ValidationSummary(false, "", new { @class = "text-white" })
+
+        <input asp-for="FirstName" class="form-control w-100 mb-3 p-2" placeholder="First Name">
+
+        <input asp-for="LastName" class="form-control w-100 mb-3 p-2" placeholder="Last Name">
+
+        <input asp-for="IdentificationCard" class="form-control w-100 mb-3 p-2" placeholder="Identification Card">
+
+        <input asp-for="Email" class="form-control w-100 mb-3 p-2" placeholder="Email">
+
+        <input asp-for="UserName" class="form-control w-100 mb-3 p-2" placeholder="User Name">
+
+        <input asp-for="AddAmount" class="form-control w-100 mb-3 p-2" placeholder="Add Amount">
+
+        <input asp-for="Password" class="form-control w-100 mb-3 p-2" placeholder="Password">
+
+        <input asp-for="ConfirnPassword" class="form-control w-100 mb-3 p-2" placeholder="Confirn Password">
+
+        <input  type="hidden" asp-for="Id"/>
+
+
+        <div class="d-flex  justify-content-end align-items-end" style="gap:10px;">
+            <a asp-controller="Customer" asp-action="Index" class="btn btn-secondary font-weight-bold ">Cancelar</a>
+            <button type="submit" class="btn btn-primary  font-weight-bold">Edit</button>
+        </div>
+    </form>
+</div>
+

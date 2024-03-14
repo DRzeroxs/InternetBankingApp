@@ -10,6 +10,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
     public interface IClienteService : IGenericService<ClienteViewModel, SaveClienteViewModel, Cliente>
     {
-
+        Task<ClienteViewModel> GetByIdentityId(string Id);
     }
 }

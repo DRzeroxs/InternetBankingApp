@@ -1,4 +1,5 @@
-﻿using InternetBankingApp.Core.Application.Dtos.Account;
+﻿using AutoMapper;
+using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IAccount;
@@ -26,12 +27,14 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IClienteService _clientService;
         private readonly ICuentaDeAhorroService _cuentaAhorro;
-        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClienteService clientService, ICuentaDeAhorroService cuentaAhorro)
+        private readonly IMapper _mapper;
+        public AccountServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IClienteService clientService, ICuentaDeAhorroService cuentaAhorro, IMapper mapper)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _clientService = clientService;
             _cuentaAhorro = cuentaAhorro;
+            _mapper = mapper;
         }
         public async Task<AuthenticationResponse> AuthenticateASYNC(AuthenticationRequest requuest)
         {
@@ -185,7 +188,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             SaveCuentaDeAhorroViewModel saveCuenta = new()
             {
                 Main = true,
-                balance = (double) request.StartAmount,
+                Balance = (double) request.StartAmount,
                 ClientId = userClient.Id,
                 Identifier = IdentifierGenerator.GenerateCode()
             };
@@ -237,10 +240,36 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 LastName = u.LatsName,
                 UserName = u.UserName,
                 Email = u.Email,
+                IdentificationCard = u.IdentificationCard,  
                 TypeOfUser = u.TypeOfUser,
                 IsActive = u.IsActive
             };
             return UserVm;  
+        }
+        public async Task EditUserCustomerAsync(EditClientViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(vm.Id);
+
+            var client =  await _clientService.GetByIdentityId(user.Id);
+
+            var cuentadeAhorro =   await _cuentaAhorro.GetByClientId(client.Id);
+
+            cuentadeAhorro.Balance = cuentadeAhorro.Balance + vm.AddAmount;
+
+            await _cuentaAhorro.Editar(cuentadeAhorro, cuentadeAhorro.Id);
+
+            if (user != null)
+            {
+                user.Id = vm.Id;
+                user.FirstName = vm.FirstName;
+                user.LatsName = vm.LastName;
+                user.Email = vm.Email;
+                user.IdentificationCard = vm.IdentificationCard;    
+                user.UserName = vm.UserName;
+                user.PasswordHash = vm.Password;
+
+                var result =  await _userManager.UpdateAsync(user);   
+            }
         }
 
         public async Task<ActiveInactiveViewModel> GetByUserId(string Id)

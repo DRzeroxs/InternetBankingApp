@@ -13,7 +13,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro
 
         [Required(ErrorMessage = "Ingrese un monto minimo")]
         [Range(100, int.MaxValue, ErrorMessage ="Ingrese un monto minimo valido (min 100)")]
-        public double balance { get; set; }
+        public double Balance { get; set; }
         public bool Main { get; set; } = false;
         public int Identifier { get; set; } 
 

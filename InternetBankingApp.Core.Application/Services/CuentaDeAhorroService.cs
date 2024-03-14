@@ -29,5 +29,16 @@ namespace InternetBankingApp.Core.Application.Services
             userViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("user");
             _mapper = mapper;
         }
+
+        public async Task<SaveCuentaDeAhorroViewModel> GetByClientId(int ClientId)
+        {
+            var cuentaList = await _repository.GetAll();
+
+            var cuenta = cuentaList.FirstOrDefault(c => c.ClientId == ClientId);
+
+            SaveCuentaDeAhorroViewModel cuentaVm = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuenta);
+
+            return cuentaVm;
+        }
     }
 }
