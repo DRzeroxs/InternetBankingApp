@@ -16,23 +16,23 @@ namespace InternetBankingApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var user = await _userService.GetAllUser();
-
             await ActiveAndInactiveUsers();
-
-            return View(user);
+            return View();
         }
 
      
         public async Task <IActionResult> UsersManagement()
         {
-            return View();
+            var user = await _userService.GetAllUser();
+
+            return View(user);
         }
 
         public async Task<IActionResult> CreateUser()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(RegisterViewModel vm)
         {
@@ -71,7 +71,7 @@ namespace InternetBankingApp.Controllers
                 }
             }
 
-            return View("UsersManagement");
+            return View("UsersManagement", await _userService.GetAllUser());
         }
 
         public async Task<IActionResult> ActiveUser(string UserId)

@@ -12,6 +12,18 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.dark-purple {
+    background: #023e8a;
+}
+
+.dark-blue {
+    background: #03045e
+}
+
+.light-blue {
+    background: #0077b6;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -19,4 +31,69 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+.contenedor button {
+    color: green;
+    background: none;
+    cursor: pointer;
+}
+
+.card-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.card--wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.card--seguidores {
+    background: rgb(229, 223, 223);
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 290px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5s ease-in-out;
+}
+
+    .card--seguidores:hover {
+        transform: translateY(-5px);
+    }
+
+.card--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.amount--seguidores {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 200;
+}
+
+.followers-count {
+    color: #fff;
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+}
+
+.icon {
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
 }
