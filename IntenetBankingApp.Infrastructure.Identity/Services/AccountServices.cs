@@ -224,7 +224,39 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             };
             return UserVm;
         }
+        public async Task<int> CountActiveUseryAsync()
+        {
+            var userList = await _userManager.Users.ToListAsync();
 
+            int count = 0;
+
+            foreach(var user in userList)
+            {
+                if(user.IsActive == true)
+                {
+                    count ++;   
+                }
+            }
+
+            return count;   
+        }
+
+        public async Task<int> CountIActiveUseryAsync()
+        {
+            var userList = await _userManager.Users.ToListAsync();
+
+            int count = 0;
+
+            foreach (var user in userList)
+            {
+                if (user.IsActive == false)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
 
 
         public async Task<List<UserViewModel>> GetAllUserAsync()

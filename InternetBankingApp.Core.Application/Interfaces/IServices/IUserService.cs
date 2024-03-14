@@ -19,5 +19,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
         Task InactiveUserAsync(string Id);
         Task<UserViewModel> GetByIdAsync(string Id);
         Task<ActiveInactiveViewModel> GetByUserId(string Id);
+        Task<int> CountUsersActiveAsync();
+        Task<int> CountUsersIActiveAsync();
     }
 }

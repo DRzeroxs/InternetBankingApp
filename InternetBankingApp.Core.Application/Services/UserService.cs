@@ -85,5 +85,19 @@ namespace InternetBankingApp.Core.Application.Services
             var user = await _accountServices.GetByUserId(Id);
             return user;
         }
+        // Metodo para contar Usuarios Activos()
+        public async Task<int> CountUsersActiveAsync()
+        {
+            var count = await _accountServices.CountActiveUseryAsync(); 
+
+            return count;
+        }
+        // Metodo para contar Usuarios Inactivoc()
+        public async Task<int> CountUsersIActiveAsync()
+        {
+            var count = await _accountServices.CountIActiveUseryAsync();
+
+            return count;
+        }
     }
 }
