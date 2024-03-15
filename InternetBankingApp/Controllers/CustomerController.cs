@@ -2,7 +2,10 @@
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
+using InternetBankingApp.Core.Application.ViewModels.Prestamo;
+using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
 using InternetBankingApp.Core.Application.ViewModels.User;
+using InternetBankingApp.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBankingApp.Controllers
@@ -13,13 +16,18 @@ namespace InternetBankingApp.Controllers
         private readonly IMapper _mapper;
         private readonly ICuentaDeAhorroService _cuentaAhorroService;
         private readonly IClienteService _clienteService;   
-        public CustomerController(IUserService userService, IMapper mapper, ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService)
+        private readonly ITarjetaDeCreditoService _tarjetaDeCreditoService; 
+        private readonly IPrestamoService _prestamoService; 
+        public CustomerController(IUserService userService, IMapper mapper,
+            ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService
+            ,ITarjetaDeCreditoService tarjetaDeCreditoService, IPrestamoService prestamoService)
         {
             _userService = userService;
             _mapper = mapper;
             _cuentaAhorroService = cuentaAhorroService;
             _clienteService = clienteService;
-
+            _tarjetaDeCreditoService = tarjetaDeCreditoService;
+            _prestamoService = prestamoService;
         }
         public IActionResult Index()
         {
@@ -76,21 +84,51 @@ namespace InternetBankingApp.Controllers
 
         public async Task<IActionResult> AddTarjetaCredito()
         {
+
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddTarjetaCredito(SaveCuentaDeAhorroViewModel vm)
+        public async Task<IActionResult> AddTarjetaCredito(double Balance, string userId)
         {
-            return View();
+            var cliente = await _clienteService.GetByIdentityId(userId);
+
+            List<int> identifier = await _tarjetaDeCreditoService.GetAllIdentifiers();
+
+            SaveTarjetaDeCreditoViewModel tarjetaSave = new()
+            {
+                Limit = Balance,
+                ClienteId = cliente.Id,
+                Identifier = IdentifierGenerator.GenerateCode(identifier),
+                Debt = 0
+            };
+
+            await _tarjetaDeCreditoService.AddAsync(tarjetaSave);    
+
+            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
         }
         public async Task<IActionResult> AddCuentaPrestamo()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddCuentaPrestamo(SaveCuentaDeAhorroViewModel vm)
+        public async Task<IActionResult> AddCuentaPrestamo(double Balance, string userId)
         {
-            return View();
+            var cliente = await _clienteService.GetByIdentityId(userId);
+
+            List<int> identifier = await _prestamoService.GetAllIdentifiers();
+
+            SavePrestamoViewModel tarjetaSave = new()
+            {
+                InitialDebt = Balance,
+                ClienteId = cliente.Id,
+                Identifier = IdentifierGenerator.GenerateCode(identifier),
+                CurrentDebt = Balance
+            };
+
+            await _prestamoService.AddAsync(tarjetaSave);
+
+            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+          
         }
     }
 }

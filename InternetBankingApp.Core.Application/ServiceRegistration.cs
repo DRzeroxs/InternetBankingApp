@@ -21,6 +21,8 @@ namespace InternetBankingApp.Core.Application
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<ICuentaDeAhorroService, CuentaDeAhorroService>();
+            services.AddTransient<ITarjetaDeCreditoService, TarjetaDeCreditoService>();
+            services.AddTransient<IPrestamoService, PrestamoService>();
             #endregion
         }
     }
