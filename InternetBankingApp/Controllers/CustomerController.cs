@@ -36,5 +36,10 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Administrator" , await _userService.GetAllUser());
         }
+        public async Task<IActionResult> AddProduct()
+        {
+          
+            return View();
+        }
     }
 }
