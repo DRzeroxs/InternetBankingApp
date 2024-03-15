@@ -12,15 +12,17 @@ namespace InternetBankingApp.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public AdministratorController(IUserService userService, IMapper mapper)
+        private readonly IDashBoardService _boardService;
+        public AdministratorController(IUserService userService, IMapper mapper, IDashBoardService boardService)
         {
             _userService = userService;
             _mapper = mapper;
+            _boardService = boardService;
         }
         public async Task<IActionResult> Index()
         {
-            await ActiveAndInactiveUsers();
-            return View();
+
+            return View(await _boardService.GetDashBoard());
         }
 
      
@@ -88,9 +90,9 @@ namespace InternetBankingApp.Controllers
         {
             await _userService.ConfirnUserAsync(vm.Id);
 
-            await ActiveAndInactiveUsers();
+            await UpDashBoard();
 
-            return RedirectToAction("Index", await _userService.GetAllUser());
+            return RedirectToAction("Index", await _boardService.GetDashBoard());
         }
 
         public async Task<IActionResult> InactiveUser(string userId)
@@ -105,9 +107,9 @@ namespace InternetBankingApp.Controllers
         {
             await _userService.InactiveUserAsync(vm.Id);
 
-            await ActiveAndInactiveUsers();
+            await UpDashBoard();
             
-            return View("Index", await _userService.GetAllUser());
+            return View("Index", await _boardService.GetDashBoard());
         }
 
         public async Task<IActionResult> EditUser(string userId)
@@ -125,9 +127,9 @@ namespace InternetBankingApp.Controllers
 
             await _userService.EditUserdminAsync(vm);
 
-            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+            return RedirectToAction("Index", "Administrator", await _boardService.GetDashBoard());
         }
-        private async Task ActiveAndInactiveUsers()
+        private async Task UpDashBoard()
         {
             ViewBag.UserActive = await _userService.CountUsersActiveAsync();
             ViewBag.UserInactive = await _userService.CountUsersIActiveAsync();

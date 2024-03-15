@@ -1,4 +1,5 @@
-﻿
+﻿@using InternetBankingApp.Core.Application.ViewModels.DashBoard;
+@model DashBoardViewModel;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +17,7 @@
                     <div class="card--header">
                         <div class="amount--seguidores">
                             <span class="title">Active User</span>
-                            <div class="followers-count">@usersActive</div>
+                            <div class="followers-count">@Model.ActiveUsers</div>
                         </div>
 
                         <i class="fa-solid fa-user-check icon"></i>
@@ -26,7 +27,7 @@
                     <div class="card--header">
                         <div class="amount--seguidores">
                             <span class="title">Inactive User</span>
-                            <div class="followers-count">@usersInactive</div>
+                            <div class="followers-count">@Model.InactiveUsers</div>
                         </div>
                         <i class="fa-solid fa-user-xmark icon"></i>
                     </div>
@@ -35,10 +36,10 @@
                     <div class="card--header">
                         <div class="amount--seguidores">
                             <span class="title">Pay Today</span>
-                            <div class="followers-count">0</div>
+                            <div class="followers-count">@Model.PayToday</div>
                            
                             <span class="title">Pay Initial</span>
-                            <div class="followers-count">0</div>
+                            <div class="followers-count">@Model.PayInitial</div>
                         </div>
                         <i class="fa-solid fa-money-bill icon"></i>
                     </div>
@@ -47,10 +48,10 @@
                     <div class="card--header">
                         <div class="amount--seguidores">
                             <span class="title">Transation Today</span>
-                            <div class="followers-count">0</div>
+                            <div class="followers-count">@Model.TransactionsToday</div>
 
                             <span class="title">Trasantion Initial</span>
-                            <div class="followers-count">0</div>
+                            <div class="followers-count">@Model.TransactionsInitial</div>
                         </div>
                         <i class="fa-solid fa-money-bill-transfer icon"></i>
                     </div>
@@ -60,7 +61,7 @@
                     <div class="card--header">
                         <div class="amount--seguidores">
                             <span class="title">Productos Asignados</span>
-                            <div class="followers-count">0</div>
+                            <div class="followers-count">@Model.ProductsCount.Count()</div>
                         </div>
                         <i class="fa-solid fa-address-card icon"></i>
                     </div>
