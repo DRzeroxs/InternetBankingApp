@@ -59,7 +59,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 return response;
             }
 
-            if (!user.EmailConfirmed)
+            if (!user.IsActive)
             {
                 response.HasError = true;
                 response.Error = $"Accound No Confirmed for {requuest.Email} ";
@@ -111,7 +111,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
 
             var user = new ApplicationUser
             {
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 FirstName = request.FirstName,
                 LatsName = request.LastName,
                 Email = request.Email,
@@ -165,7 +165,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
 
             var user = new ApplicationUser
             {
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 FirstName = request.FirstName,
                 LatsName = request.LastName,
                 Email = request.Email,

@@ -1,32 +1,43 @@
-﻿
+﻿@model string;
 @{
     ViewData["Title"] = "AddProduct";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 
 }
-<form  asp-controller="Customer" asp-action="">
+<form asp-controller="Customer" asp-action="AddCuentaAhorro" class="form" method="post">
     <select name="" id="" class="select-productos">
-        <option value="1">Cuenta de Ahorro</option>
+   
+        <option selected value="1">Cuenta de Ahorro</option>
         <option value="2">Tarjeta de Credito</option>
         <option value="3">Prestamo</option>
     </select>
 
-    <input type="text" placeholder="Prueba">
+    <input  name="Balance" placeholder="Balance" />
+
+    <input type="hidden" name="userId" value="@Model"/>
+
+    <button type="submit">Enviar</button>
 </form>
 
 <script>
     const selecProductos = document.querySelector('.select-productos')
+    const pruebaContro = document.querySelector('.form')
+    console.log(pruebaContro)
 
     selecProductos.addEventListener('change', () => {
-        console.log(selecProductos.value)
-
-        if(selecProductos.value == 1)
-        {
-            @ViewBag.tipoProducto = "Cuenta de Ahoroo"
-
-            console.log(@ViewBag.tipoProducto)
+        if (selecProductos.value == 1) {
+            console.log(selecProductos.value)
+            pruebaContro.action = '/Customer/AddCuentaAhorro'
+            console.log(pruebaContro.action)
         }
-
+        else if (selecProductos.value == 2) {
+            pruebaContro.action = '/Customer/AddTarjetaCredito'
+            console.log(pruebaContro.action)
+        }
+        else if (selecProductos.value == 3) {
+            pruebaContro.action = '/Customer/AddCuentaPrestamo'
+            console.log(pruebaContro.action)
+        }
     })
 </script>
