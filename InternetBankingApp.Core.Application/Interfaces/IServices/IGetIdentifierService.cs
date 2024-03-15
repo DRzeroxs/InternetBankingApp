@@ -1,6 +1,4 @@
 ﻿using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
-using InternetBankingApp.Core.Application.ViewModels.Prestamo;
-using InternetBankingApp.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
-    public interface IPrestamoService : IGenericService<PrestamoViewModel, SavePrestamoViewModel, Prestamo>, IGetIdentifierService<PrestamoViewModel>
+    public interface IGetIdentifierService<ViewModel> where ViewModel : class
     {
+        Task<ViewModel> GetByIdentifier(int identifier);
+        Task<List<int>> GetAllIdentifiers();
     }
 }

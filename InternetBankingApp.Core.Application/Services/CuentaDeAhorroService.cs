@@ -41,6 +41,10 @@ namespace InternetBankingApp.Core.Application.Services
             return cuentaVm;
         }
 
+        public async Task<CuentaDeAhorroViewModel> GetByIdentifier(int identifier)
+        {
+            return _mapper.Map<CuentaDeAhorroViewModel>(await _repository.GetByIdentifierAsync(identifier));
+        }
 
         public async Task<List<int>> GetAllIdentifiers()
         {

@@ -29,5 +29,15 @@ namespace InternetBankingApp.Core.Application.Services
             userViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("user");
             _mapper = mapper;
         }
+
+        public async Task<List<int>> GetAllIdentifiers()
+        {
+            return await _repository.GetAllIdentifiersAsync();
+        }
+
+        public async Task<TarjetaDeCreditoViewModel> GetByIdentifier(int identifier)
+        {
+            return _mapper.Map<TarjetaDeCreditoViewModel>(await _repository.GetByIdentifierAsync(identifier));
+        }
     }
 }

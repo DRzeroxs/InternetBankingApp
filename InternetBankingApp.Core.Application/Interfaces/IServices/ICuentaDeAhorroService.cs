@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
-    public interface ICuentaDeAhorroService : IGenericService<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel, CuentaDeAhorro>
+    public interface ICuentaDeAhorroService : IGenericService<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel, CuentaDeAhorro>, IGetIdentifierService<CuentaDeAhorroViewModel>
     {
         Task<SaveCuentaDeAhorroViewModel> GetByClientId(int ClientId);
-        Task<List<int>> GetAllIdentifiers();
     }
 }
