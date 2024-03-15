@@ -186,6 +186,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
 
             var userClient =  await _clientService.AddAsync(SaveClient);
 
+
             List<int> CurrentsIdentifiers = await _cuentaAhorro.GetAllIdentifiers();
 
             SaveCuentaDeAhorroViewModel saveCuenta = new()

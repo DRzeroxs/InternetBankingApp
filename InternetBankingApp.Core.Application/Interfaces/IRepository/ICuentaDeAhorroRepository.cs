@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IRepository
 {
-    public interface ICuentaDeAhorroRepository : IGenericRepository<CuentaDeAhorro>
+    public interface ICuentaDeAhorroRepository : IGenericRepository<CuentaDeAhorro> , IGetIdentifier<CuentaDeAhorro>
     {
-        Task<CuentaDeAhorro> GetByIdentifierAsync(int identifier);
-
-        Task<List<int>> GetAllIdentifiersAsync();
+        
     }
 }

@@ -12,6 +12,8 @@ namespace InternetBankingApp.Core.Application.ViewModels.Prestamo
         public int Id { get; set; }
         public double InitialDebt { get; set; }
         public double CurrentDebt { get; set; }
+
+        public int Identifier { get; set; }
         public int ClienteId { get; set; }
         public ClienteViewModel? Cliente { get; set; }
     }

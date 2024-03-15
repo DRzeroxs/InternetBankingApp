@@ -17,6 +17,8 @@ namespace InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito
         public double Limit { get; set; }
         public double Debt { get; set; } = 0;
 
+        public int Identifier { get; set; }
+
         [Required(ErrorMessage ="Seleccione un Cliente")]
         [Range(1, int.MaxValue, ErrorMessage ="Seleccione un Cliente Valido")]
         public int ClienteId { get; set; }

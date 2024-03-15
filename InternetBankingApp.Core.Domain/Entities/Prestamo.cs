@@ -13,6 +13,8 @@ namespace InternetBankingApp.Core.Domain.Entities
         public double InitialDebt { get; set; }
         public double CurrentDebt {  get; set; }
 
+        public int Identifier { get; set; }
+
         //Llaves foraneas
         [ForeignKey("Cliente")]
         public int ClienteId { get; set; }
