@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IRepository
 {
-    public interface IPrestamoRepository : IGenericRepository<Prestamo>, IGetInfoProductsRepository<Prestamo>
+    public interface IPrestamoRepository : IGenericRepository<Prestamo>, IGetIdentifier<Prestamo>
     {
     }
 }
