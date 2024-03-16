@@ -23,11 +23,11 @@
                     <i class="fa-solid fa-credit-card"></i>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Customer" asp-action="AddCuentaAhorro" class="form" method="post">
+                    <form asp-controller="Customer" asp-action="AddCuentaPrestamo" class="form" method="post">
 
                         <div class="mb-3">
                             <select name="" id="" class="select-productos form-select">
-                                <option selected value="1">Cuenta de Ahorro</option>
+                                <option value="1">Cuenta de Ahorro</option>
                                 <option value="2">Tarjeta de credito</option>
                                 <option value="3" selected="selected">Prestamo</option>
                             </select>
@@ -38,7 +38,8 @@
 
                         <input type="hidden" name="userId" value="@Model" />
 
-                        <button type="submit" class="btn text-white justify-content-end" style="background: #023e8a">Guardar</button>
+                        
+                        <button type="submit" class="btn text-white justify-content-end float-end" style="background: #023e8a">Guardar</button>
                     </form>
                 </div>
             </div>
