@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IRepository
 {
-    public interface IGetInfoProductsRepository<Entity> where Entity : class
+    public interface IGetIdentifier<Entity> where Entity : class
     {
         Task<Entity> GetByIdentifierAsync(int identifier);
         Task<List<int>> GetAllIdentifiersAsync();
-        Task<List<Entity>> GetProductByUserIdAsync(int clienteId);
     }
 }

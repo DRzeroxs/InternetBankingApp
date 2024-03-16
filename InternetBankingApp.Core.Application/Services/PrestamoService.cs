@@ -40,13 +40,22 @@ namespace InternetBankingApp.Core.Application.Services
             return _mapper.Map<PrestamoViewModel>(await _repository.GetByIdentifierAsync(identifier));
         }
 
-
-        public async Task<List<PrestamoViewModel>> GetProductViewModelByClientId(int clienteId)
+        public async Task<List<PrestamoViewModel>> GetByClientId(int ClientId)
         {
-            var list = await _repository.GetProductByUserIdAsync(clienteId);
+            var prestamoList = await _repository.GetAll();
 
-            return _mapper.Map<List<PrestamoViewModel>>(list);
+            var prestamos = from p in prestamoList
+                            where p.ClienteId == ClientId
+                            select new PrestamoViewModel
+                            {
+                                Id = p.Id,
+                                InitialDebt = p.InitialDebt,
+                                ClienteId = p.ClienteId,
+                                CurrentDebt = p.CurrentDebt,
+                                Identifier = p.Identifier,  
+                            };
 
+            return prestamos.ToList();
         }
     }
 }
