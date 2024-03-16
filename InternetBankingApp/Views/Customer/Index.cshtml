@@ -1,0 +1,97 @@
+﻿@model List<InternetBankingApp.Core.Application.ViewModels.Products.ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main--content">
+    <div class="tabular">
+        <div class="card-container">
+            <div class="card--wrapper">
+                @foreach (var item in Model)
+                {
+                    
+                    @foreach (var cuentas in item.cuentas)
+                    {
+                        @if(cuentas.Main == true)
+                        {
+                            <div class="card--seguidores" style="background: #023e8a">
+                                <div class="card--header">
+                                    <div class="amount--seguidores">
+                                        <span class="titleCuentaPrimaria">Cuentas de Ahorro Primaria</span>
+
+                                        <div class="followers-count">
+
+                                            @cuentas.Balance
+
+                                        </div>
+
+                                    </div>
+
+                                    <i class="fa-solid fa-user-check icon"></i>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card--seguidores" style="background: #023e8a">
+                                <div class="card--header">
+                                    <div class="amount--seguidores">
+                                        <span class="title">Cuentas de Ahorro</span>
+
+                                        <div class="followers-count">
+
+                                            @cuentas.Balance
+
+                                        </div>
+
+                                    </div>
+
+                                    <i class="fa-solid fa-user-check icon"></i>
+                                </div>
+                            </div>
+                        }
+
+
+                }
+                    <div class="card--seguidores" style="background: #023e8a">
+                        <div class="card--header">
+                            <div class="amount--seguidores">
+                                <span class="title">Tarjeta Credito</span>
+
+                                <div class="followers-count">
+                                    @foreach (var tarjetas in item.tarjetas)
+                                    {
+                                        @tarjetas.Debt
+
+                                    }
+                                </div>
+
+                            </div>
+
+                            <i class="fa-solid fa-user-check icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="card--seguidores" style="background: #023e8a">
+                        <div class="card--header">
+                            <div class="amount--seguidores">
+                                <span class="title">Prestamo</span>
+
+                                <div class="followers-count">
+                                    @foreach (var prestamo in item.prestamos)
+                                    {
+                                        @prestamo.CurrentDebt
+                                    }
+                                </div>
+                            </div>
+
+                            <i class="fa-solid fa-user-check icon"></i>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
