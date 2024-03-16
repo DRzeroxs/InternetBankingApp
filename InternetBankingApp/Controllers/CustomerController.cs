@@ -34,7 +34,7 @@ namespace InternetBankingApp.Controllers
         }
         public async Task <IActionResult> Index(string userId)
         {
-            var cliente = await _clienteService.GetByIdentityId(userId);    
+            var cliente = await _clienteService.GetByIdentityId(userId);  
 
             var cuentaAhorro = await _cuentaAhorroService.GetListByClientId(cliente.Id);
 

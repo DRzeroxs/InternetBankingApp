@@ -62,7 +62,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
             if (!user.IsActive)
             {
                 response.HasError = true;
-                response.Error = $"Accound No Confirmed for {requuest.Email} ";
+                response.Error = $"Accound No Confirmed for {requuest.Email} contact an administrator";
                 return response;
             }
 

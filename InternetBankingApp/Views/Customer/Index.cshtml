@@ -53,41 +53,52 @@
 
 
                 }
-                    <div class="card--seguidores" style="background: #023e8a">
-                        <div class="card--header">
-                            <div class="amount--seguidores">
-                                <span class="title">Tarjeta Credito</span>
+                    @if (item.tarjetas.Count is not 0)
+                    {
+                        @foreach (var tarjetas in item.tarjetas)
+                        {
+                            <div class="card--seguidores" style="background: #023e8a">
+                               <div class="card--header">
+                                  <div class="amount--seguidores">
+                                        <span class="title">Tarjeta Credito</span>
 
-                                <div class="followers-count">
-                                    @foreach (var tarjetas in item.tarjetas)
-                                    {
-                                        @tarjetas.Debt
+                                        <div class="followers-count">
+                                        
 
-                                    }
-                                </div>
+                                            @tarjetas.Debt
 
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <i class="fa-solid fa-user-check icon"></i>
+                               </div>
                             </div>
+                        }
+                    }
 
-                            <i class="fa-solid fa-user-check icon"></i>
-                        </div>
-                    </div>
+                    if (item.prestamos.Count is not 0)
+                    {
+                        @foreach (var prestamo in item.prestamos)
+                        {
+                            <div class="card--seguidores" style="background: #023e8a">
+                                <div class="card--header">
+                                    <div class="amount--seguidores">
+                                        <span class="title">Prestamo</span>
 
-                    <div class="card--seguidores" style="background: #023e8a">
-                        <div class="card--header">
-                            <div class="amount--seguidores">
-                                <span class="title">Prestamo</span>
+                                        <div class="followers-count">
 
-                                <div class="followers-count">
-                                    @foreach (var prestamo in item.prestamos)
-                                    {
-                                        @prestamo.CurrentDebt
-                                    }
+                                            @prestamo.CurrentDebt
+
+                                        </div>
+                                    </div>
+
+                                    <i class="fa-solid fa-user-check icon"></i>
                                 </div>
                             </div>
-
-                            <i class="fa-solid fa-user-check icon"></i>
-                        </div>
-                    </div>
+                        }
+                    }
                 }
             </div>
         </div>
