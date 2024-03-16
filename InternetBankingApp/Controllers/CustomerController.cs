@@ -18,9 +18,10 @@ namespace InternetBankingApp.Controllers
         private readonly IClienteService _clienteService;   
         private readonly ITarjetaDeCreditoService _tarjetaDeCreditoService; 
         private readonly IPrestamoService _prestamoService; 
+        private readonly IDashBoardService _dashBoardService;
         public CustomerController(IUserService userService, IMapper mapper,
             ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService
-            ,ITarjetaDeCreditoService tarjetaDeCreditoService, IPrestamoService prestamoService)
+            ,ITarjetaDeCreditoService tarjetaDeCreditoService, IPrestamoService prestamoService, IDashBoardService dashBoardService)
         {
             _userService = userService;
             _mapper = mapper;
@@ -28,6 +29,7 @@ namespace InternetBankingApp.Controllers
             _clienteService = clienteService;
             _tarjetaDeCreditoService = tarjetaDeCreditoService;
             _prestamoService = prestamoService;
+            _dashBoardService = dashBoardService;
         }
         public IActionResult Index()
         {
@@ -67,13 +69,11 @@ namespace InternetBankingApp.Controllers
         {
            var cliente = await _clienteService.GetByIdentityId(userId);
 
-            List<int> identifier = await _cuentaAhorroService.GetAllIdentifiers();
-
             SaveCuentaDeAhorroViewModel cuentaSave = new()
             {
                 Balance = Balance,
                 ClientId = cliente.Id,
-                Identifier = IdentifierGenerator.GenerateCode(identifier),
+                Identifier = IdentifierGenerator.GenerateCode(await _dashBoardService.GetAllIdentifiersAsync()),
                 Main = false
             };
 
@@ -92,13 +92,12 @@ namespace InternetBankingApp.Controllers
         {
             var cliente = await _clienteService.GetByIdentityId(userId);
 
-            List<int> identifier = await _tarjetaDeCreditoService.GetAllIdentifiers();
 
             SaveTarjetaDeCreditoViewModel tarjetaSave = new()
             {
                 Limit = Balance,
                 ClienteId = cliente.Id,
-                Identifier = IdentifierGenerator.GenerateCode(identifier),
+                Identifier = IdentifierGenerator.GenerateCode(await _dashBoardService.GetAllIdentifiersAsync()),
                 Debt = 0
             };
 
@@ -115,13 +114,11 @@ namespace InternetBankingApp.Controllers
         {
             var cliente = await _clienteService.GetByIdentityId(userId);
 
-            List<int> identifier = await _prestamoService.GetAllIdentifiers();
-
             SavePrestamoViewModel tarjetaSave = new()
             {
                 InitialDebt = Balance,
                 ClienteId = cliente.Id,
-                Identifier = IdentifierGenerator.GenerateCode(identifier),
+                Identifier = IdentifierGenerator.GenerateCode(await _dashBoardService.GetAllIdentifiersAsync()),
                 CurrentDebt = Balance
             };
 
