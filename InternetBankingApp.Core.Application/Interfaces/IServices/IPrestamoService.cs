@@ -11,5 +11,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
     public interface IPrestamoService : IGenericService<PrestamoViewModel, SavePrestamoViewModel, Prestamo>, IGetInfoProductsService<PrestamoViewModel>
     {
+        Task<List<PrestamoViewModel>> GetByClientId(int ClientId);
     }
 }

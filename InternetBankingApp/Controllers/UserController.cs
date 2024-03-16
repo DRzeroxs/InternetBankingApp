@@ -30,29 +30,35 @@ namespace InternetBankingApp.Controllers
 
             if (userAuthenticate != null && userAuthenticate.HasError != true)
             {
-                HttpContext.Session.set<AuthenticationResponse>($"{userAuthenticate.Roles[0]}", userAuthenticate);
+                HttpContext.Session.set<AuthenticationResponse>("User", userAuthenticate);
+
                 var userRole = userAuthenticate.Roles[0];
 
-            if ( userRole == "Admin")
-            {
-                return RedirectToAction("Index", "Administrator");
-            }
-
+                if ( userRole == "Admin")
+                {
+                    return RedirectToAction("Index", "Administrator");
+                }
+                if (userRole == "Customer")
+                {
+                    return RedirectToAction("Index", "Customer", new {UserId = userAuthenticate.Id} );
+                }
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
-            else
+           else
             {
                 loginViewModel.HasError = userAuthenticate.HasError;
                 loginViewModel.Error = userAuthenticate.Error;
                 return View(loginViewModel);
             }
+
+            return View(loginViewModel);    
         }
 
         public async Task<IActionResult> LogOut()
         {
             await _userService.SignOutAsync();
-            HttpContext.Session.Remove("user");
-            return RedirectToRoute(new { controller = "User", action = "Index" });
+            HttpContext.Session.Remove("User");
+            return RedirectToRoute(new { controller = "User", action = "Login" });
         }
     }
 }

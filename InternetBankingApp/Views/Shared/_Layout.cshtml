@@ -5,7 +5,11 @@
 @inject IHttpContextAccessor httpContext;
 
 @{
-    AuthenticationResponse admnin = httpContext.HttpContext.Session.get<AuthenticationResponse>("Admin");
+    AuthenticationResponse user = httpContext.HttpContext.Session.get<AuthenticationResponse>("User");
+
+    var admin = user != null ? user.Roles.Any(r => r == "Admin") : false;
+
+    var client = user != null ? user.Roles.Any(r => r == "Customer") : false;
 }
 
 <!DOCTYPE html>
@@ -22,19 +26,19 @@
 </head>
 <body>
     <header>
-        @if(admnin != null)
+        @if(user != null)
         {
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" style="background: #023e8a">
                 <div class="container-fluid">
-@*                     <a class="navbar-brand text-white justify-content-center align-content-center" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-building-columns"></i></a>
- *@                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                    @*                     <a class="navbar-brand text-white justify-content-center align-content-center" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-building-columns"></i></a>
+                *@                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                                  aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1 justify-content-center align-content-center">
-                          
-                            @if (admnin != null)
+
+                            @if (admin == true)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-white justify-content-center align-content-center"><i class="fa-solid fa-building-columns"></i></a>
@@ -46,12 +50,53 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="" asp-controller="Administrator" asp-action="UsersManagement">Users Management</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="LogOut"><i class="fa-solid fa-right-from-bracket"></i></a>
+                                </li>
+                            }
+                            @if (client == true)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white justify-content-center align-content-center"><i class="fa-solid fa-building-columns"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <div class="dropdown">
+                                        <a class="nav-link text-white dropdown-toggle" asp-area="" asp-controller="Customer" asp-action="Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Pagos
+                                        </a>
+
+                                        <ul class="dropdown-menu" style="background: #023e8a" aria-labelledby="dropdownMenuLink">
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Expreso</a></li>
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Tarjeta Credito</a></li>
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Prestamos</a></li>
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Beneficiarios</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Beneficiarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Avance Efectivo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Trasnferencia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="LogOut"><i class="fa-solid fa-right-from-bracket"></i></a>
+                                </li>
                             }
                         </ul>
                     </div>
                 </div>
             </nav>
-        } 
+               
+        }
+        
     </header>
     <div class="container" >
         <main role="main" class="pb-3">
@@ -61,7 +106,7 @@
 
     <footer class="border-top footer text-muted" style="background: #023e8a">
 
-        @if(admnin != null )
+        @if(user != null )
         {
             <div class="container text-white">
                 &copy; 2024 - InternetBankingApp

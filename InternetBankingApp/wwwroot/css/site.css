@@ -83,6 +83,12 @@ body {
     font-weight: 200;
 }
 
+.titleCuentaPrimaria {
+    color: #ffee32;
+    font-size: 15px;
+    font-weight: 200;
+}
+
 .followers-count {
     color: #fff;
     font-size: 24px;
