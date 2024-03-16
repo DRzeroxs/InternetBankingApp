@@ -11,9 +11,10 @@ namespace InternetBankingApp.Core.Application.ViewModels.Beneficiario
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Debe ingresar un nombre para el beneficiario")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public int ClienteId { get; set; }
+        public int? ClienteId { get; set; }
+        [Required (ErrorMessage = "Field Cuenta Identifier is Required")]
         public int CuentaIdentifier { get; set; }
     }
 }

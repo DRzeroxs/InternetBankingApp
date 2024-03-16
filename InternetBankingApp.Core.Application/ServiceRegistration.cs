@@ -24,6 +24,7 @@ namespace InternetBankingApp.Core.Application
             services.AddTransient<ITarjetaDeCreditoService, TarjetaDeCreditoService>();
             services.AddTransient<IPrestamoService, PrestamoService>();
             services.AddTransient<IDashBoardService, DashBoardService>();
+            services.AddTransient<IBeneficiarioService, BeneficiarioService>();
             #endregion
         }
     }

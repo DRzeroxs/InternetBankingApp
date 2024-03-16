@@ -10,6 +10,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
     public interface IBeneficiarioService : IGenericService<BeneficiarioViewModel, SaveBeneficiarioViewModel, Beneficiario>
     {
-
+        Task<List<ClientBeneficiaryViewModel>> GetBeneficiaryList(int Id);
+       
     }
 }

@@ -1,0 +1,31 @@
+﻿@model InternetBankingApp.Core.Application.ViewModels.Beneficiario.SaveBeneficiarioViewModel
+@inject IHttpContextAccessor httpContext;
+@using InternetBankingApp.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http
+@using InternetBankingApp.Core.Application.Helpers;
+
+@{
+    ViewData["Title"] = "DeleteBeneficiary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var user = httpContext.HttpContext.Session.get<AuthenticationResponse>
+    ("User");
+}
+
+
+<section>
+    <div class="card-header bg-white text-dark">
+        <h5>Are you sure that you want to delete this user? </h5>
+    </div>
+
+    <div class="card-body" style="background-color: #d3d3d3">
+        <form method="post" asp-controller="Customer" asp-action="DeleteBeneficiary" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input  type="hidden" name="userId" value="@user.Id"/>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-controller="Administrator" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+
+
