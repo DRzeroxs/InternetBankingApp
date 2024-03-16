@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
-using InternetBankingApp.Core.Application.ViewModels.Cliente;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.Prestamo;
 using InternetBankingApp.Core.Application.ViewModels.Products;
@@ -148,50 +146,23 @@ namespace InternetBankingApp.Controllers
           
         }
 
-
-        public async Task<IActionResult> DeleteProduct(string userId)
+        [HttpPost]
+        public async Task<IActionResult> DeleteTarjetaCredito(string userId)
         {
-            ClienteViewModel cliente = await _clienteService.GetByIdentityId(userId);
+            var cliente = await _clienteService.GetByIdentityId(userId);
 
-            ProductViewModel products = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
+            await _tarjetaDeCreditoService.Eliminar(cliente.Id);
 
-            return View(products);
+            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteProduct(int identifier, EProducts type)
+        public async Task<IActionResult> DeleteCuentaPrestamo(string userId)
         {
-            if(type == EProducts.CuentaDeAhorro)
-            {
-                CuentaDeAhorroViewModel cuentaVm = await _cuentaAhorroService.GetByIdentifier(identifier);
+            var cliente = await _clienteService.GetByIdentityId(userId);
 
-                if (cuentaVm != null && cuentaVm.Id > 0 && !cuentaVm.Main)
-                {
-
-                    await _cuentaAhorroService.Eliminar(cuentaVm.Id);
-                }
-            }
-            
-            if(type == EProducts.TarjetaDeCredito)
-            {
-                TarjetaDeCreditoViewModel tarjetaVm = await _tarjetaDeCreditoService.GetByIdentifier(identifier);
-
-                if (tarjetaVm != null && tarjetaVm.Id > 0 && tarjetaVm.Debt <= 0)
-                {
-                    await _tarjetaDeCreditoService.Eliminar(tarjetaVm.Id);
-                }
-            }
-            
-            if(type == EProducts.Prestamo)
-            {
-                PrestamoViewModel prestamoVm = await _prestamoService.GetByIdentifier(identifier);
-
-                if (prestamoVm != null && prestamoVm.Id > 0 && prestamoVm.CurrentDebt <= 0)
-                {
-                    await _prestamoService.Eliminar(prestamoVm.Id);
-                }
-            }
-
+            await _prestamoService.Eliminar(cliente.Id);
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
         }

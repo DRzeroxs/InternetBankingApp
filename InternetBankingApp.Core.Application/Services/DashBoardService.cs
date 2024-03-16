@@ -53,14 +53,13 @@ namespace InternetBankingApp.Core.Application.Services
             return dashBoardViewModel;
         }
 
-        public async Task<ProductViewModel> GetAllProductsByClientIdAsync(int clienteId)
+        public async Task<ProductViewModel> GetAllProductsAsync()
         {
 
-
             ProductViewModel products = new ProductViewModel() { 
-                cuentas = await _cuentaService.GetProductViewModelByClientId(clienteId),
-                tarjetas = await _tarjetaService.GetProductViewModelByClientId(clienteId),
-                prestamos = await _prestamoService.GetProductViewModelByClientId(clienteId),
+                cuentas = await _cuentaService.GetAllAsync(),
+                tarjetas = await _tarjetaService.GetAllAsync(),
+                prestamos = await _prestamoService.GetAllAsync(),
             }; 
 
             return products;

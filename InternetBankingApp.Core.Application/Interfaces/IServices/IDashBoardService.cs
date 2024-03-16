@@ -12,6 +12,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
     {
         Task<List<int>> GetAllIdentifiersAsync();
         Task<DashBoardViewModel> GetDashBoard();
-        Task<ProductViewModel> GetAllProductsByClientIdAsync(int clienteId);
+        Task<ProductViewModel> GetAllProductsAsync();
     }
 }
