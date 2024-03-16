@@ -38,9 +38,9 @@ namespace InternetBankingApp.Controllers
                 {
                     return RedirectToAction("Index", "Administrator");
                 }
-                if(userRole == "Customer")
+                if (userRole == "Customer")
                 {
-                    return RedirectToAction("Index", "Customer");
+                    return RedirectToAction("Index", "Customer", new {UserId = userAuthenticate.Id} );
                 }
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
