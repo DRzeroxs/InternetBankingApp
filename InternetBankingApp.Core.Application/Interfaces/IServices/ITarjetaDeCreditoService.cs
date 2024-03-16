@@ -10,6 +10,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
     public interface ITarjetaDeCreditoService : IGenericService<TarjetaDeCreditoViewModel, SaveTarjetaDeCreditoViewModel, TarjetaDeCredito>, IGetIdentifierService<TarjetaDeCreditoViewModel>
     {
+        Task<List<TarjetaDeCreditoViewModel>> GetByClientId(int ClientId);
 
     }
 }

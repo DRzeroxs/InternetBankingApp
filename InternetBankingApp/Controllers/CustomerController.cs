@@ -3,6 +3,7 @@ using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.Prestamo;
+using InternetBankingApp.Core.Application.ViewModels.Products;
 using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
 using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Core.Domain.Entities;
@@ -31,9 +32,26 @@ namespace InternetBankingApp.Controllers
             _prestamoService = prestamoService;
             _dashBoardService = dashBoardService;
         }
-        public IActionResult Index()
+        public async Task <IActionResult> Index(string userId)
         {
-            return View();
+            var cliente = await _clienteService.GetByIdentityId(userId);    
+
+            var cuentaAhorro = await _cuentaAhorroService.GetListByClientId(cliente.Id);
+
+            var prestamo = await _prestamoService.GetByClientId(cliente.Id);
+
+            var tarjetaDeCredito = await _tarjetaDeCreditoService.GetByClientId(cliente.Id);
+
+            List<ProductViewModel> productVm = new();
+
+            productVm.Add(new ProductViewModel
+            {
+                cuentas = cuentaAhorro,
+                prestamos = prestamo,
+                tarjetas = tarjetaDeCredito
+            });
+           
+            return View(productVm);
         }
 
         public async Task<IActionResult> EditUser(string userId)

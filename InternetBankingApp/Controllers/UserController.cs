@@ -38,15 +38,19 @@ namespace InternetBankingApp.Controllers
             {
                 return RedirectToAction("Index", "Administrator");
             }
-
-                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            else if(userRole == "Customer")
+            {
+                    return RedirectToAction("Index", "Customer", new {userId =  userAuthenticate.Id});
             }
-            else
+            }
+           else
             {
                 loginViewModel.HasError = userAuthenticate.HasError;
                 loginViewModel.Error = userAuthenticate.Error;
                 return View(loginViewModel);
             }
+
+            return View(loginViewModel);    
         }
 
         public async Task<IActionResult> LogOut()
