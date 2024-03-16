@@ -57,8 +57,8 @@ namespace InternetBankingApp.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _userService.SignOutAsync();
-            HttpContext.Session.Remove("user");
-            return RedirectToRoute(new { controller = "User", action = "Index" });
+            HttpContext.Session.Remove("User");
+            return RedirectToRoute(new { controller = "User", action = "Login" });
         }
     }
 }
