@@ -34,11 +34,14 @@ namespace InternetBankingApp.Controllers
 
                 var userRole = userAuthenticate.Roles[0];
 
-            if ( userRole == "Admin")
-            {
-                return RedirectToAction("Index", "Administrator");
-            }
-
+                if ( userRole == "Admin")
+                {
+                    return RedirectToAction("Index", "Administrator");
+                }
+                if(userRole == "Customer")
+                {
+                    return RedirectToAction("Index", "Customer");
+                }
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
             else
