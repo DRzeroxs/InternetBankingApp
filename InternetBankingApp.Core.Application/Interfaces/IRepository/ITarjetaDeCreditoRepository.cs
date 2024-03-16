@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InternetBankingApp.Core.Application.Interfaces.IRepository
 {
-    public interface ITarjetaDeCreditoRepository : IGenericRepository<TarjetaDeCredito> , IGetIdentifier<TarjetaDeCredito>
+    public interface ITarjetaDeCreditoRepository : IGenericRepository<TarjetaDeCredito> , IGetInfoProductsRepository<TarjetaDeCredito>
     {
     }
 }

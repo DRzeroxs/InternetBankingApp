@@ -35,5 +35,10 @@ namespace InternetBankingApp.Infrastructure.Persistence.Repositories
 
             return entity;
         }
+
+        public async Task<List<Prestamo>> GetProductByUserIdAsync(int clienteId)
+        {
+            return await _context.Set<Prestamo>().Where(p => p.ClienteId == clienteId).ToListAsync();
+        }
     }
 }

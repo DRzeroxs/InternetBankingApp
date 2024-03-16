@@ -2,6 +2,7 @@
 using Azure;
 using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
+using InternetBankingApp.Core.Application.ViewModels.Products;
 using InternetBankingApp.Core.Application.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
@@ -129,10 +130,17 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Administrator", await _boardService.GetDashBoard());
         }
+
+        public IActionResult ManageProducts(string userId)
+        {
+            return View("ManageProducts",  userId);
+        }
+
         private async Task UpDashBoard()
         {
             ViewBag.UserActive = await _userService.CountUsersActiveAsync();
             ViewBag.UserInactive = await _userService.CountUsersIActiveAsync();
         }
+
     }
 }

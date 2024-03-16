@@ -50,5 +50,12 @@ namespace InternetBankingApp.Core.Application.Services
         {
             return await _repository.GetAllIdentifiersAsync();
         }
+
+        public async Task<List<CuentaDeAhorroViewModel>> GetProductViewModelByClientId(int clienteId)
+        {
+            var list = await _repository.GetProductByUserIdAsync(clienteId);
+
+            return _mapper.Map<List<CuentaDeAhorroViewModel>>(list);
+        }
     }
 }
