@@ -37,9 +37,13 @@
                         </div>
 
                         <input type="hidden" name="userId" value="@Model" />
+                        <div>
 
-                        
-                        <button type="submit" class="btn text-white justify-content-end float-end" style="background: #023e8a">Guardar</button>
+                            <button type="submit" class="btn text-white justify-content-end float-end" style="background: #023e8a">Create</button>
+
+                            <button type="submit" class="btn text-white mr-2 justify-content-end float-end" style="background: #dc2f02" >Delete</button>
+                        </div>
+      
                     </form>
                 </div>
             </div>
@@ -50,6 +54,7 @@
 <script>
     const selecProductos = document.querySelector('.select-productos')
     const pruebaContro = document.querySelector('.form')
+  
     console.log(pruebaContro)
 
     selecProductos.addEventListener('change', () => {
@@ -67,4 +72,5 @@
             console.log(pruebaContro.action)
         }
     })
+
 </script>

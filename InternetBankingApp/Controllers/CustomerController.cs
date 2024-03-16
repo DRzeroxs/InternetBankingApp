@@ -130,5 +130,26 @@ namespace InternetBankingApp.Controllers
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
           
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTarjetaCredito(string userId)
+        {
+            var cliente = await _clienteService.GetByIdentityId(userId);
+
+            await _tarjetaDeCreditoService.Eliminar(cliente.Id);
+
+            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCuentaPrestamo(string userId)
+        {
+            var cliente = await _clienteService.GetByIdentityId(userId);
+
+            await _prestamoService.Eliminar(cliente.Id);
+
+            return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+        }
     }
 }
