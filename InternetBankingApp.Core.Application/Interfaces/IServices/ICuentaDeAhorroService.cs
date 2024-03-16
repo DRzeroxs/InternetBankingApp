@@ -10,6 +10,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
     public interface ICuentaDeAhorroService : IGenericService<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel, CuentaDeAhorro>, IGetInfoProductsService<CuentaDeAhorroViewModel>
     {
+        Task<List<CuentaDeAhorroViewModel>> GetListByClientId(int ClientId);
         Task<SaveCuentaDeAhorroViewModel> GetByClientId(int ClientId);
     }
 }

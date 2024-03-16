@@ -41,11 +41,13 @@ namespace InternetBankingApp.Core.Application.Services
             return _mapper.Map<TarjetaDeCreditoViewModel>(await _repository.GetByIdentifierAsync(identifier));
         }
 
+
         public async Task<List<TarjetaDeCreditoViewModel>> GetProductViewModelByClientId(int clienteId)
         {
             var list = await _repository.GetProductByUserIdAsync(clienteId);
 
             return _mapper.Map<List<TarjetaDeCreditoViewModel>>(list);
+
         }
     }
 }

@@ -5,6 +5,7 @@ using InternetBankingApp.Core.Application.Interfaces.IRepository;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.Cliente;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
+using InternetBankingApp.Core.Application.ViewModels.Prestamo;
 using InternetBankingApp.Core.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -28,6 +29,24 @@ namespace InternetBankingApp.Core.Application.Services
             _contextAccessor = contextAccessor;
             userViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("user");
             _mapper = mapper;
+        }
+
+        public async Task<List<CuentaDeAhorroViewModel>> GetListByClientId(int ClientId)
+        {
+            var cuentaList = await _repository.GetAll();
+
+            var cuentas = from c in cuentaList
+                            where c.ClientId == ClientId
+                            select new CuentaDeAhorroViewModel
+                            {
+                               Id = c.ClientId,
+                               Balance = c.Balance,
+                               ClientId = ClientId,
+                               Main = c.Main,
+                               Identifier = c.Identifier
+                            };
+
+            return cuentas.ToList();
         }
 
         public async Task<SaveCuentaDeAhorroViewModel> GetByClientId(int ClientId)

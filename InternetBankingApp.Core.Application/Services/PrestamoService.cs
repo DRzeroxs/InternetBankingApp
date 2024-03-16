@@ -45,6 +45,7 @@ namespace InternetBankingApp.Core.Application.Services
             var list = await _repository.GetProductByUserIdAsync(clienteId);
 
             return _mapper.Map<List<PrestamoViewModel>>(list);
+
         }
     }
 }
