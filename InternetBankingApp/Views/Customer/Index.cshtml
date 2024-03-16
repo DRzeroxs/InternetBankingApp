@@ -1,7 +1,54 @@
-﻿@{
+﻿@model List<InternetBankingApp.Core.Application.ViewModels.Products.ProductViewModel>
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
- 
 }
 
-<h1>Cliente</h1>
+<body>
+    <div class="col-md-12 col-md-offset-1 justify-content-center align-content-center">
+
+       
+        <div>
+            <form method="post">
+                <div class="justify-content-center">
+                    <div class="col-auto">
+                        <table class="table table-striped table-bordered table-list" style="background-color: #ffffff">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Cuenta de Ahorro</th>
+                                    <th>Tarjeta de Credito</th>
+                                    <th>Prestamo</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tbody class="text-center" style="background-color: #fff0f3">
+                                    <tr>
+                                        @foreach(var cuentas in item.cuentas)
+                                        {
+                                           <td><span class="fw-bolf">Saldo: </span> @cuentas.Balance </td>
+                                        }
+
+                                        @foreach (var tarjetas in item.tarjetas)
+                                        {
+                                           <td><span class="fw-bolf">Valor a deber: </span> @tarjetas.Debt </td>
+                                        }
+
+                                        @foreach (var prestamos in item.prestamos)
+                                        {
+                                            <td><span class="fw-bolf">Valor a deber: </span> @prestamos.CurrentDebt </td>
+                                        }
+                                     
+                                        
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+

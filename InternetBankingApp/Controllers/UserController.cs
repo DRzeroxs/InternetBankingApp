@@ -44,12 +44,14 @@ namespace InternetBankingApp.Controllers
                 }
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
-            else
+           else
             {
                 loginViewModel.HasError = userAuthenticate.HasError;
                 loginViewModel.Error = userAuthenticate.Error;
                 return View(loginViewModel);
             }
+
+            return View(loginViewModel);    
         }
 
         public async Task<IActionResult> LogOut()

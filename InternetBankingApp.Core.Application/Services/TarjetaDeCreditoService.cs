@@ -3,6 +3,7 @@ using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IRepository;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
+using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.Prestamo;
 using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
 using InternetBankingApp.Core.Domain.Entities;
@@ -38,6 +39,25 @@ namespace InternetBankingApp.Core.Application.Services
         public async Task<TarjetaDeCreditoViewModel> GetByIdentifier(int identifier)
         {
             return _mapper.Map<TarjetaDeCreditoViewModel>(await _repository.GetByIdentifierAsync(identifier));
+        }
+
+
+        public async Task<List<TarjetaDeCreditoViewModel>> GetByClientId(int ClientId)
+        {
+            var tarjetasList = await _repository.GetAll();
+
+            var tarjetas = from t in tarjetasList
+                          where t.ClienteId == ClientId
+                          select new TarjetaDeCreditoViewModel
+                          {
+                             Id = t.ClienteId,
+                             Limit = t.Limit,   
+                             Debt = t.Debt,
+                             Identifier = t.Identifier,
+                             ClienteId = t.ClienteId,
+                          };
+
+            return tarjetas.ToList();
         }
     }
 }
