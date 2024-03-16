@@ -30,7 +30,8 @@ namespace InternetBankingApp.Controllers
 
             if (userAuthenticate != null && userAuthenticate.HasError != true)
             {
-                HttpContext.Session.set<AuthenticationResponse>($"{userAuthenticate.Roles[0]}", userAuthenticate);
+                HttpContext.Session.set<AuthenticationResponse>("User", userAuthenticate);
+
                 var userRole = userAuthenticate.Roles[0];
 
             if ( userRole == "Admin")

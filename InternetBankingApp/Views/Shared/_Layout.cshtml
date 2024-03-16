@@ -5,7 +5,11 @@
 @inject IHttpContextAccessor httpContext;
 
 @{
-    AuthenticationResponse admnin = httpContext.HttpContext.Session.get<AuthenticationResponse>("Admin");
+    AuthenticationResponse user = httpContext.HttpContext.Session.get<AuthenticationResponse>("User");
+
+    var admin = user != null ? user.Roles.Any(r => r == "Admin") : false;
+
+    var client = user != null ? user.Roles.Any(r => r == "Customer") : false;
 }
 
 <!DOCTYPE html>
@@ -22,7 +26,7 @@
 </head>
 <body>
     <header>
-        @if(admnin != null)
+        @if(admin == true)
         {
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" style="background: #023e8a">
                 <div class="container-fluid">
@@ -34,7 +38,7 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1 justify-content-center align-content-center">
                           
-                            @if (admnin != null)
+                            @if (admin == true)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-white justify-content-center align-content-center"><i class="fa-solid fa-building-columns"></i></a>
@@ -61,7 +65,7 @@
 
     <footer class="border-top footer text-muted" style="background: #023e8a">
 
-        @if(admnin != null )
+        @if(admin != false )
         {
             <div class="container text-white">
                 &copy; 2024 - InternetBankingApp
