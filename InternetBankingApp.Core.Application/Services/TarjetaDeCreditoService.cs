@@ -42,22 +42,11 @@ namespace InternetBankingApp.Core.Application.Services
         }
 
 
-        public async Task<List<TarjetaDeCreditoViewModel>> GetByClientId(int ClientId)
+        public async Task<List<TarjetaDeCreditoViewModel>> GetProductViewModelByClientId(int clienteId)
         {
-            var tarjetasList = await _repository.GetAll();
+            var list = await _repository.GetProductByClientIdAsync(clienteId);
 
-            var tarjetas = from t in tarjetasList
-                          where t.ClienteId == ClientId
-                          select new TarjetaDeCreditoViewModel
-                          {
-                             Id = t.ClienteId,
-                             Limit = t.Limit,   
-                             Debt = t.Debt,
-                             Identifier = t.Identifier,
-                             ClienteId = t.ClienteId,
-                          };
-
-            return tarjetas.ToList();
+            return _mapper.Map<List<TarjetaDeCreditoViewModel>>(list);
         }
     }
 }

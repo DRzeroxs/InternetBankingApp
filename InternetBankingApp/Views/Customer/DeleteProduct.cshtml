@@ -1,0 +1,34 @@
+﻿@using InternetBankingApp.Core.Application.ViewModels.Products;
+@using InternetBankingApp.Core.Application.Enums;
+@model ProductViewModel
+
+@foreach (var cuenta in Model.cuentas)
+{
+    <p>Cuenta de Ahorro</p>
+    <p>Balance : @cuenta.Balance</p>
+    @* El elementos <a> debe verse de la siguiente forma*@
+    @*<a asp-route-identifier="@cuenta.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct">*@
+    <i class="fa-brands fa-product-hunt"></i>
+
+}
+
+@foreach (var tarjeta in Model.tarjetas)
+{
+    <p>Tarjetas de Credito</p>
+    <p>Limite : @tarjeta.Limit</p>
+    <p>Debt: @tarjeta.Debt</p>
+    @* El elementos <a> debe verse de la siguiente forma*@
+    @*<a asp-route-identifier="@tarjeta.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct">*@
+    <i class="fa-brands fa-product-hunt"></i>
+
+}
+
+@foreach (var prestamo in Model.prestamos)
+{
+    <p>Prestamos</p>
+    <p>Prestamo inicial : @prestamo.InitialDebt</p>
+    <p>Debt : @prestamo.CurrentDebt</p>
+    @* El elementos <a> debe verse de la siguiente forma*@
+    @*<a asp-route-identifier="@prestamo.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct">*@
+    <i class="fa-brands fa-product-hunt"></i>
+}

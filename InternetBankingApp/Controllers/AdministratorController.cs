@@ -129,6 +129,14 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Administrator", await _boardService.GetDashBoard());
         }
+
+
+        public IActionResult ManageProducts(string userId)
+        {
+            return View("ManageProducts", userId);
+        }
+
+
         private async Task UpDashBoard()
         {
             ViewBag.UserActive = await _userService.CountUsersActiveAsync();
