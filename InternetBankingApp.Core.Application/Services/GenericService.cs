@@ -61,6 +61,7 @@ namespace InternetBankingApp.Core.Application.Services
 
             postViewModel postVm = _mapper.Map<postViewModel>(entity);
 
+            
             return postVm;
         }
     }

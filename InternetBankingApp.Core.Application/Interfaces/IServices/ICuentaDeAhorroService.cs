@@ -12,5 +12,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
     {
         Task<List<CuentaDeAhorroViewModel>> GetListByClientId(int ClientId);
         Task<SaveCuentaDeAhorroViewModel> GetByClientId(int ClientId);
+
+        Task<bool> ConfirnAccount(int identifier);
     }
 }

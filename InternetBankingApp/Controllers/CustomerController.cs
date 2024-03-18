@@ -8,9 +8,11 @@ using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.Prestamo;
 using InternetBankingApp.Core.Application.ViewModels.Products;
 using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
+using InternetBankingApp.Core.Application.ViewModels.Transaccion;
 using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InternetBankingApp.Controllers
 {
@@ -24,10 +26,12 @@ namespace InternetBankingApp.Controllers
         private readonly IPrestamoService _prestamoService; 
         private readonly IDashBoardService _dashBoardService;
         private readonly IBeneficiarioService _beneficiarioService;  
+        private readonly ITransaccionService _transaccionService;
         public CustomerController(IUserService userService, IMapper mapper,
             ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService
             ,ITarjetaDeCreditoService tarjetaDeCreditoService, IPrestamoService prestamoService,
-            IDashBoardService dashBoardService, IBeneficiarioService beneficiarioService)
+            IDashBoardService dashBoardService, IBeneficiarioService beneficiarioService
+            ,ITransaccionService transaccionService)
         {
             _userService = userService;
             _mapper = mapper;
@@ -37,6 +41,7 @@ namespace InternetBankingApp.Controllers
             _prestamoService = prestamoService;
             _dashBoardService = dashBoardService;
             _beneficiarioService = beneficiarioService;
+            _transaccionService = transaccionService;   
         }
         public async Task <IActionResult> Index(string userId)
         {
@@ -249,6 +254,104 @@ namespace InternetBankingApp.Controllers
             }
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+        }
+        public async Task<IActionResult> PagoExpreso(string userId)
+        {
+          
+            await CuentasPersonales(userId);
+
+            return View();  
+        }
+        [HttpPost]
+        public async Task<IActionResult> PagoExpreso(SaveTransaccionViewModel vm,string userId)
+        {
+            if (!ModelState.IsValid) View(ModelState);
+
+            var client = await _clienteService.GetByIdentityId(userId);
+            vm.clienteId = client.Id;    
+
+            var confirnAccount = await _cuentaAhorroService.ConfirnAccount(vm.CuentaDestinoId);
+
+            if(confirnAccount == false)
+            {
+                ModelState.AddModelError("No existe", "La cuenta a la que quiere transferir no existe");
+                await CuentasPersonales(userId);
+
+                return View(vm);
+            }
+
+            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
+
+            if(montoCuenta.Balance < vm.Amount)
+            {
+                ModelState.AddModelError("No tiene saldo", "No cuenta con saldo suficiente para realizar la transaccion");
+                await CuentasPersonales(userId);
+
+                return View(vm);
+            }
+
+            var clienteTransaccion = await _cuentaAhorroService.GetByIdentifier(vm.CuentaDestinoId);
+
+            var datosClienteTransaccion = await _clienteService.GetById(clienteTransaccion.ClientId);
+            vm.FirstName = datosClienteTransaccion.FirstName;
+            vm.LastName = datosClienteTransaccion.LatsName;
+         
+
+            return RedirectToAction("PagoExpresoAction", vm);
+        }
+
+        public async Task<IActionResult> PagoExpresoAction(SaveTransaccionViewModel vm)
+        {
+             ViewBag.Nombre = vm.FirstName;
+             ViewBag.apellido = vm.LastName;
+
+             return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PagoExpresoActionPost(SaveTransaccionViewModel vm )
+        {
+          
+            var clienteAcutal = await _clienteService.GetByIdentityId(vm.userId);
+            var cuentaActual = await _cuentaAhorroService.GetByClientId(clienteAcutal.Id);
+            vm.clienteId = clienteAcutal.Id; 
+        
+            cuentaActual.Balance = cuentaActual.Balance - vm.Amount;
+            SaveCuentaDeAhorroViewModel saveClient = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaActual);
+
+            await _cuentaAhorroService.Editar(saveClient, saveClient.Id);
+
+            var cuentaATransferir = await _cuentaAhorroService.GetByIdentifier(vm.CuentaDestinoId);
+
+            cuentaATransferir.Balance = cuentaATransferir.Balance + vm.Amount;
+            SaveCuentaDeAhorroViewModel saveCuentaATransferir = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaATransferir);
+
+            await _cuentaAhorroService.Editar(saveCuentaATransferir, saveCuentaATransferir.Id);
+
+            var cuentaOrigen = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
+            var cuentaDestino = await _cuentaAhorroService.GetByIdentifier(vm.CuentaDestinoId);
+
+            vm.CuentaOrigenId = cuentaOrigen.Id;
+            vm.CuentaDestinoId = cuentaDestino.Id;  
+
+            await _transaccionService.AddAsync(vm);
+            await CuentasPersonales(vm.userId);
+
+            return View("PagoExpreso");
+        }
+        private async Task CuentasPersonales(string userId)
+        {
+            var client = await _clienteService.GetByIdentityId(userId);
+
+            var cuentas = await _cuentaAhorroService.GetListByClientId(client.Id);
+
+            var cuentasIdentificador = new List<int>();
+
+            foreach (var item in cuentas)
+            {
+                cuentasIdentificador.Add(item.Identifier);
+            }
+
+            ViewBag.indentificador = cuentasIdentificador;
         }
     }
 }

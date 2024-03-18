@@ -1,0 +1,49 @@
+﻿@model InternetBankingApp.Core.Application.ViewModels.Transaccion.SaveTransaccionViewModel;
+@inject IHttpContextAccessor httpContext;
+@using InternetBankingApp.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http
+@using InternetBankingApp.Core.Application.Helpers;
+@{
+    ViewData["Title"] = "PagoExpreso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var user = httpContext.HttpContext.Session.get<AuthenticationResponse>
+          ("User");
+
+    var numCuentas = @ViewBag.indentificador;
+}
+
+
+
+<div class="d-flex align-items-center justify-content-center container mt-4">
+    <form method="post" class="w-25 bg-secondary p-3" asp-controller="Customer" asp-action="PagoExpreso">
+        <div class="p-2 bg-light mb-2 ">
+            <h1 style="color: white;" class="text-center text-black">Pago Expreso</h1>
+        </div> @Html.ValidationSummary(false, "", new { @class = "text-white" })
+
+        <input type="text" class="form-control mb-3" placeholder="Numero de Cuenta" asp-for="CuentaDestinoId" value=""/>
+        <input type="number" class="form-control mb-3" asp-for="Amount" placeholder="Monto del Pago"/>
+        
+        <input type="hidden" name="userId" value="@user.Id" />
+       
+        <input type="hidden" asp-for="Tipe" value="1" />
+        <select class="form-control mb-3" asp-for="CuentaOrigenId">
+
+            @foreach(var item in numCuentas)
+            {
+            <option value="@item">
+                @item
+            </option>
+            }
+        </select>
+        
+
+
+        <div class="d-flex  justify-content-end align-items-end " style="gap:10px ;">
+            <a asp-controller="Citas" asp-action="Index" class="btn btn-danger  font-weight-bold  ">Cancelar</a>
+            <button type="submit" class="btn btn-primary font-weight-bold">Pagar</button>
+
+
+        </div>
+    </form>
+</div>

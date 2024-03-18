@@ -30,7 +30,15 @@ namespace InternetBankingApp.Core.Application.Services
             userViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("user");
             _mapper = mapper;
         }
+        public async Task<bool> ConfirnAccount(int identifier)
+        {
+            var cuentasList = await _repository.GetAll();
+            var cuenta = cuentasList.FirstOrDefault(c => c.Identifier == identifier);
 
+            if (cuenta == null) return false;
+            else return true;
+           
+        }
         public async Task<List<CuentaDeAhorroViewModel>> GetListByClientId(int ClientId)
         {
             var cuentaList = await _repository.GetAll();

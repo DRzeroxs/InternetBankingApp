@@ -16,7 +16,7 @@ namespace InternetBankingApp.Core.Domain.Entities
 
         // Llaves foraneas
         [ForeignKey("Cliente")]
-        public int ClienteId { get; set; }
+        public int clienteId { get; set; }
 
         [ForeignKey("CuentaOrigen")]
         public int CuentaOrigenId { get; set; }
