@@ -12,6 +12,6 @@ namespace InternetBankingApp.Core.Application.Enums
         PagoExpreo = 1,
         PagoTarjeta = 2,
         PagoPretamo = 3,
-        PagoBeneficiario =4,
+        PagoBeneficiario = 4,
     }
 }

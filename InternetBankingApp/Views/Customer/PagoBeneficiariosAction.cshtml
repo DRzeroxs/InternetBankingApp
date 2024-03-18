@@ -1,0 +1,40 @@
+﻿@model InternetBankingApp.Core.Application.ViewModels.Transaccion.SaveTransaccionViewModel;
+@inject IHttpContextAccessor httpContext;
+@using InternetBankingApp.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http
+@using InternetBankingApp.Core.Application.Helpers;
+@{
+    ViewData["Title"] = "PagoBeneficiariosAction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var user = httpContext.HttpContext.Session.get<AuthenticationResponse>
+         ("User");
+
+    var nombre = @ViewBag.Nombre;
+    var apellido = @ViewBag.apellido;
+}
+
+
+<section>
+    <div class="card-header bg-white text-dark">
+        <h5>Esta seguro que quiere transferirle a @nombre @apellido? </h5>
+    </div>
+
+    <div class="card-body" style="background-color: #d3d3d3">
+        <form method="post" asp-controller="Customer" asp-action="PagoBeneficiariosActionPost">
+
+            <input type="hidden" asp-for="CuentaDestinoId" value="@Model.CuentaDestinoId" />
+            <input type="hidden" asp-for="Amount" value="@Model.Amount" />
+
+            <input type="hidden" asp-for="CuentaOrigenId" value="@Model.CuentaOrigenId" />
+
+            <input type="hidden" asp-for="Tipe" value="4" />
+
+            <input type="hidden" asp-for="userId" value="@user.Id" />
+
+            <button class="btn btn-danger">Transferir</button>
+            <a asp-controller="Administrator" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+
