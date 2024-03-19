@@ -31,6 +31,7 @@ namespace InternetBankingApp.Controllers
         private readonly IAgregarTransferencia _agregarTransferencia;
         private readonly IObtenerCuentas _obenerCuentas;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly AuthenticationResponse userViewModel;
 
         public CustomerController(IUserService userService, IMapper mapper,
             ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService
@@ -51,15 +52,14 @@ namespace InternetBankingApp.Controllers
             _httpContextAccessor = httpContextAccessor;
             _agregarTransferencia = agregarTransferencia;
             _obenerCuentas = obtenerCuentas;
-            ///Hay que solucionar esto. 
-          //  CurrentUser = httpContextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
+            userViewModel = httpContextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
         }
-        
-        
+
+
         public async Task <IActionResult> Index(string userId)
         {
 
-            var cliente = await _clienteService.GetByIdentityId(userId);  
+            var cliente = await _clienteService.GetByIdentityId(userViewModel.Id);  
 
             var cuentaAhorro = await _cuentaAhorroService.GetProductViewModelByClientId(cliente.Id);
 
