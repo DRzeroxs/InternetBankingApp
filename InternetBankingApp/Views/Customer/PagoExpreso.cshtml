@@ -15,7 +15,7 @@
 
 
 
-<div class="d-flex align-items-center justify-content-center container mt-4">
+@* <div class="d-flex align-items-center justify-content-center container mt-4">
     <form method="post" class="w-25 bg-secondary p-3" asp-controller="Customer" asp-action="PagoExpreso">
         <div class="p-2 bg-light mb-2 ">
             <h1 style="color: white;" class="text-center text-black">Pago Expreso</h1>
@@ -48,4 +48,59 @@
 
         </div>
     </form>
+</div>
+ *@
+
+<div class="row">
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="col-4 offset-4 mt-5">
+                <div class="card-header text-light text-center" style="background: #023e8a">
+                    <h6>Pago Expreso</h6>
+                </div>
+                <div class="card-body">
+                    
+                    <form method="post" asp-controller="Customer" asp-action="PagoExpreso">
+
+                        <div class="mb-3">
+                            <label asp-for="ProductDestinoIde">Numero Cuenta</label>
+                            <input type="text" class="form-control mb-3" placeholder="Numero de Cuenta" asp-for="ProductDestinoIde" value="" />
+                            <span asp-validation-for="ProductDestinoIde"></span>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ProductOrigenIde">Cuentas</label>
+                            <select class="form-control mb-3" asp-for="ProductOrigenIde">
+                                <option value="0">Seleciona una cuenta</option>
+                                @foreach (var item in numCuentas)
+                                {
+                                    <option value="@item">
+                                        @item
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="ProductOrigenIde"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Monto</label>
+                            <input type="text" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
+                            <span asp-validation-for="Amount"></span>
+                        </div>
+
+                        <input type="hidden" asp-for="Tipe" value="1" />
+
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <div class="d-flex  justify-content-end align-items-end " style="gap:10px ;">
+                            <a asp-controller="Customer" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-danger  font-weight-bold justify-content-end float-end  ">Cancelar</a>
+                            <button type="submit" asp-route-userId="@user.Id" class="btn text-white" style="background: #023e8a">Pagar</button>
+                        </div>
+                      
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
