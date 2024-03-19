@@ -88,8 +88,10 @@ namespace InternetBankingApp.Core.Application.Mappings
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
                 .ForMember(x => x.Cliente, opt => opt.Ignore());
 
+
             CreateMap<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(x => x.Cliente, opt => opt.Ignore());
             #endregion
 
             #region Prestamo
@@ -139,25 +141,26 @@ namespace InternetBankingApp.Core.Application.Mappings
             #region Transaccion
             CreateMap<Transaccion, SaveTransaccionViewModel>()
                 .ForMember(x => x.Cliente, opt => opt.Ignore())
+                .ForMember(x => x.FirstName, opt => opt.Ignore())
+                .ForMember(x => x.LastName, opt => opt.Ignore())
+                .ForMember(x => x.userId, opt => opt.Ignore())
                 .ReverseMap()
                 .ForMember(x => x.CreatedDate, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedDate, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
-        
                 .ForMember(x => x.Cliente, opt => opt.Ignore());
 
             CreateMap<Transaccion, TransaccionViewModel>()
                .ForMember(x => x.Cliente, opt => opt.Ignore())
                .ForMember(x => x.CuentaAhorro, opt => opt.Ignore())
-               .ForMember(x => x.Prestamo, opt => opt.Ignore())
                .ForMember(x => x.TarjetaDeCredito, opt => opt.Ignore())
+               .ForMember(x => x.Prestamo, opt => opt.Ignore())
                .ReverseMap()
                .ForMember(x => x.CreatedDate, opt => opt.Ignore())
                .ForMember(x => x.LastModifiedDate, opt => opt.Ignore())
                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
-
                .ForMember(x => x.Cliente, opt => opt.Ignore());
             #endregion
 

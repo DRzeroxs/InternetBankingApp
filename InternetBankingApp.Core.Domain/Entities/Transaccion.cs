@@ -22,6 +22,5 @@ namespace InternetBankingApp.Core.Domain.Entities
 
         // Conductores
         public Cliente Cliente { get; set; }
-        
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBankingApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240312201639_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240319000744_DatabaseInit")]
+    partial class DatabaseInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,6 +158,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<double>("CurrentDebt")
                         .HasColumnType("float");
 
+                    b.Property<int>("Identifier")
+                        .HasColumnType("int");
+
                     b.Property<double>("InitialDebt")
                         .HasColumnType("float");
 
@@ -194,6 +197,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<double>("Debt")
                         .HasColumnType("float");
 
+                    b.Property<int>("Identifier")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
@@ -221,20 +227,11 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CuentaDestinoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CuentaOrigenId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -245,16 +242,21 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<string>("LastModifiedby")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductDestinoIde")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductOrigenIde")
+                        .HasColumnType("int");
+
                     b.Property<int>("Tipe")
+                        .HasColumnType("int");
+
+                    b.Property<int>("clienteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("CuentaDestinoId");
-
-                    b.HasIndex("CuentaOrigenId");
+                    b.HasIndex("clienteId");
 
                     b.ToTable("Transacciones");
                 });
@@ -307,27 +309,11 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("InternetBankingApp.Core.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Transacciones")
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("clienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InternetBankingApp.Core.Domain.Entities.CuentaDeAhorro", "CuentaDestino")
-                        .WithMany()
-                        .HasForeignKey("CuentaDestinoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("InternetBankingApp.Core.Domain.Entities.CuentaDeAhorro", "CuentaOrigen")
-                        .WithMany()
-                        .HasForeignKey("CuentaOrigenId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Cliente");
-
-                    b.Navigation("CuentaDestino");
-
-                    b.Navigation("CuentaOrigen");
                 });
 
             modelBuilder.Entity("InternetBankingApp.Core.Domain.Entities.Cliente", b =>

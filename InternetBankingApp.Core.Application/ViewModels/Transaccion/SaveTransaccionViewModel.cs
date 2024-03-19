@@ -11,7 +11,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
 {
     public class SaveTransaccionViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required(ErrorMessage ="Seleccione un metodo")]
         [Range(1, 4, ErrorMessage ="Seleccione un metodo valido")]
@@ -21,8 +21,8 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
         [Range(1, int.MaxValue, ErrorMessage = "Seleccione una cantidad valida")]
         public double Amount { get; set; }
 
-        public DateTime Date { get; set; } = DateTime.Now;
-
+        public DateTime? Date { get; set; } = DateTime.Now;
+      
         public int ClienteId { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "La cuenta de origen es requerida")]
 

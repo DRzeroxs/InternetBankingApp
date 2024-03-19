@@ -40,5 +40,7 @@ namespace InternetBankingApp.Core.Application.Services
 
             return clientVm;
         }
+
+       
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InternetBankingApp.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class DatabaseInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,6 +89,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InitialDebt = table.Column<double>(type: "float", nullable: false),
                     CurrentDebt = table.Column<double>(type: "float", nullable: false),
+                    Identifier = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -114,6 +115,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Limit = table.Column<double>(type: "float", nullable: false),
                     Debt = table.Column<double>(type: "float", nullable: false),
+                    Identifier = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -140,9 +142,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     Tipe = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: false),
-                    CuentaOrigenId = table.Column<int>(type: "int", nullable: false),
-                    CuentaDestinoId = table.Column<int>(type: "int", nullable: false),
+                    clienteId = table.Column<int>(type: "int", nullable: false),
+                    ProductOrigenIde = table.Column<int>(type: "int", nullable: false),
+                    ProductDestinoIde = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastModifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -152,21 +154,11 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Transacciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transacciones_Clientes_ClienteId",
-                        column: x => x.ClienteId,
+                        name: "FK_Transacciones_Clientes_clienteId",
+                        column: x => x.clienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Transacciones_CuentasDeAhorro_CuentaDestinoId",
-                        column: x => x.CuentaDestinoId,
-                        principalTable: "CuentasDeAhorro",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Transacciones_CuentasDeAhorro_CuentaOrigenId",
-                        column: x => x.CuentaOrigenId,
-                        principalTable: "CuentasDeAhorro",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -190,19 +182,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transacciones_ClienteId",
+                name: "IX_Transacciones_clienteId",
                 table: "Transacciones",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transacciones_CuentaDestinoId",
-                table: "Transacciones",
-                column: "CuentaDestinoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transacciones_CuentaOrigenId",
-                table: "Transacciones",
-                column: "CuentaOrigenId");
+                column: "clienteId");
         }
 
         /// <inheritdoc />
@@ -212,6 +194,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 name: "Beneficiarios");
 
             migrationBuilder.DropTable(
+                name: "CuentasDeAhorro");
+
+            migrationBuilder.DropTable(
                 name: "Prestamos");
 
             migrationBuilder.DropTable(
@@ -219,9 +204,6 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Transacciones");
-
-            migrationBuilder.DropTable(
-                name: "CuentasDeAhorro");
 
             migrationBuilder.DropTable(
                 name: "Clientes");
