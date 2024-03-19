@@ -11,10 +11,10 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
 {
     public class SaveTransaccionViewModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required(ErrorMessage ="Seleccione un metodo")]
-        [Range(1, 4, ErrorMessage ="Seleccione un metodo valido")]
+        [Range(1, 5, ErrorMessage ="Seleccione un metodo valido")]
         public int Tipe {  get; set; }
 
         [Required(ErrorMessage = "Ingrese una cantidad")]
