@@ -27,8 +27,10 @@
         <input type="hidden" name="userId" value="@user.Id" />
        
         <input type="hidden" asp-for="Tipe" value="1" />
-        <select class="form-control mb-3" asp-for="ProductOrigenIde">
 
+
+
+        <select class="form-control mb-3" asp-for="ProductOrigenIde">
             @foreach(var item in numCuentas)
             {
             <option value="@item">
