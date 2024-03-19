@@ -55,7 +55,7 @@ namespace InternetBankingApp.Controllers
         public async Task <IActionResult> Index(string userId)
         {
 
-            var cliente = await _clienteService.GetByIdentityId(CurrentUser.Id);  
+            var cliente = await _clienteService.GetByIdentityId(userViewModel.Id);  
 
             var cuentaAhorro = await _cuentaAhorroService.GetProductViewModelByClientId(cliente.Id);
 
@@ -297,10 +297,10 @@ namespace InternetBankingApp.Controllers
             ViewBag.productsCredito = products.tarjetas;
             ViewBag.productsPrestamo = products.prestamos;
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(sv);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(sv);
+            }
 
             var cuenta =   await _transaccionService.PagarTarjetaCredito(sv);
 
@@ -326,7 +326,7 @@ namespace InternetBankingApp.Controllers
             if (!ModelState.IsValid) View(ModelState);
 
             var client = await _clienteService.GetByIdentityId(userId);
-            vm.clienteId = client.Id;    
+            vm.ClienteId = client.Id;    
 
             var confirnAccount = await _cuentaAhorroService.ConfirnAccount(vm.ProductDestinoIde);
 
@@ -457,7 +457,7 @@ namespace InternetBankingApp.Controllers
                 return View(vm);
             }
 
-            vm.clienteId = cliente.Id;
+            vm.ClienteId = cliente.Id;
             CuentaDeAhorroViewModel cuenta = await _cuentaAhorroService.GetByIdentifier(vm.ProductOrigenIde);
             PrestamoViewModel prestamo = await _prestamoService.GetByIdentifier(vm.ProductDestinoIde);
 
@@ -517,12 +517,16 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Customer", await _userService.GetAllUser());
         }
+
+
         public async Task<IActionResult> PagoCuentaCuenta(SaveTransaccionViewModel vm)
         {
             await CuentasPersonales(vm.userId);
 
             return View(vm);
         }
+
+
         [HttpPost]
         public async Task<IActionResult> PagoCuentaCuentaPost(SaveTransaccionViewModel vm)
         {
@@ -586,6 +590,7 @@ namespace InternetBankingApp.Controllers
 
             ViewBag.indentificador = cuentasIdentificador;
         }
+
         private async Task CuentasBeneficiario(string userId)
         {
             var cuenta = await _clienteService.GetByIdentityId(userId);
@@ -598,7 +603,7 @@ namespace InternetBankingApp.Controllers
         {
             var clienteAcutal = await _clienteService.GetByIdentityId(vm.userId);
             var cuentaActual = await _cuentaAhorroService.GetByClientId(clienteAcutal.Id);
-            vm.clienteId = clienteAcutal.Id;
+            vm.ClienteId = clienteAcutal.Id;
 
             cuentaActual.Balance = cuentaActual.Balance - vm.Amount;
             SaveCuentaDeAhorroViewModel saveClient = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaActual);

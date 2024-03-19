@@ -13,6 +13,10 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
     {
         public int? Id { get; set; }
 
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? userId { get; set; }
+
         [Required(ErrorMessage ="Seleccione un metodo")]
         [Range(1, 4, ErrorMessage ="Seleccione un metodo valido")]
         public int Tipe {  get; set; }
