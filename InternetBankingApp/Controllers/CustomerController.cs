@@ -30,6 +30,8 @@ namespace InternetBankingApp.Controllers
         private readonly ITransaccionService _transaccionService;
         private readonly IAgregarTransferencia _agregarTransferencia;
         private readonly IObtenerCuentas _obenerCuentas;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         public CustomerController(IUserService userService, IMapper mapper,
             ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService
             ,ITarjetaDeCreditoService tarjetaDeCreditoService, IPrestamoService prestamoService,
@@ -49,14 +51,15 @@ namespace InternetBankingApp.Controllers
             _httpContextAccessor = httpContextAccessor;
             _agregarTransferencia = agregarTransferencia;
             _obenerCuentas = obtenerCuentas;
-            CurrentUser = httpContextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
+            ///Hay que solucionar esto. 
+          //  CurrentUser = httpContextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
         }
         
         
         public async Task <IActionResult> Index(string userId)
         {
 
-            var cliente = await _clienteService.GetByIdentityId(userViewModel.Id);  
+            var cliente = await _clienteService.GetByIdentityId(userId);  
 
             var cuentaAhorro = await _cuentaAhorroService.GetProductViewModelByClientId(cliente.Id);
 
@@ -536,7 +539,7 @@ namespace InternetBankingApp.Controllers
         [HttpPost]
         public async Task<IActionResult> PagoCuentaCuentaPost(SaveTransaccionViewModel vm)
         {
-            if (!ModelState.IsValid) return View(vm);
+            if (!ModelState.IsValid) return View("PagoCuentaCuenta", new {userId = vm.userId });
 
             if (vm.ProductDestinoIde == vm.ProductOrigenIde)
             {

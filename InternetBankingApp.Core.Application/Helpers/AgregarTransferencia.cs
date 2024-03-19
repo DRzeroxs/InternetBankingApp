@@ -32,7 +32,7 @@ namespace InternetBankingApp.Core.Application.Helpers
         {
             var clienteAcutal = await _clienteService.GetByIdentityId(vm.userId);
             var cuentaActual = await _cuentaDeAhorroService.GetByClientId(clienteAcutal.Id);
-            vm.clienteId = clienteAcutal.Id;
+            vm.ClienteId = clienteAcutal.Id;
 
             cuentaActual.Balance = cuentaActual.Balance - vm.Amount;
             SaveCuentaDeAhorroViewModel saveClient = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaActual);
