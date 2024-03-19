@@ -75,7 +75,7 @@
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoBeneficiarios">Beneficiarios</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoExpreso">Expreso</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoPrestamo">Prestamos</a></li>
-                                            <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoCuentaCuenta">Pago Cuenta a Cuenta</a></li>
+                                            
 
                                         </ul>
                                     </div>
@@ -87,7 +87,7 @@
                                     <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Avance Efectivo</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Trasnferencia</a>
+                                <li><a class="nav-link text-white" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoCuentaCuenta">Transferencia</a></li>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="LogOut"><i class="fa-solid fa-right-from-bracket"></i></a>
