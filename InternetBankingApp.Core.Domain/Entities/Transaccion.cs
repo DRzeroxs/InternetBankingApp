@@ -19,12 +19,10 @@ namespace InternetBankingApp.Core.Domain.Entities
         public int clienteId { get; set; }
 
         [ForeignKey("CuentaOrigen")]
-        public int CuentaOrigenId { get; set; }
-        public int CuentaDestinoId { get; set; }
+        public int ProductOrigenIde { get; set; }
+        public int ProductDestinoIde { get; set; }
 
         // Conductores
         public Cliente Cliente { get; set; }
-        public CuentaDeAhorro CuentaOrigen { get; set; }
-        public CuentaDeAhorro CuentaDestino { get; set; }
     }
 }
