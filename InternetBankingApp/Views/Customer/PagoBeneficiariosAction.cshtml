@@ -23,10 +23,10 @@
     <div class="card-body" style="background-color: #d3d3d3">
         <form method="post" asp-controller="Customer" asp-action="PagoBeneficiariosActionPost">
 
-            <input type="hidden" asp-for="CuentaDestinoId" value="@Model.CuentaDestinoId" />
+            <input type="hidden" asp-for="ProductDestinoIde" value="@Model.ProductDestinoIde" />
             <input type="hidden" asp-for="Amount" value="@Model.Amount" />
 
-            <input type="hidden" asp-for="CuentaOrigenId" value="@Model.CuentaOrigenId" />
+            <input type="hidden" asp-for="ProductOrigenIde" value="@Model.ProductOrigenIde" />
 
             <input type="hidden" asp-for="Tipe" value="4" />
 

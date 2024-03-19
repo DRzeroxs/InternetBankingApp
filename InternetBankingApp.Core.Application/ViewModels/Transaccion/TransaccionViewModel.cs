@@ -14,12 +14,11 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
         public int Tipe {  get; set; }
         public DateTime Date { get; set; }
         public int ClienteId { get; set; }
-        public int CuentaOrigenId { get; set; }
-        public int CuentaDestinoId { get; set; }
+        public int ProductOrigenIde { get; set; }
+        public int ProductDestinoIde { get; set; }
 
         //visores
         public ClienteViewModel? Cliente { get; set; }
-        public CuentaDeAhorroViewModel? CuentaOrigen { get; set; }
-        public CuentaDeAhorroViewModel?CuentaDestino { get; set; }
+     
     }
 }

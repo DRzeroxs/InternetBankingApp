@@ -28,7 +28,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Transaccion>()
+           /* modelBuilder.Entity<Transaccion>()
                 .HasOne(t => t.CuentaDestino)
                 .WithMany()
                 .HasForeignKey(t => t.CuentaDestinoId)
@@ -38,7 +38,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Context
                 .HasOne(t => t.CuentaOrigen)
                 .WithMany()
                 .HasForeignKey(t => t.CuentaOrigenId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction);*/
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

@@ -21,13 +21,13 @@
             <h1 style="color: white;" class="text-center text-black">Pago Expreso</h1>
         </div> @Html.ValidationSummary(false, "", new { @class = "text-white" })
 
-        <input type="text" class="form-control mb-3" placeholder="Numero de Cuenta" asp-for="CuentaDestinoId" value=""/>
+        <input type="text" class="form-control mb-3" placeholder="Numero de Cuenta" asp-for="ProductDestinoIde" value=""/>
         <input type="number" class="form-control mb-3" asp-for="Amount" placeholder="Monto del Pago"/>
         
         <input type="hidden" name="userId" value="@user.Id" />
        
         <input type="hidden" asp-for="Tipe" value="1" />
-        <select class="form-control mb-3" asp-for="CuentaOrigenId">
+        <select class="form-control mb-3" asp-for="ProductOrigenIde">
 
             @foreach(var item in numCuentas)
             {

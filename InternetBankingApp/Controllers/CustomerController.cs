@@ -274,7 +274,7 @@ namespace InternetBankingApp.Controllers
             var client = await _clienteService.GetByIdentityId(userId);
             vm.clienteId = client.Id;    
 
-            var confirnAccount = await _cuentaAhorroService.ConfirnAccount(vm.CuentaDestinoId);
+            var confirnAccount = await _cuentaAhorroService.ConfirnAccount(vm.ProductDestinoIde);
 
             if(confirnAccount == false)
             {
@@ -284,7 +284,7 @@ namespace InternetBankingApp.Controllers
                 return View(vm);
             }
 
-            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
+            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.ProductOrigenIde);
 
             if(montoCuenta.Balance < vm.Amount)
             {
@@ -294,7 +294,7 @@ namespace InternetBankingApp.Controllers
                 return View(vm);
             }
 
-            var clienteTransaccion = await _cuentaAhorroService.GetByIdentifier(vm.CuentaDestinoId);
+            var clienteTransaccion = await _cuentaAhorroService.GetByIdentifier(vm.ProductDestinoIde);
 
             var datosClienteTransaccion = await _clienteService.GetById(clienteTransaccion.ClientId);
             vm.FirstName = datosClienteTransaccion.FirstName;
@@ -338,7 +338,7 @@ namespace InternetBankingApp.Controllers
                 return View(vm);
             }
 
-            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
+            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.ProductOrigenIde);
 
             if (montoCuenta.Balance < vm.Amount)
             {
@@ -387,7 +387,7 @@ namespace InternetBankingApp.Controllers
         {
             if(!ModelState.IsValid) return View(vm);    
 
-            if(vm.CuentaOrigenId == vm.CuentaDestinoId)
+            if(vm.ProductDestinoIde == vm.ProductOrigenIde)
             {
 
                 ModelState.AddModelError("Transferencia cuenta a cuenta", "No puedo realizar una transferencia a su propia Cuenta");
@@ -395,7 +395,7 @@ namespace InternetBankingApp.Controllers
                 return View("PagoCuentaCuenta", vm);
             }
 
-            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
+            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.ProductOrigenIde);
 
             if (montoCuenta.Balance < vm.Amount)
             {
@@ -464,18 +464,18 @@ namespace InternetBankingApp.Controllers
 
             await _cuentaAhorroService.Editar(saveClient, saveClient.Id);
 
-            var cuentaATransferir = await _cuentaAhorroService.GetByIdentifier(vm.CuentaDestinoId);
+            var cuentaATransferir = await _cuentaAhorroService.GetByIdentifier(vm.ProductDestinoIde);
 
             cuentaATransferir.Balance = cuentaATransferir.Balance + vm.Amount;
             SaveCuentaDeAhorroViewModel saveCuentaATransferir = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaATransferir);
 
             await _cuentaAhorroService.Editar(saveCuentaATransferir, saveCuentaATransferir.Id);
 
-            var cuentaOrigen = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
-            var cuentaDestino = await _cuentaAhorroService.GetByIdentifier(vm.CuentaDestinoId);
+           /* var cuentaOrigen = await _cuentaAhorroService.GetByIdentifier(vm.ProductOrigenIde);
+            var cuentaDestino = await _cuentaAhorroService.GetByIdentifier(vm.ProductDestinoIde);
 
-            vm.CuentaOrigenId = cuentaOrigen.Id;
-            vm.CuentaDestinoId = cuentaDestino.Id;
+            vm.ProductOrigenIde = cuentaOrigen.Id;
+            vm.ProductDestinoIde = cuentaDestino.Id;*/
 
             await _transaccionService.AddAsync(vm);
             await CuentasPersonales(vm.userId);
