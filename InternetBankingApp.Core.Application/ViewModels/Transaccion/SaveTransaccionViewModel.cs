@@ -24,8 +24,8 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
         public DateTime? Date { get; set; } = DateTime.Now;
 
         public int? clienteId { get; set; }
-        public int CuentaOrigenId { get; set; }
-        public int CuentaDestinoId { get; set; }
+        public int ProductOrigenIde { get; set; }
+        public int ProductDestinoIde { get; set; }
 
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -34,7 +34,5 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
 
         //Visores
         public ClienteViewModel? Cliente { get; set; }
-        public CuentaDeAhorroViewModel? CuentaOrige { get; set; }
-        public CuentaDeAhorroViewModel? CuentaDestino { get; set; }
     }
 }
