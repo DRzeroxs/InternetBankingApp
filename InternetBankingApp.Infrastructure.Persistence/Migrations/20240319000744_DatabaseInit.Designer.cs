@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBankingApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240319000243_ModificationDeTransaccion")]
-    partial class ModificationDeTransaccion
+    [Migration("20240319000744_DatabaseInit")]
+    partial class DatabaseInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

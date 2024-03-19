@@ -27,7 +27,7 @@
         </div> @Html.ValidationSummary(false, "", new { @class = "text-white" })
 
 
-        <label class="mb-1 text-white" asp-for="CuentaOrigenId">Monto del Pago</label>
+        <label class="mb-1 text-white">Monto del Pago</label>
 
         <input type="number" class="form-control mb-3" asp-for="Amount"  />
 
@@ -35,8 +35,8 @@
 
         <input type="hidden" asp-for="Tipe" value="4" />
 
-        <label class="mb-1 text-white" asp-for="CuentaDestinoId">Cuentas de Beneficiarios</label>
-        <select class="form-control mb-3" asp-for="CuentaDestinoId">
+        <label class="mb-1 text-white" asp-for="ProductDestinoIde">Cuentas de Beneficiarios</label>
+        <select class="form-control mb-3" asp-for="ProductDestinoIde">
 
             @foreach (var item in beneficiario)
             {
@@ -46,8 +46,8 @@
             }
         </select>
 
-        <label class="mb-1 text-white" asp-for="CuentaOrigenId">Tus Cuentas</label>
-        <select class="form-control mb-3" asp-for="CuentaOrigenId">
+        <label class="mb-1 text-white" asp-for="ProductOrigenIde">Tus Cuentas</label>
+        <select class="form-control mb-3" asp-for="ProductOrigenIde">
 
             @foreach (var item in numCuentas)
             {
