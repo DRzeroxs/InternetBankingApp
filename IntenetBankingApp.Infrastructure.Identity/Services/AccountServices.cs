@@ -11,6 +11,7 @@ using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Infrastructure.Identity.Context;
 using InternetBankingApp.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -65,7 +66,7 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
                 response.Error = $"Accound No Confirmed for {requuest.Email} contact an administrator";
                 return response;
             }
-
+           
 
             response.Id = user.Id;
             response.Email = user.Email;
