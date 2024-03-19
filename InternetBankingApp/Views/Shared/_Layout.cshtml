@@ -60,7 +60,7 @@
                                     <a class="nav-link text-white justify-content-center align-content-center"><i class="fa-solid fa-building-columns"></i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-action="Index">Home</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Customer" asp-route-userId="@user.Id" asp-action="Index">Home</a>
                                 </li>
 
                                 <li class="nav-item">
@@ -70,11 +70,17 @@
                                         </a>
 
                                         <ul class="dropdown-menu" style="background: #023e8a" aria-labelledby="dropdownMenuLink">
+
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Expreso</a></li>
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="Customer" asp-route-userId="@user.Id" asp-action="PagoTarjetaCredito">Tarjeta Credito</a></li>
+                                            <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Prestamos</a></li>
+                                            <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="Beneficiary">Beneficiarios</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoExpreso">Expreso</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-controller="" asp-action="">Tarjeta Credito</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoPrestamo">Prestamos</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoBeneficiarios">Beneficiarios</a></li>
                                             <li><a class=" nav-link text-white dropdown-item" asp-route-userId="@user.Id" asp-controller="Customer" asp-action="PagoCuentaCuenta">Pago Cuenta a Cuenta</a></li>
+
                                         </ul>
                                     </div>
                                 </li>

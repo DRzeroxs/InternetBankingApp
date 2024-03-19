@@ -19,15 +19,15 @@
                                     <div class="amount--seguidores">
                                         <span class="titleCuentaPrimaria">Cuentas de Ahorro Primaria</span>
 
-                                        <div class="followers-count">
+                                        <div class="followers-count mt-2">
 
-                                            @cuentas.Balance
+                                            <h6>Saving: @cuentas.Balance$ </h6>
 
                                         </div>
 
                                     </div>
 
-                                    <i class="fa-solid fa-user-check icon"></i>
+                                    <i class="fa-solid fa-piggy-bank icon"></i>
                                 </div>
                             </div>
                         }
@@ -38,15 +38,15 @@
                                     <div class="amount--seguidores">
                                         <span class="title">Cuentas de Ahorro</span>
 
-                                        <div class="followers-count">
+                                        <div class="followers-count mt-2">
 
-                                            @cuentas.Balance
+                                            <h6>Saving: @cuentas.Balance$</h6>
 
                                         </div>
 
                                     </div>
 
-                                    <i class="fa-solid fa-user-check icon"></i>
+                                    <i class="fa-solid fa-piggy-bank icon"></i>
                                 </div>
                             </div>
                         }
@@ -62,17 +62,17 @@
                                   <div class="amount--seguidores">
                                         <span class="title">Tarjeta Credito</span>
 
-                                        <div class="followers-count">
-                                        
+                                        <div class="followers-count mt-2">
 
-                                            @tarjetas.Debt
+                                            <h6>Limit: @tarjetas.Limit$</h6>
+                                            <h6 class="fw-bold" style="color: #eeef20">Debt: @tarjetas.Debt$</h6>
 
-                                        
+
                                         </div>
 
                                     </div>
+                                    <i class="fa-brands fa-cc-visa icon"></i>
 
-                                    <i class="fa-solid fa-user-check icon"></i>
                                </div>
                             </div>
                         }
@@ -87,14 +87,15 @@
                                     <div class="amount--seguidores">
                                         <span class="title">Prestamo</span>
 
-                                        <div class="followers-count">
+                                        <div class="followers-count mt-2">
 
-                                            @prestamo.CurrentDebt
+                                            <h6>Initial Debt: @prestamo.InitialDebt$ </h6>
+                                            <h6 class="fw-bold" style="color: #eeef20">Debt: @prestamo.CurrentDebt$</h6>
 
                                         </div>
                                     </div>
 
-                                    <i class="fa-solid fa-user-check icon"></i>
+                                    <i class="fa-brands fa-cc-mastercard icon"></i>
                                 </div>
                             </div>
                         }

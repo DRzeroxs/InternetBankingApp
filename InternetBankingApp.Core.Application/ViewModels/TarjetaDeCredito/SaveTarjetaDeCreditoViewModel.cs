@@ -16,7 +16,6 @@ namespace InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito
         [Range(1000, int.MaxValue, ErrorMessage = "El limite minimo es 1000")]
         public double Limit { get; set; }
         public double Debt { get; set; } = 0;
-
         public int Identifier { get; set; }
 
         [Required(ErrorMessage ="Seleccione un Cliente")]
