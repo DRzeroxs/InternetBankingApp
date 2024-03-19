@@ -40,5 +40,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Repositories
         {
             return await _context.Set<TarjetaDeCredito>().Where(c => c.ClienteId == clienteId).ToListAsync();
         }
+
+       
     }
 }

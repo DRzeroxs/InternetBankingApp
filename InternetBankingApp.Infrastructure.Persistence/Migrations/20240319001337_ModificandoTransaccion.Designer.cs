@@ -4,6 +4,7 @@ using InternetBankingApp.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBankingApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240319001337_ModificandoTransaccion")]
+    partial class ModificandoTransaccion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,6 +227,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -248,12 +254,10 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<int>("Tipe")
                         .HasColumnType("int");
 
-                    b.Property<int>("clienteId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("clienteId");
+                    b.HasIndex("ClienteId");
+
                     b.ToTable("Transacciones");
                 });
 
@@ -305,7 +309,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("InternetBankingApp.Core.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Transacciones")
-                        .HasForeignKey("clienteId")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

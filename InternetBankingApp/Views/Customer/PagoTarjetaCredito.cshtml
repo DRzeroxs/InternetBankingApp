@@ -1,0 +1,88 @@
+﻿@inject IHttpContextAccessor httpContext;
+@using InternetBankingApp.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http
+@using InternetBankingApp.Core.Application.Helpers;
+@model InternetBankingApp.Core.Application.ViewModels.Transaccion.SaveTransaccionViewModel;
+@{
+    ViewData["Title"] = "PagoTarjetaCredito";
+     var user = httpContext.HttpContext.Session.get<AuthenticationResponse>
+    ("User");
+}
+
+<div class="row">
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="col-4 offset-4 mt-5">
+                @if(Model != null)
+                {
+                    @if (Model.HasError)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p>@Model.Error</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                }
+              
+                <div class="card-header text-light text-center" style="background: #023e8a">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" asp-controller="Customer" asp-action="PagoTarjetaCredito">
+
+                        <div class="mb-3">
+                            <label asp-for="ProductDestinoIde">Tajertas Creditos</label>
+                            <select asp-for="ProductDestinoIde" class="form-select">
+                                @if (ViewBag.creditos != null)
+                                {
+                                    <option value="0">Seleciona una tarjeta</option>
+                                    @foreach (var tarjetaCredito in ViewBag.creditos)
+                                    {
+                                        <option value="@tarjetaCredito.Id">@tarjetaCredito.Identifier</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="ProductDestinoIde"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ProductOrigenIde">Cuentas</label>
+                            <select asp-for="ProductOrigenIde" class="form-select">
+                                @if (ViewBag.products != null)
+                                {
+                                    <option value="0">Seleciona una cuenta</option>
+                                    @foreach (var product in ViewBag.products)
+                                    {
+                                        <option value="@product.Id">@product.Identifier</option>
+                                    }
+                                    @foreach (var product in ViewBag.productsCredito)
+                                    {
+                                        <option value="@product.Id">@product.Identifier</option>
+                                    }
+                                    @foreach (var product in ViewBag.productsPrestamo)
+                                    {
+                                        <option value="@product.Id">@product.Identifier</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="ProductOrigenIde"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Monto</label>
+                            <input type="text" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
+                            <span asp-validation-for="Amount"></span>
+                        </div>
+
+                        <input type="hidden" name="userId" value="@user.Id" />
+
+                        <button type="submit" asp-route-userId="@user.Id" class="btn text-white justify-content-end float-end" style="background: #023e8a">Guardar</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

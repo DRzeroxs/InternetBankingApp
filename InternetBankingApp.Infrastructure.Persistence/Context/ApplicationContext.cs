@@ -22,7 +22,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Context
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<TarjetaDeCredito> TarjetasDeCredito { get; set; }
         public DbSet<Transaccion> Transacciones { get; set; }
-
+        
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
