@@ -437,7 +437,7 @@ namespace InternetBankingApp.Controllers
 
             if(cliente == null) return RedirectToAction("Index", "Customer", userId);
 
-            await GetProductosParaPagoPrestamo(cliente.Id);
+            await GetProductosParaPagoViewModel(cliente.Id);
 
            // ViewBag.prestamos
            // ViewBag.cuentas
@@ -453,7 +453,7 @@ namespace InternetBankingApp.Controllers
 
             if (!ModelState.IsValid)
             {
-                await GetProductosParaPagoPrestamo(cliente.Id);
+                await GetProductosParaPagoViewModel(cliente.Id);
                 return View(vm);
             }
 
@@ -463,7 +463,7 @@ namespace InternetBankingApp.Controllers
 
             if(cuenta == null || prestamo == null)
             {
-                await GetProductosParaPagoPrestamo(cliente.Id);
+                await GetProductosParaPagoViewModel(cliente.Id);
                 //Agregar un error de "Cuenta no encontrada" en el Model para que se vea en la vista
                 return View(vm);
             }
@@ -481,7 +481,7 @@ namespace InternetBankingApp.Controllers
             }
             else
             {
-                await GetProductosParaPagoPrestamo(cliente.Id);
+                await GetProductosParaPagoViewModel(cliente.Id);
                 //Agregar un error de "Balance insuficiente" en el Model para que se vea en la vista
                 return View(vm);
             }
@@ -575,6 +575,90 @@ namespace InternetBankingApp.Controllers
             return RedirectToAction("Index", "Customer", new { userId = vm.userId });
 
         }
+
+        public async Task<IActionResult> AvanceEfectivo()
+        {
+
+            var cliente = await _clienteService.GetByIdentityId(userViewModel.Id);
+
+            await GetProductosParaPagoViewModel(cliente.Id);
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AvanceEfectivo(SaveTransaccionViewModel vm)
+        {
+            var cliente = await _clienteService.GetByIdentityId(vm.userId);
+
+            if (!ModelState.IsValid)
+            {
+                await GetProductosParaPagoViewModel(cliente.Id);
+                return View(vm);
+            }
+
+            vm.ClienteId = cliente.Id;
+            TarjetaDeCreditoViewModel tarjeta = await _tarjetaDeCreditoService.GetByIdentifier(vm.ProductOrigenIde);
+            CuentaDeAhorroViewModel cuenta = await _cuentaAhorroService.GetByIdentifier(vm.ProductDestinoIde);
+            
+
+            if (cuenta == null || tarjeta == null)
+            {
+                await GetProductosParaPagoViewModel(cliente.Id);
+                //Agregar un error de "Cuenta no encontrada" en el Model para que se vea en la vista
+                return View(vm);
+            }
+
+
+            double montoAvance = vm.Amount + (vm.Amount * 0.0625); 
+
+            if (tarjeta.Limit >= montoAvance)
+            {
+
+                tarjeta.Debt += montoAvance;
+                cuenta.Balance += vm.Amount;
+
+            }
+            else
+            {
+                await GetProductosParaPagoViewModel(cliente.Id);
+                //Agregar un error de "Limite de la tarjeta superado" en el Model para que se vea en la vista
+                return View(vm);
+            }
+
+            //Realizar transsacion
+            await _transaccionService.AddAsync(vm);
+
+
+            SaveTarjetaDeCreditoViewModel tarjetaUpdate = new SaveTarjetaDeCreditoViewModel
+            {
+
+                Id = tarjeta.Id,
+                Limit = tarjeta.Limit,
+                Debt = tarjeta.Debt,
+                Identifier = tarjeta.Identifier,
+                ClienteId = tarjeta.ClienteId
+
+            };
+
+            SaveCuentaDeAhorroViewModel cuentaUpdate = new SaveCuentaDeAhorroViewModel
+            {
+
+                Id = cuenta.Id,
+                Balance = cuenta.Balance,
+                Main = cuenta.Main,
+                Identifier = cuenta.Identifier,
+                ClientId = cuenta.ClientId
+
+            };
+
+            await _tarjetaDeCreditoService.Editar(tarjetaUpdate, tarjetaUpdate.Id);
+            await _cuentaAhorroService.Editar(cuentaUpdate, cuentaUpdate.Id);
+
+            return RedirectToAction("Index", "Customer", await _userService.GetAllUser());
+        }
+
+        //metodos para mover a helper 
         private async Task CuentasPersonales(string userId)
         {
             var client = await _clienteService.GetByIdentityId(userId);
@@ -627,13 +711,16 @@ namespace InternetBankingApp.Controllers
             await CuentasPersonales(vm.userId);
         }
 
-        private async Task GetProductosParaPagoPrestamo(int clienteId)
+        //metodo creado para pago de prestamo
+        private async Task GetProductosParaPagoViewModel(int clienteId)
         {
             var prestamos = await _prestamoService.GetProductViewModelByClientId(clienteId);
             var cuentas = await _cuentaAhorroService.GetProductViewModelByClientId(clienteId);
+            var tarjetas = await _tarjetaDeCreditoService.GetProductViewModelByClientId(clienteId);
 
             ViewBag.prestamos = prestamos;
             ViewBag.cuentas = cuentas;
+            ViewBag.tarjetas = tarjetas;
         }
 
     }
