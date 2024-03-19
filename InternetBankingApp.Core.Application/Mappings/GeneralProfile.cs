@@ -87,6 +87,9 @@ namespace InternetBankingApp.Core.Application.Mappings
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
                 .ForMember(x => x.Cliente, opt => opt.Ignore());
+
+            CreateMap<CuentaDeAhorroViewModel, SaveCuentaDeAhorroViewModel>()
+                .ReverseMap();
             #endregion
 
             #region Prestamo
@@ -106,6 +109,9 @@ namespace InternetBankingApp.Core.Application.Mappings
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
                 .ForMember(x => x.Cliente, opt => opt.Ignore());
+
+            CreateMap<PrestamoViewModel, SavePrestamoViewModel>()
+                .ReverseMap();
             #endregion
 
             #region TarjetaDeCredito
@@ -125,33 +131,33 @@ namespace InternetBankingApp.Core.Application.Mappings
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
                 .ForMember(x => x.Cliente, opt => opt.Ignore());
+
+            CreateMap<TarjetaDeCreditoViewModel, SaveTarjetaDeCreditoViewModel>()
+                .ReverseMap();
             #endregion
 
             #region Transaccion
             CreateMap<Transaccion, SaveTransaccionViewModel>()
                 .ForMember(x => x.Cliente, opt => opt.Ignore())
-                .ForMember(x => x.CuentaDestino, opt => opt.Ignore())
-                .ForMember(x => x.CuentaOrige, opt => opt.Ignore())
                 .ReverseMap()
                 .ForMember(x => x.CreatedDate, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedDate, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
-                .ForMember(x => x.CuentaDestino, opt => opt.Ignore())
-                .ForMember(x => x.CuentaOrigen, opt => opt.Ignore())
+        
                 .ForMember(x => x.Cliente, opt => opt.Ignore());
 
             CreateMap<Transaccion, TransaccionViewModel>()
                .ForMember(x => x.Cliente, opt => opt.Ignore())
-               .ForMember(x => x.CuentaDestino, opt => opt.Ignore())
-               .ForMember(x => x.CuentaOrigen, opt => opt.Ignore())
+               .ForMember(x => x.CuentaAhorro, opt => opt.Ignore())
+               .ForMember(x => x.Prestamo, opt => opt.Ignore())
+               .ForMember(x => x.TarjetaDeCredito, opt => opt.Ignore())
                .ReverseMap()
                .ForMember(x => x.CreatedDate, opt => opt.Ignore())
                .ForMember(x => x.LastModifiedDate, opt => opt.Ignore())
                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
                .ForMember(x => x.LastModifiedby, opt => opt.Ignore())
-               .ForMember(x => x.CuentaDestino, opt => opt.Ignore())
-               .ForMember(x => x.CuentaOrigen, opt => opt.Ignore())
+
                .ForMember(x => x.Cliente, opt => opt.Ignore());
             #endregion
 

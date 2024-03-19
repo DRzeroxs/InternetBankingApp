@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
+using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
+using InternetBankingApp.Core.Application.Services;
 using InternetBankingApp.Core.Application.ViewModels.Beneficiario;
 using InternetBankingApp.Core.Application.ViewModels.Cliente;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.Prestamo;
 using InternetBankingApp.Core.Application.ViewModels.Products;
 using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
+using InternetBankingApp.Core.Application.ViewModels.Transaccion;
 using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +26,15 @@ namespace InternetBankingApp.Controllers
         private readonly ITarjetaDeCreditoService _tarjetaDeCreditoService; 
         private readonly IPrestamoService _prestamoService; 
         private readonly IDashBoardService _dashBoardService;
-        private readonly IBeneficiarioService _beneficiarioService;  
+        private readonly IBeneficiarioService _beneficiarioService;
+        private readonly ITransaccionService _transaccionService;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly AuthenticationResponse userViewModel;
+
         public CustomerController(IUserService userService, IMapper mapper,
             ICuentaDeAhorroService cuentaAhorroService, IClienteService clienteService
             ,ITarjetaDeCreditoService tarjetaDeCreditoService, IPrestamoService prestamoService,
-            IDashBoardService dashBoardService, IBeneficiarioService beneficiarioService)
+            IDashBoardService dashBoardService, IBeneficiarioService beneficiarioService, ITransaccionService transaccionService, IHttpContextAccessor contextAccessor)
         {
             _userService = userService;
             _mapper = mapper;
@@ -37,9 +44,15 @@ namespace InternetBankingApp.Controllers
             _prestamoService = prestamoService;
             _dashBoardService = dashBoardService;
             _beneficiarioService = beneficiarioService;
+            _transaccionService = transaccionService;
+            _contextAccessor = contextAccessor;
+            userViewModel = _contextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
+            _contextAccessor = contextAccessor;
         }
         public async Task <IActionResult> Index(string userId)
         {
+            userId = userViewModel.Id;
+
             var cliente = await _clienteService.GetByIdentityId(userId);  
 
             var cuentaAhorro = await _cuentaAhorroService.GetProductViewModelByClientId(cliente.Id);
@@ -249,6 +262,50 @@ namespace InternetBankingApp.Controllers
             }
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
+        }
+
+        public async Task<IActionResult> PagoTarjetaCredito(string userId)
+        {
+            var cliente = await _clienteService.GetByIdentityId(userId);
+            var tarjetas = await _tarjetaDeCreditoService.GetProductViewModelByClientId(cliente.Id);
+            var products = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
+           
+            ViewBag.creditos = tarjetas;
+            ViewBag.products = products.cuentas;
+            ViewBag.productsCredito = products.tarjetas;
+            ViewBag.productsPrestamo = products.prestamos;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PagoTarjetaCredito(SaveTransaccionViewModel sv, string userId)
+        {
+            var cliente = await _clienteService.GetByIdentityId(userId);
+            var tarjetas = await _tarjetaDeCreditoService.GetProductViewModelByClientId(cliente.Id);
+            var products = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
+
+            ViewBag.creditos = tarjetas;
+            ViewBag.products = products.cuentas;
+            ViewBag.productsCredito = products.tarjetas;
+            ViewBag.productsPrestamo = products.prestamos;
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(sv);
+            //}
+
+            var cuenta =   await _transaccionService.PagarTarjetaCredito(sv);
+
+
+            if (sv.HasError)
+            {
+                sv.HasError = cuenta.HasError;
+                sv.Error = cuenta.Error;
+                return View(sv);
+            }
+
+            return RedirectToAction("Index", "Customer", await _userService.GetByIdAsync(userId));
         }
     }
 }

@@ -10,5 +10,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
 {
     public interface ITransaccionService : IGenericService<TransaccionViewModel, SaveTransaccionViewModel, Transaccion>
     {
+       //Task PagarTarjetaCredito(SaveTransaccionViewModel sv);
+        Task<SaveTransaccionViewModel> PagarTarjetaCredito(SaveTransaccionViewModel sv);
     }
 }

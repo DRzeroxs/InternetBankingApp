@@ -1,5 +1,7 @@
 ﻿using InternetBankingApp.Core.Application.ViewModels.Cliente;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
+using InternetBankingApp.Core.Application.ViewModels.Prestamo;
+using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,9 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
 
         //visores
         public ClienteViewModel? Cliente { get; set; }
-        public CuentaDeAhorroViewModel? CuentaOrigen { get; set; }
-        public CuentaDeAhorroViewModel?CuentaDestino { get; set; }
+        
+        public CuentaDeAhorroViewModel? CuentaAhorro { get; set; }
+        public TarjetaDeCreditoViewModel? TarjetaDeCredito { get; set; }
+        public PrestamoViewModel? Prestamo { get; set; }
     }
 }

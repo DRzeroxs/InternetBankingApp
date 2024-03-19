@@ -14,7 +14,7 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Seleccione un metodo")]
-        [Range(1, 3, ErrorMessage ="Seleccione un metodo valido")]
+        [Range(1, 4, ErrorMessage ="Seleccione un metodo valido")]
         public int Tipe {  get; set; }
 
         [Required(ErrorMessage = "Ingrese una cantidad")]
@@ -23,13 +23,17 @@ namespace InternetBankingApp.Core.Application.ViewModels.Transaccion
 
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public int CienteId { get; set; }
-        public int CuentaOrigenId { get; set; }
-        public int CuentaDestinoId { get; set; }
+        public int ClienteId { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "La cuenta de origen es requerida")]
+
+        public int ProductOrigenIde { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "La cuenta de destino es requerida")]
+        public int ProductDestinoIde { get; set; }
 
         //Visores
         public ClienteViewModel? Cliente { get; set; }
-        public CuentaDeAhorroViewModel? CuentaOrige { get; set; }
-        public CuentaDeAhorroViewModel? CuentaDestino { get; set; }
+
+        public bool HasError { get; set; }
+        public string? Error { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace InternetBankingApp.Core.Application
             services.AddTransient<IPrestamoService, PrestamoService>();
             services.AddTransient<IDashBoardService, DashBoardService>();
             services.AddTransient<IBeneficiarioService, BeneficiarioService>();
+            services.AddTransient<ITransaccionService, TransaccionService>();
             #endregion
         }
     }

@@ -22,25 +22,6 @@ namespace InternetBankingApp.Infrastructure.Persistence.Context
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<TarjetaDeCredito> TarjetasDeCredito { get; set; }
         public DbSet<Transaccion> Transacciones { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Transaccion>()
-                .HasOne(t => t.CuentaDestino)
-                .WithMany()
-                .HasForeignKey(t => t.CuentaDestinoId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Transaccion>()
-                .HasOne(t => t.CuentaOrigen)
-                .WithMany()
-                .HasForeignKey(t => t.CuentaOrigenId)
-                .OnDelete(DeleteBehavior.NoAction);
-        }
-
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
