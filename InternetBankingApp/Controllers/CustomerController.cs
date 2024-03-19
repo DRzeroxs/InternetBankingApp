@@ -376,6 +376,60 @@ namespace InternetBankingApp.Controllers
             return RedirectToAction("Index", "Customer", new {userId = vm.userId });
 
         }
+        public async Task<IActionResult> PagoCuentaCuenta(SaveTransaccionViewModel vm)
+        {
+            await CuentasPersonales(vm.userId);
+
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PagoCuentaCuentaPost(SaveTransaccionViewModel vm)
+        {
+            if(!ModelState.IsValid) return View(vm);    
+
+            if(vm.CuentaOrigenId == vm.CuentaDestinoId)
+            {
+
+                ModelState.AddModelError("Transferencia cuenta a cuenta", "No puedo realizar una transferencia a su propia Cuenta");
+                await CuentasPersonales(vm.userId);
+                return View("PagoCuentaCuenta", vm);
+            }
+
+            var montoCuenta = await _cuentaAhorroService.GetByIdentifier(vm.CuentaOrigenId);
+
+            if (montoCuenta.Balance < vm.Amount)
+            {
+                ModelState.AddModelError("No tiene saldo", "No cuenta con saldo suficiente para realizar la transaccion");
+                await CuentasPersonales(vm.userId);
+
+                await CuentasPersonales(vm.userId);
+                return View("PagoCuentaCuenta", vm);
+            }
+
+            var datosCuenta = await _clienteService.GetByIdentityId(vm.userId);
+
+            vm.FirstName = datosCuenta.FirstName;
+            vm.LastName = datosCuenta.LatsName;
+
+            return RedirectToAction("PagoCuentaCuentaPostAction", vm);
+        }
+
+        public async Task<IActionResult> PagoCuentaCuentaPostAction(SaveTransaccionViewModel vm)
+        {
+            ViewBag.Nombre = vm.FirstName;
+            ViewBag.apellido = vm.LastName;
+
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PagoCuentaCuentaPostActionPost(SaveTransaccionViewModel vm)
+        {
+
+            await AgregarTransaccion(vm);
+
+            return RedirectToAction("Index", "Customer", new { userId = vm.userId });
+          
+        }
         private async Task CuentasPersonales(string userId)
         {
             var client = await _clienteService.GetByIdentityId(userId);
