@@ -27,9 +27,6 @@ namespace InternetBankingApp.Core.Application.Helpers
         {
             var cuenta = await _clienteService.GetByIdentityId(userId);
             var beneficiario = await _beneficiarioService.GetBeneficiaryList(cuenta.Id);
-
-            // ViewBag.identifierBeneficiario = beneficiario;
-
             return beneficiario;
         }
 
@@ -46,9 +43,15 @@ namespace InternetBankingApp.Core.Application.Helpers
                 cuentasIdentificador.Add(item.Identifier);
             }
 
-            // ViewBag.indentificador = cuentasIdentificador;
-
             return cuentasIdentificador;
+        }
+
+        public async Task<List<ClientBeneficiaryViewModel>> ObtenerDatosBeneficiarios(string userId)
+        {
+            var clientId = await _clienteService.GetByIdentityId(userId);
+            var benficiarios = await _beneficiarioService.GetBeneficiaryList(clientId.Id);
+
+            return benficiarios.ToList();
         }
     }
 }

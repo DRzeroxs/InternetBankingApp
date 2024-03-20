@@ -14,15 +14,17 @@ namespace InternetBankingApp.Core.Application.Services
     {
         private readonly ICuentaDeAhorroService _cuentaService;
         private readonly ITarjetaDeCreditoService _tarjetaService;
+        private readonly ITransaccionRepository _transaccionRepository;
         private readonly IPrestamoService _prestamoService;
         private readonly IUserService _userService;
 
-        public DashBoardService(ICuentaDeAhorroService cuentaService, ITarjetaDeCreditoService tarjetaService, IPrestamoService prestamoService, IUserService userService)
+        public DashBoardService(ICuentaDeAhorroService cuentaService, ITarjetaDeCreditoService tarjetaService, IPrestamoService prestamoService, IUserService userService, ITransaccionRepository transaccionRepository)
         {
             _cuentaService = cuentaService;
             _tarjetaService = tarjetaService;
             _prestamoService = prestamoService;
             _userService = userService;
+            _transaccionRepository = transaccionRepository;
         }
 
         public async Task<List<int>> GetAllIdentifiersAsync()
@@ -43,10 +45,10 @@ namespace InternetBankingApp.Core.Application.Services
             {
                 ActiveUsers = await _userService.CountUsersActiveAsync(),
                 InactiveUsers = await _userService.CountUsersIActiveAsync(),
-                PayToday = 0,
-                PayInitial = 0,
-                TransactionsToday = 0,
-                TransactionsInitial = 0,
+                PayToday = await _transaccionRepository.CuentasDePagoHoy(),
+                PayInitial = await _transaccionRepository.CuentasDePago(),
+                TransactionsToday = await _transaccionRepository.CuentraTransaccionesHoy(),
+                TransactionsInitial = await _transaccionRepository.CuentaDeTransacciones(),
                 ProductsCount = await GetAllIdentifiersAsync(),
             };
 

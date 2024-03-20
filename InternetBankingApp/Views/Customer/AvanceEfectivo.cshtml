@@ -20,7 +20,7 @@
     List<TarjetaDeCreditoViewModel> tarjetas = ViewBag.tarjetas;
 }
 
-<div class="d-flex align-items-center justify-content-center container mt-4">
+@* <div class="d-flex align-items-center justify-content-center container mt-4">
     <form method="post" class="w-25 bg-secondary p-3" asp-controller="Customer" asp-action="AvanceEfectivo">
         <div class="p-2 bg-light mb-2 ">
             <h1 style="color: white;" class="text-center text-black">Avance Efectivo</h1>
@@ -62,5 +62,63 @@
             <button type="submit" class="btn btn-primary font-weight-bold">Pagar</button>
         </div>
     </form>
-</div>
+</div> *@
 
+
+<div class="row">
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="col-4 offset-4 mt-5">
+                <div class="card-header text-light text-center" style="background: #023e8a">
+                    <h6>Avance Efectivo</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-controller="Customer" asp-action="AvanceEfectivo">
+                        <div class="mb-3">
+                            <label asp-for="ProductOrigenIde" class="form-label">Tarjetas</label>
+                            <select class="form-control mb-3" asp-for="ProductOrigenIde">
+                                <option value="0">Seleciona una tarjeta</option>
+
+                                @foreach (var item in tarjetas)
+                                {
+                                    <option value="@item.Identifier">
+                                        @item.Identifier
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="ProductOrigenIde" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ProductDestinoIde" class="form-label">Cuentas</label>
+                            <select class="form-control mb-3" asp-for="ProductDestinoIde">
+                                <option value="0">Seleciona una cuenta</option>
+                                @foreach (var item in Cuentas)
+                                {
+                                    <option value="@item.Identifier">
+                                        @item.Identifier
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="ProductDestinoIde" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label>Monto</label>
+                                <input type="number" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
+                                <span asp-validation-for="Amount" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <input type="hidden" asp-for="Tipe" value="@((int)ETipoPago.AvanceEfectivo)" />
+
+                        <div class="d-flex  justify-content-end align-items-end " style="gap:10px ;">
+                            <a asp-controller="Customer" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-danger  font-weight-bold  ">Cancelar</a>
+                            <button type="submit" class="btn text-white" style="background: #023e8a">Pagar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

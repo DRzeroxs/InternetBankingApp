@@ -2,6 +2,7 @@
 @using InternetBankingApp.Core.Application.Dtos.Account
 @using Microsoft.AspNetCore.Http
 @using InternetBankingApp.Core.Application.Helpers;
+@using InternetBankingApp.Core.Application.Enums;
 @model InternetBankingApp.Core.Application.ViewModels.Transaccion.SaveTransaccionViewModel;
 @{
     ViewData["Title"] = "PagoTarjetaCredito";
@@ -25,7 +26,7 @@
                 }
               
                 <div class="card-header text-light text-center" style="background: #023e8a">
-                    <i class="fa-solid fa-credit-card"></i>
+                    <h6>Pago Tarjeta Credito</h6>
                 </div>
                 <div class="card-body">
 
@@ -43,7 +44,7 @@
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="ProductDestinoIde"></span>
+                            <span asp-validation-for="ProductDestinoIde" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -66,18 +67,21 @@
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="ProductOrigenIde"></span>
+                            <span asp-validation-for="ProductOrigenIde" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label>Monto</label>
-                            <input type="text" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
-                            <span asp-validation-for="Amount"></span>
+                            <input type="number" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
                         </div>
 
                         <input type="hidden" name="userId" value="@user.Id" />
-
-                        <button type="submit" asp-route-userId="@user.Id" class="btn text-white justify-content-end float-end" style="background: #023e8a">Guardar</button>
+                        <input type="hidden" asp-for="Tipe" value="@((int)ETipoPago.PagoTarjeta)" />
+                        <div class="d-flex  justify-content-end align-items-end " style="gap:10px ;">
+                            <a asp-controller="Customer" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-danger  font-weight-bold  ">Cancelar</a>
+                            <button type="submit" class="btn text-white" style="background: #023e8a">Pagar</button>
+                        </div>
 
                     </form>
 

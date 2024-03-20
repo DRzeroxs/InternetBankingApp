@@ -154,6 +154,31 @@ namespace InternetBankingApp.Core.Application.Services
             await _repository.AddAsync(saveTransation);
             return sv;
         }
-        
+        public async Task AgregarTransaccion(SaveTransaccionViewModel vm)
+        {
+            var clienteAcutal = await _clienteService.GetByIdentityId(vm.userId);
+            var cuentaActual = await _cuentaDeAhorroService.GetByClientId(clienteAcutal.Id);
+            vm.ClienteId = clienteAcutal.Id;
+
+            cuentaActual.Balance = cuentaActual.Balance - vm.Amount;
+            SaveCuentaDeAhorroViewModel saveClient = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaActual);
+
+            await _cuentaDeAhorroService.Editar(saveClient, saveClient.Id);
+
+            var cuentaATransferir = await _cuentaDeAhorroService.GetByIdentifier(vm.ProductDestinoIde);
+
+            cuentaATransferir.Balance = cuentaATransferir.Balance + vm.Amount;
+            SaveCuentaDeAhorroViewModel saveCuentaATransferir = _mapper.Map<SaveCuentaDeAhorroViewModel>(cuentaATransferir);
+
+            await _cuentaDeAhorroService.Editar(saveCuentaATransferir, saveCuentaATransferir.Id);
+
+            Transaccion SaveVm = _mapper.Map<Transaccion>(vm);
+
+            await _repository.AddAsync(SaveVm);
+           
+        }
+
+       
+
     }
 }

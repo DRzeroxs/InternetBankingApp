@@ -12,5 +12,7 @@ namespace InternetBankingApp.Core.Application.Interfaces.IServices
     {
        //Task PagarTarjetaCredito(SaveTransaccionViewModel sv);
         Task<SaveTransaccionViewModel> PagarTarjetaCredito(SaveTransaccionViewModel sv);
+        Task AgregarTransaccion(SaveTransaccionViewModel vm);
+      
     }
 }
