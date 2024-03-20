@@ -13,6 +13,7 @@ using InternetBankingApp.Core.Application.ViewModels.Products;
 using InternetBankingApp.Core.Application.ViewModels.TarjetaDeCredito;
 using InternetBankingApp.Core.Application.ViewModels.Transaccion;
 using InternetBankingApp.Core.Application.ViewModels.User;
+using InternetBankingApp.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBankingApp.Controllers
@@ -79,9 +80,7 @@ namespace InternetBankingApp.Controllers
 
         public async Task<IActionResult> Beneficiary(string userId)
         {
-            var client = await _clienteService.GetByIdentityId(userId);
-
-            var beneficiaryList = await _beneficiarioService.GetBeneficiaryList(client.Id); 
+            var beneficiaryList = await _obenerCuentas.CuentasBeneficiario(userId);
 
             return View(beneficiaryList);  
         }
@@ -117,12 +116,21 @@ namespace InternetBankingApp.Controllers
                 return View("Beneficiary", beneficiarios);
             }
 
+            foreach(var item in beneficiarios)
+            {
+                if(item.AccountNumber == vm.CuentaIdentifier)
+                {
+                    ModelState.AddModelError("Is Added", "This beneficiary has already been added");
+                    return View("Beneficiary", beneficiarios);
+                }
+            }
+
             var client = await _clienteService.GetByIdentityId(userId);
             vm.ClienteId = client.Id;
 
             await _beneficiarioService.AddAsync(vm);
 
-            return View("Beneficiary", beneficiarios);
+            return RedirectToAction("Beneficiary", new {userId = userId});
         }
      
         public async Task<IActionResult> DeleteBeneficiary(int Id)
@@ -333,15 +341,30 @@ namespace InternetBankingApp.Controllers
             if (!ModelState.IsValid) View(ModelState);
 
             var client = await _clienteService.GetByIdentityId(userId);
-            vm.ClienteId = client.Id;    
+            vm.ClienteId = client.Id;
+
+            var cuentasPersonales = await _obenerCuentas.CuentasPersonales(userId);
+
+            foreach (var item in cuentasPersonales)
+            {
+                if (item == vm.ProductDestinoIde)
+                {
+                    ModelState.AddModelError("Same account", "You cannot enter your same account");
+
+                    ViewBag.indentificador = await _obenerCuentas.CuentasPersonales(userId);
+
+                    return View(vm);
+                }
+
+            }
 
             var confirnAccount = await _cuentaAhorroService.ConfirnAccount(vm.ProductDestinoIde);
 
             if(confirnAccount == false)
             {
                 ModelState.AddModelError("No existe", "La cuenta a la que quiere transferir no existe");
-             
-                await _obenerCuentas.CuentasPersonales(userId);
+
+                ViewBag.indentificador = await _obenerCuentas.CuentasPersonales(userId);
 
                 return View(vm);
             }
@@ -351,8 +374,8 @@ namespace InternetBankingApp.Controllers
             if(montoCuenta.Balance < vm.Amount)
             {
                 ModelState.AddModelError("No tiene saldo", "No cuenta con saldo suficiente para realizar la transaccion");
-           
-                await _obenerCuentas.CuentasPersonales(userId);
+
+                ViewBag.indentificador = await _obenerCuentas.CuentasPersonales(userId);
 
                 return View(vm);
             }
