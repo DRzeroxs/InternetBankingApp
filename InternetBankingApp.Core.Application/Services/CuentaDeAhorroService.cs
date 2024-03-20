@@ -3,6 +3,7 @@ using InternetBankingApp.Core.Application.Dtos.Account;
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IRepository;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
+using InternetBankingApp.Core.Application.ViewModels.Beneficiario;
 using InternetBankingApp.Core.Application.ViewModels.Cliente;
 using InternetBankingApp.Core.Application.ViewModels.CuentaDeAhorro;
 using InternetBankingApp.Core.Application.ViewModels.Prestamo;
@@ -84,5 +85,7 @@ namespace InternetBankingApp.Core.Application.Services
 
             return _mapper.Map<List<CuentaDeAhorroViewModel>>(list);
         }
+
+      
     }
 }

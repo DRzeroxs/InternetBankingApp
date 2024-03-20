@@ -6,5 +6,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.Customer
     {
         Task<List<ClientBeneficiaryViewModel>> CuentasBeneficiario(string userId);
         Task<List<int>> CuentasPersonales(string userId);
+        Task<List<ClientBeneficiaryViewModel>> ObtenerDatosBeneficiarios(string userId);
     }
 }
