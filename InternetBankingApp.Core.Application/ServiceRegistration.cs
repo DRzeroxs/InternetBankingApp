@@ -1,4 +1,6 @@
-﻿using InternetBankingApp.Core.Application.Interfaces.IAccount;
+﻿using InternetBankingApp.Core.Application.Helpers;
+using InternetBankingApp.Core.Application.Interfaces.Customer;
+using InternetBankingApp.Core.Application.Interfaces.IAccount;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,8 @@ namespace InternetBankingApp.Core.Application
             services.AddTransient<IDashBoardService, DashBoardService>();
             services.AddTransient<IBeneficiarioService, BeneficiarioService>();
             services.AddTransient<ITransaccionService, TransaccionService>();
+            services.AddTransient<IAgregarTransferencia, AgregarTransferencia>();
+            services.AddTransient<IObtenerCuentas, ObtenerCuentas>();
             #endregion
         }
     }
