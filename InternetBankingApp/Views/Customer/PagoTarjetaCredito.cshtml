@@ -44,7 +44,7 @@
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="ProductDestinoIde"></span>
+                            <span asp-validation-for="ProductDestinoIde" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -67,13 +67,13 @@
                                     }
                                 }
                             </select>
-                            <span asp-validation-for="ProductOrigenIde"></span>
+                            <span asp-validation-for="ProductOrigenIde" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label>Monto</label>
-                            <input type="text" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
-                            <span asp-validation-for="Amount"></span>
+                            <input type="number" value="0" asp-for="Amount" class="form-control" placeholder="$Ingrese el monto" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
                         </div>
 
                         <input type="hidden" name="userId" value="@user.Id" />
