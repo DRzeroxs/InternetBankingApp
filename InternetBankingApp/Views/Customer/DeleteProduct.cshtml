@@ -2,33 +2,127 @@
 @using InternetBankingApp.Core.Application.Enums;
 @model ProductViewModel
 
-@foreach (var cuenta in Model.cuentas)
-{
-    <p>Cuenta de Ahorro</p>
-    <p>Balance : @cuenta.Balance</p>
-    @* El elementos <a> debe verse de la siguiente forma*@
-    @*<a asp-route-identifier="@cuenta.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct">*@
-    <i class="fa-brands fa-product-hunt"></i>
-
+@{
+    ViewData["Title"] = "Delete Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@foreach (var tarjeta in Model.tarjetas)
-{
-    <p>Tarjetas de Credito</p>
-    <p>Limite : @tarjeta.Limit</p>
-    <p>Debt: @tarjeta.Debt</p>
-    @* El elementos <a> debe verse de la siguiente forma*@
-    @*<a asp-route-identifier="@tarjeta.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct">*@
-    <i class="fa-brands fa-product-hunt"></i>
+<body>
+    <div class="col-md-12 col-md-offset-1 justify-content-center align-content-center">
 
-}
+        <div>
+            <form method="post">
+                <div class="justify-content-center">
+                    <div class="col-auto">
+                        <div class="card-header bg-dark">
+                            <h3 class="text-white"><strong>Cuentas</strong></h3>
+                        </div>
+                        <table class="table table-striped table-bordered table-list mb-5" style="background-color: #ffffff">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Identifier</th>
+                                    <th>Balance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.cuentas)
+                            {
+                                <tbody class="text-center" style="background-color: #fff0f3">
+                                    <tr>
+                                        <td>@item.Identifier</td>
+                                        <td>@item.Balance</td>
 
-@foreach (var prestamo in Model.prestamos)
-{
-    <p>Prestamos</p>
-    <p>Prestamo inicial : @prestamo.InitialDebt</p>
-    <p>Debt : @prestamo.CurrentDebt</p>
-    @* El elementos <a> debe verse de la siguiente forma*@
-    @*<a asp-route-identifier="@prestamo.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct">*@
-    <i class="fa-brands fa-product-hunt"></i>
-}
+                                        <td align="center">
+                                            @if (!item.Main)
+                                            {
+                                                <button type="submit" asp-route-identifier="@item.Identifier" asp-route-type="@EProducts.CuentaDeAhorro" asp-controller="Customer" asp-action="DeleteProduct" style="background-color: red"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            }
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+
+                        <div class="card-header bg-dark">
+                            <h3 class="text-white"><strong>Tarjetas</strong></h3>
+                        </div>
+                        <table class="table table-striped table-bordered table-list mb-5" style="background-color: #ffffff">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Identifier</th>
+                                    <th>Limit</th>
+                                    <th>Debt</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.tarjetas)
+                            {
+                                <tbody class="text-center" style="background-color: #fff0f3">
+                                    <tr>
+                                        <td>@item.Identifier</td>
+                                        <td>@item.Limit</td>
+                                        <td>@item.Debt</td>
+
+                                        <td align="center">
+                                            @if (item.Debt <= 0)
+                                            {
+                                                <button type="submit" asp-route-identifier="@item.Identifier" asp-route-type="@EProducts.TarjetaDeCredito" asp-controller="Customer" asp-action="DeleteProduct" style="background-color: red"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            }
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+
+                        <div class="card-header bg-dark">
+                            <h3 class="text-white"><strong>Prestamos</strong></h3>
+                        </div>
+                        <table class="table table-striped table-bordered table-list" style="background-color: #ffffff">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Identifier</th>
+                                    <th>Initial Debt</th>
+                                    <th>Current Debt</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.prestamos)
+                            {
+                                <tbody class="text-center" style="background-color: #fff0f3">
+                                    <tr>
+                                        <td>@item.Identifier</td>
+                                        <td>@item.InitialDebt</td>
+                                        <td>@item.CurrentDebt</td>
+
+                                        <td align="center">
+                                            @if (item.CurrentDebt <= 0)
+                                            {
+                                                <button type="submit" asp-route-identifier="@item.Identifier" asp-route-type="@EProducts.Prestamo" asp-controller="Customer" asp-action="DeleteProduct" style="background-color: red"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            }
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
