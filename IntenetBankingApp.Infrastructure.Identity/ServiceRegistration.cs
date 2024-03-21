@@ -31,6 +31,11 @@ namespace InternetBankingApp.Infrastructure.Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
              .AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User/AccessDenied";
+
+            });
 
             services.AddAuthentication();
 

@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<body>
+    <section>
+        <div class="row mt-5 pt-5">
+            <div class="col-12 col-sm-4 col-md-4 m-auto">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <h4 class="mb-1">You are not allowed to access this section.</h4>
+                            <p><a class="btn btn-primary" asp-controller="User" asp-action="Login">Sign In</a> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

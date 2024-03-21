@@ -2,6 +2,7 @@ using InternetBankingApp.Infrastructure.Persistence;
 using InternetBankingApp.Infrastructure.Identity;
 using InternetBankingApp.Core.Application;
 using InternetBankingApp.Infrastructure.Identity.Seeds;
+using InternetBankingApp.Middlewares;
 
 namespace InternetBankingApp
 {
@@ -16,7 +17,8 @@ namespace InternetBankingApp
             builder.Services.AddPersistenceLayer(builder.Configuration);
             builder.Services.AddIdentityInfrastructure(builder.Configuration);
             builder.Services.AddApplicationLayer();
-
+            builder.Services.AddScoped<LoginAuthorize>();
+            builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddSession();
             var app = builder.Build();
@@ -31,9 +33,12 @@ namespace InternetBankingApp
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseSession();
+
+            app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();

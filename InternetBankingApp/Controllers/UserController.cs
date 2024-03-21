@@ -2,6 +2,7 @@
 using InternetBankingApp.Core.Application.Helpers;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.User;
+using InternetBankingApp.Middlewares;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,14 @@ namespace InternetBankingApp.Controllers
         {
             _userService = userService;
         }
+
+        [ServiceFilter(typeof(LoginAuthorize))]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
         }
+
+        [ServiceFilter(typeof(LoginAuthorize))]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
@@ -59,6 +64,11 @@ namespace InternetBankingApp.Controllers
             await _userService.SignOutAsync();
             HttpContext.Session.Remove("User");
             return RedirectToRoute(new { controller = "User", action = "Login" });
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
