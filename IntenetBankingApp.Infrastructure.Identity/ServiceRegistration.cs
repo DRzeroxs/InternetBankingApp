@@ -34,11 +34,11 @@ namespace InternetBankingApp.Infrastructure.Identity
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/User/AccessDenied";
+                options.AccessDeniedPath = "/User/AccessDenied"; 
 
             });
 
             services.AddAuthentication();
-
             #region"Service"
             services.AddTransient<IAccountServices, AccountServices>();
             #endregion

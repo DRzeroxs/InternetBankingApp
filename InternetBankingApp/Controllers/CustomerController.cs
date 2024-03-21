@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBankingApp.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly IUserService _userService;
@@ -56,7 +56,7 @@ namespace InternetBankingApp.Controllers
             userViewModel = httpContextAccessor.HttpContext.Session.get<AuthenticationResponse>("User");
         }
 
-
+        [Authorize (Roles = "Customer")]
         public async Task <IActionResult> Index(string userId)
         {
 
@@ -79,26 +79,30 @@ namespace InternetBankingApp.Controllers
            
             return View(productVm);
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Beneficiary(string userId)
         {
             var beneficiaryList = await _obenerCuentas.CuentasBeneficiario(userId);
 
             return View(beneficiaryList);  
         }
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AddBeneficiary()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AddBeneficiary(SaveBeneficiarioViewModel vm, string userId)
         {
-           if(!ModelState.IsValid)
-           {
-                return View(new {userId = userId });
-           }
-
             var beneficiarios = await _obenerCuentas.ObtenerDatosBeneficiarios(userId);
+
+            if (!ModelState.IsValid)
+           {
+                return View("Beneficiary", beneficiarios);
+            }
+
+         
 
             var cuentasPersonales = await _obenerCuentas.CuentasPersonales(userId);
 
@@ -134,7 +138,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Beneficiary", new {userId = userId});
         }
-     
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> DeleteBeneficiary(int Id)
         {
            var beneficiary = await _beneficiarioService.GetById(Id);
@@ -143,6 +147,7 @@ namespace InternetBankingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> DeleteBeneficiary(SaveBeneficiarioViewModel vm, string userId)
         {
             await _beneficiarioService.Eliminar(vm.Id);
@@ -160,7 +165,7 @@ namespace InternetBankingApp.Controllers
             return View(userSave);
         }
 
-        [HttpPost]
+        [HttpPost]  
         public async Task<IActionResult> EditUser(EditClientViewModel vm)
         {
 
@@ -195,7 +200,6 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
         }
-
         public async Task<IActionResult> AddTarjetaCredito()
         {
 
@@ -219,6 +223,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
         }
+      
         public async Task<IActionResult> AddCuentaPrestamo()
         {
             return View();
@@ -241,7 +246,6 @@ namespace InternetBankingApp.Controllers
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
           
         }
-
 
         public async Task<IActionResult> DeleteProduct(string userId)
         {
@@ -287,7 +291,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoTarjetaCredito(string userId)
         {
             var cliente = await _clienteService.GetByIdentityId(userId);
@@ -303,6 +307,7 @@ namespace InternetBankingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoTarjetaCredito(SaveTransaccionViewModel sv, string userId)
         {
             var cliente = await _clienteService.GetByIdentityId(userId);
@@ -338,6 +343,7 @@ namespace InternetBankingApp.Controllers
             return View();  
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoExpreso(SaveTransaccionViewModel vm,string userId)
         {
             if (!ModelState.IsValid) View(ModelState);
@@ -391,7 +397,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("PagoExpresoAction", vm);
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoExpresoAction(SaveTransaccionViewModel vm)
         {
              ViewBag.Nombre = vm.FirstName;
@@ -400,6 +406,7 @@ namespace InternetBankingApp.Controllers
              return View(vm);
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoExpresoActionPost(SaveTransaccionViewModel vm )
         {
 
@@ -407,7 +414,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", new {userId = vm.userId });
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoBeneficiarios(string userId)
         {
 
@@ -418,6 +425,7 @@ namespace InternetBankingApp.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoBeneficiarios(SaveTransaccionViewModel vm)
         {
             if(!ModelState.IsValid)
@@ -451,7 +459,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("PagoBeneficiariosAction", vm);
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoBeneficiariosAction(SaveTransaccionViewModel vm)
         {
             ViewBag.Nombre = vm.FirstName;
@@ -460,6 +468,7 @@ namespace InternetBankingApp.Controllers
             return View(vm);
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoBeneficiariosActionPost(SaveTransaccionViewModel vm)
         {
             await _transaccionService.AgregarTransaccion(vm);
@@ -481,7 +490,7 @@ namespace InternetBankingApp.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "Customer")]
         [HttpPost]
         public async Task<IActionResult> PagoPrestamo(SaveTransaccionViewModel vm)
         {
@@ -554,6 +563,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", "Customer", await _userService.GetAllUser());
         }
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoCuentaCuenta(string userId)
         {
            
@@ -565,9 +575,10 @@ namespace InternetBankingApp.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoCuentaCuentaPost(SaveTransaccionViewModel vm)
         {
-            if (!ModelState.IsValid) return View("PagoCuentaCuenta", new {userId = vm.userId });
+            if (!ModelState.IsValid) return RedirectToAction("PagoCuentaCuenta", new {userId = vm.userId });
 
             if (vm.ProductDestinoIde == vm.ProductOrigenIde)
             {
@@ -596,7 +607,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("PagoCuentaCuentaPostAction", vm);
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoCuentaCuentaPostAction(SaveTransaccionViewModel vm)
         {
             ViewBag.Nombre = vm.FirstName;
@@ -605,13 +616,14 @@ namespace InternetBankingApp.Controllers
             return View(vm);
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> PagoCuentaCuentaPostActionPost(SaveTransaccionViewModel vm)
         {
             await _transaccionService.AgregarTransaccion(vm);
             return RedirectToAction("Index", "Customer", new { userId = vm.userId });
 
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AvanceEfectivo()
         {
 
@@ -623,6 +635,7 @@ namespace InternetBankingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AvanceEfectivo(SaveTransaccionViewModel vm)
         {
             var cliente = await _clienteService.GetByIdentityId(vm.userId);

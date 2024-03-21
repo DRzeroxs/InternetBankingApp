@@ -33,12 +33,21 @@ namespace InternetBankingApp
                 app.UseHsts();
             }
 
-            app.UseSession();
+            /*app.UseSession();
 
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
+            app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();*/
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();

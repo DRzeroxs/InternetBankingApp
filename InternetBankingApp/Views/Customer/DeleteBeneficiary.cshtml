@@ -23,7 +23,7 @@
             <input type="hidden" asp-for="Id" />
             <input  type="hidden" name="userId" value="@user.Id"/>
             <button type="submit" class="btn btn-danger">Delete</button>
-            <a asp-controller="Administrator" asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <a asp-controller="Customer" asp-route-userId="@user.Id" asp-action="Index" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </section>

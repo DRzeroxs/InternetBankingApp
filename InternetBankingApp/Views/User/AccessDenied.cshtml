@@ -1,5 +1,13 @@
-﻿@{
+﻿@inject IHttpContextAccessor httpContext;
+@using InternetBankingApp.Core.Application.Dtos.Account
+@using Microsoft.AspNetCore.Http
+@using InternetBankingApp.Core.Application.Helpers;
+
+@{
     ViewData["Title"] = "Access Denied";
+
+    var user = httpContext.HttpContext.Session.get<AuthenticationResponse>
+        ("User");
 }
 
 <body>
@@ -11,7 +19,8 @@
 
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <h4 class="mb-1">You are not allowed to access this section.</h4>
-                            <p><a class="btn btn-primary" asp-controller="User" asp-action="Login">Sign In</a> </p>
+                                
+                                <p><a class="btn btn-primary float-end" asp-controller="User" asp-action="Login">Sign In</a> </p>
                         </div>
                     </div>
                 </div>

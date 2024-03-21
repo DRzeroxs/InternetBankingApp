@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using Azure;
 using InternetBankingApp.Core.Application.Dtos.Account;
+using InternetBankingApp.Core.Application.Enums;
 using InternetBankingApp.Core.Application.Interfaces.IServices;
 using InternetBankingApp.Core.Application.ViewModels.User;
+using InternetBankingApp.Middlewares;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 
 namespace InternetBankingApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class AdministratorController : Controller
     {
         private readonly IUserService _userService;
@@ -21,26 +23,28 @@ namespace InternetBankingApp.Controllers
             _mapper = mapper;
             _boardService = boardService;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
 
             return View(await _boardService.GetDashBoard());
         }
 
-     
+        [Authorize(Roles = "Admin")]
         public async Task <IActionResult> UsersManagement()
         {
             var user = await _userService.GetAllUser();
 
             return View(user);
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser(RegisterViewModel vm)
         {
             if(!ModelState.IsValid)
@@ -80,7 +84,7 @@ namespace InternetBankingApp.Controllers
 
             return View("UsersManagement",await  _userService.GetAllUser());
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ActiveUser(string UserId)
         {
             var user = await _userService.GetByUserId(UserId);
@@ -88,6 +92,7 @@ namespace InternetBankingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ActiveUserPost(ActiveInactiveViewModel vm)
         {
             await _userService.ConfirnUserAsync(vm.Id);
@@ -96,7 +101,7 @@ namespace InternetBankingApp.Controllers
 
             return RedirectToAction("Index", await _boardService.GetDashBoard());
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> InactiveUser(string userId)
         {
             var user = await _userService.GetByUserId(userId);
@@ -105,6 +110,7 @@ namespace InternetBankingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> InactiveUserPost(ActiveInactiveViewModel vm)
         {
             await _userService.InactiveUserAsync(vm.Id);
@@ -124,6 +130,7 @@ namespace InternetBankingApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(EditAdminViewModel vm)
         {
 
@@ -132,13 +139,13 @@ namespace InternetBankingApp.Controllers
             return RedirectToAction("Index", "Administrator", await _boardService.GetDashBoard());
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult ManageProducts(string userId)
         {
             return View("ManageProducts", userId);
         }
 
-
+ 
         private async Task UpDashBoard()
         {
             ViewBag.UserActive = await _userService.CountUsersActiveAsync();
