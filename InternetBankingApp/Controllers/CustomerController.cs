@@ -245,6 +245,13 @@ namespace InternetBankingApp.Controllers
                 CurrentDebt = Balance
             };
 
+            ClienteViewModel client = await _clienteService.GetByIdentityId(userId);
+            SaveCuentaDeAhorroViewModel cuentaMain = await _cuentaAhorroService.GetMainByClientId(client.Id);
+
+            cuentaMain.Balance += Balance;
+
+            await _cuentaAhorroService.Editar(cuentaMain, cuentaMain.Id);
+
             await _prestamoService.AddAsync(tarjetaSave);
 
             return RedirectToAction("Index", "Administrator", await _userService.GetAllUser());
@@ -308,12 +315,10 @@ namespace InternetBankingApp.Controllers
         {
             var cliente = await _clienteService.GetByIdentityId(userId);
             var tarjetas = await _tarjetaDeCreditoService.GetProductViewModelByClientId(cliente.Id);
-            var products = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
-           
-            ViewBag.creditos = tarjetas;
-            ViewBag.products = products.cuentas;
-            ViewBag.productsCredito = products.tarjetas;
-            ViewBag.productsPrestamo = products.prestamos;
+            var cuentas = await _cuentaAhorroService.GetProductViewModelByClientId(cliente.Id);
+
+            ViewBag.tarjetas = tarjetas;
+            ViewBag.cuentas = cuentas;
 
             return View();
         }
@@ -324,12 +329,10 @@ namespace InternetBankingApp.Controllers
         {
             var cliente = await _clienteService.GetByIdentityId(userId);
             var tarjetas = await _tarjetaDeCreditoService.GetProductViewModelByClientId(cliente.Id);
-            var products = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
+            var cuentas = await _cuentaAhorroService.GetProductViewModelByClientId(cliente.Id);
 
-            ViewBag.creditos = tarjetas;
-            ViewBag.products = products.cuentas;
-            ViewBag.productsCredito = products.tarjetas;
-            ViewBag.productsPrestamo = products.prestamos;
+            ViewBag.tarjetas = tarjetas;
+            ViewBag.cuentas = cuentas;
 
             if (!ModelState.IsValid)
             {

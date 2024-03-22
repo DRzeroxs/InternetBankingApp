@@ -9,6 +9,6 @@ namespace InternetBankingApp.Core.Application.Interfaces.IRepository
 {
     public interface ICuentaDeAhorroRepository : IGenericRepository<CuentaDeAhorro> , IGetInfoProductsRepository<CuentaDeAhorro>
     {
-        
+        Task<CuentaDeAhorro> GetMainByClientIdAsync(int clientId);
     }
 }

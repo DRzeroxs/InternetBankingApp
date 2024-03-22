@@ -86,6 +86,9 @@ namespace InternetBankingApp.Core.Application.Services
             return _mapper.Map<List<CuentaDeAhorroViewModel>>(list);
         }
 
-      
+        public async Task<SaveCuentaDeAhorroViewModel> GetMainByClientId(int ClientId)
+        {
+            return _mapper.Map<SaveCuentaDeAhorroViewModel>(await _repository.GetMainByClientIdAsync(ClientId));
+        }
     }
 }

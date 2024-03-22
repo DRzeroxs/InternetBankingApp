@@ -27,6 +27,14 @@ namespace InternetBankingApp.Infrastructure.Persistence.Repositories
             return entity;
         }
 
+        public async Task<CuentaDeAhorro> GetMainByClientIdAsync(int clientId)
+        {
+            var entity = await _context.Set<CuentaDeAhorro>()
+                .FirstOrDefaultAsync(c => c.ClientId == clientId && c.Main);
+
+            return entity;
+        }
+
         public async Task<List<int>> GetAllIdentifiersAsync()
         {
             List<int> result = await _context.Set<CuentaDeAhorro>().
