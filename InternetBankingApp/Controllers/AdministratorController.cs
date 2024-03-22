@@ -37,29 +37,30 @@ namespace InternetBankingApp.Controllers
 
             return View(user);
         }
+
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateUser()
+        public async Task<IActionResult> AddUser()
         {
             return View();
         }
-
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateUser(RegisterViewModel vm)
+        public async Task<IActionResult> AddUser(RegisterViewModel vm)
         {
-            if(!ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
                 return View(vm);
             }
 
-            if(vm.StartAmount == null)
+            if (vm.StartAmount == null)
             {
                 vm.StartAmount = 0.0;
             }
 
             var origin = Request.Headers["origin"];
 
-            if(vm.TypeOfUser == "Admin")
+            if (vm.TypeOfUser == "Admin")
             {
                 RegistrerResponse response = await _userService.RegisterAdminAsync(vm, origin);
 
@@ -70,7 +71,7 @@ namespace InternetBankingApp.Controllers
                     return View(vm);
                 }
             }
-            else if(vm.TypeOfUser == "Customer")
+            else if (vm.TypeOfUser == "Customer")
             {
                 RegistrerResponse response = await _userService.RegisterCustomerAsync(vm, origin);
 
@@ -82,8 +83,9 @@ namespace InternetBankingApp.Controllers
                 }
             }
 
-            return View("UsersManagement",await  _userService.GetAllUser());
+            return View("UsersManagement", await _userService.GetAllUser());
         }
+    
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ActiveUser(string UserId)
         {

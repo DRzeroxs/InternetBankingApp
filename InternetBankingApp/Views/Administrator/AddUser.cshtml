@@ -1,0 +1,106 @@
+﻿@model InternetBankingApp.Core.Application.ViewModels.User.RegisterViewModel;
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<Body>
+    <section>
+        <div class="row mt-3 pt-3">
+            <div class="col-6 offset-3">
+                <div class="card border-0 shadow" style="background: #f6f8fa">
+                    <div class="card-body">
+
+                        <form asp-controller="Administrator" class="create" asp-action="AddUser" method="post" enctype="multipart/form-data">
+
+                            <div class="mb-2">
+                                <label asp-for="FirstName" class="form-label">Fist Name:</label>
+                                <input type="text" asp-for="FirstName" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="LastName" class="form-label">Last Name:</label>
+                                <input type="text" asp-for="LastName" class="form-control">
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="Email" class="form-label">Email:</label>
+                                <input type="text" asp-for="Email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="IdentificationCard" class="form-label">Identification Card:</label>
+                                <input type="text" asp-for="IdentificationCard" class="form-control">
+                                <span asp-validation-for="IdentificationCard" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="UserName" class="form-label">User Name:</label>
+                                <input type="text" asp-for="UserName" class="form-control">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="TypeOfUser" class="form-label ">Type Of User:</label>
+
+                                <select asp-for="TypeOfUser" class="form-control selectUser">
+                                    <option disabled>--Select--</option>
+
+                                    <option value="Admin">Admin</option>
+
+                                    <option value="Customer">Customer</option>
+                                </select>
+                                <span asp-validation-for="TypeOfUser" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="mb-2 initialAmountField" style="display: none;">
+                                <label asp-for="StartAmount" class="col-form-label">Start Amount:</label>
+                                <input type="number" asp-for="StartAmount" class="mt-3 form-control">
+
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="Password" class="form-label">Password:</label>
+                                <input type="text" asp-for="Password" class="form-control">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-2">
+                                <label asp-for="ConfirnPassword" class="form-label">Confirn Password:</label>
+                                <input type="text" asp-for="ConfirnPassword" class="form-control">
+                                <span asp-validation-for="ConfirnPassword" class="text-danger"></span>
+
+                            </div>
+
+                                <button type="submit" class="btn btn-secondary" asp-controller="Administrator" asp-action="Index">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Body>
+
+<script>
+    var selectValue = document.querySelector('.selectUser');
+    var starAmounntField = document.querySelector('.initialAmountField');
+
+
+    selectValue.addEventListener('change', () => {
+        console.log(selectValue.value)
+        if (selectValue.value == 'Customer') {
+            starAmounntField.style.display = 'block'
+        }
+        else {
+            starAmounntField.style.display = 'none'
+        }
+    })
+
+</script>

@@ -4,15 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@* @await Html.PartialAsync("CreateUser", new InternetBankingApp.Core.Application.ViewModels.User.RegisterViewModel()) *@
-
 <body>
     <div class="col-md-12 col-md-offset-1 justify-content-center align-content-center">
 
         <div class="mb-3">
-            @await Html.PartialAsync("CreateUser", new InternetBankingApp.Core.Application.ViewModels.User.RegisterViewModel())
+            <a asp-controller="Administrator" asp-action="AddUser" class="btn text-white" style="background: #023e8a">Create</a>
         </div>
-
         <div>
             <form method="post">
                 <div class="justify-content-center">
