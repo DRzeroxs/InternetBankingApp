@@ -1,13 +1,14 @@
 ﻿@model InternetBankingApp.Core.Application.ViewModels.User.RegisterViewModel;
 @{
     ViewData["Title"] = "CreateUser";
+
 }
 
 
 <section>
     <button type="button" class="btn mt-3 text-white" style="background: #023e8a" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="mdo">Create User</button>
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   
+    <div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,7 +28,7 @@
                         <div class="mb-3">
                             <label asp-for="LastName" class="col-form-label">Last Name:</label>
                             <input type="text"  asp-for="LastName" class="mt-3 form-control">
-                         
+                            <span asp-validation-for="LastName"></span>
                         </div>
 
                         <div class="mb-3">
@@ -111,7 +112,6 @@
 <script>
     var selectValue = document.querySelector('.selectUser');
     var starAmounntField = document.querySelector('.initialAmountField');
-
 
     selectValue.addEventListener('change', () => {
         console.log(selectValue.value)

@@ -48,8 +48,8 @@ namespace InternetBankingApp.Controllers
         public async Task<IActionResult> CreateUser(RegisterViewModel vm)
         {
             if(!ModelState.IsValid)
-            {
-                return View(vm);
+            {       
+                return View("UsersManagement", await _userService.GetAllUser());
             }
 
             if(vm.StartAmount == null)

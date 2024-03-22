@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "UsersManagement";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 @* @await Html.PartialAsync("CreateUser", new InternetBankingApp.Core.Application.ViewModels.User.RegisterViewModel()) *@
@@ -12,7 +13,6 @@
         <div class="mb-3">
             @await Html.PartialAsync("CreateUser", new InternetBankingApp.Core.Application.ViewModels.User.RegisterViewModel())
         </div>
-
         <div>
             <form method="post">
                 <div class="justify-content-center">

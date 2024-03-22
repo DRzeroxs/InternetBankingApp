@@ -168,7 +168,10 @@ namespace InternetBankingApp.Controllers
         [HttpPost]  
         public async Task<IActionResult> EditUser(EditClientViewModel vm)
         {
-
+            if(!ModelState.IsValid)
+            {
+                return View(vm);
+            }
             await _userService.EditUserCustomerAsync(vm);
 
             return RedirectToAction("Index", "Administrator" , await _userService.GetAllUser());
@@ -511,6 +514,7 @@ namespace InternetBankingApp.Controllers
             {
                 await GetProductosParaPagoViewModel(cliente.Id);
                 //Agregar un error de "Cuenta no encontrada" en el Model para que se vea en la vista
+                ModelState.AddModelError("Cuenta no encontrada", "Non se encontro esta cuenta");
                 return View(vm);
             }
 
@@ -529,6 +533,7 @@ namespace InternetBankingApp.Controllers
             {
                 await GetProductosParaPagoViewModel(cliente.Id);
                 //Agregar un error de "Balance insuficiente" en el Model para que se vea en la vista
+                ModelState.AddModelError("Balance Insufiente", "No tiene balance suficiente para realizar este pago.");
                 return View(vm);
             }
 
@@ -594,9 +599,8 @@ namespace InternetBankingApp.Controllers
             if (montoCuenta.Balance < vm.Amount)
             {
                 ModelState.AddModelError("No tiene saldo", "No cuenta con saldo suficiente para realizar la transaccion");
-              
 
-                await _obenerCuentas.CuentasPersonales(vm.userId);
+                ViewBag.indentificador = await _obenerCuentas.CuentasPersonales(vm.userId);
                 return View("PagoCuentaCuenta", vm);
             }
 
