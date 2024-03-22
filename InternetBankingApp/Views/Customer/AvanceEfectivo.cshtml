@@ -20,49 +20,6 @@
     List<TarjetaDeCreditoViewModel> tarjetas = ViewBag.tarjetas;
 }
 
-@* <div class="d-flex align-items-center justify-content-center container mt-4">
-    <form method="post" class="w-25 bg-secondary p-3" asp-controller="Customer" asp-action="AvanceEfectivo">
-        <div class="p-2 bg-light mb-2 ">
-            <h1 style="color: white;" class="text-center text-black">Avance Efectivo</h1>
-        </div>
-
-        <input type="hidden" name="userId" value="@user.Id" />
-        <input type="hidden" asp-for="Tipe" value="@((int)ETipoPago.AvanceEfectivo)" />
-
-        <span asp-validation-for="ProductOrigenIde" class="text-danger"></span>
-        <label asp-for="ProductOrigenIde" class="form-label">Seleccione una tarjeta</label>
-        <select class="form-control mb-3" asp-for="ProductOrigenIde">
-            @foreach (var item in tarjetas)
-            {
-                <option value="@item.Identifier">
-                    @item.Identifier
-                </option>
-            }
-        </select>
-
-        <span asp-validation-for="Amount" class="text-danger"></span>
-        <label asp-for="Amount" class="form-label">Monto de Avance efectivo:</label>
-        <input type="number" class="form-control mb-3" asp-for="Amount" value="0" />
-
-        <span asp-validation-for="ProductDestinoIde" class="text-danger"></span>
-        <label asp-for="ProductDestinoIde" class="form-label">Seleccione una cuenta:</label>
-        <select class="form-control mb-3" asp-for="ProductDestinoIde">
-            @foreach (var item in Cuentas)
-            {
-                <option value="@item.Identifier">
-                    @item.Identifier
-                </option>
-            }
-        </select>
-
-
-
-        <div class="d-flex  justify-content-end align-items-end " style="gap:10px ;">
-            <a asp-controller="Customer" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-danger  font-weight-bold  ">Cancelar</a>
-            <button type="submit" class="btn btn-primary font-weight-bold">Pagar</button>
-        </div>
-    </form>
-</div> *@
 
 
 <div class="row">

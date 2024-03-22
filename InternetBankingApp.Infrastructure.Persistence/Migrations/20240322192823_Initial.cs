@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InternetBankingApp.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class DatabaseInit : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -142,7 +142,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     Tipe = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    clienteId = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
                     ProductOrigenIde = table.Column<int>(type: "int", nullable: false),
                     ProductDestinoIde = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -154,8 +154,8 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Transacciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transacciones_Clientes_clienteId",
-                        column: x => x.clienteId,
+                        name: "FK_Transacciones_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -182,9 +182,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transacciones_clienteId",
+                name: "IX_Transacciones_ClienteId",
                 table: "Transacciones",
-                column: "clienteId");
+                column: "ClienteId");
         }
 
         /// <inheritdoc />

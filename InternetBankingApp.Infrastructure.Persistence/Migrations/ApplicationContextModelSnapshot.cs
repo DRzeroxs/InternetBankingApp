@@ -224,6 +224,9 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -248,12 +251,10 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                     b.Property<int>("Tipe")
                         .HasColumnType("int");
 
-                    b.Property<int>("clienteId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("clienteId");
+                    b.HasIndex("ClienteId");
+
                     b.ToTable("Transacciones");
                 });
 
@@ -305,7 +306,7 @@ namespace InternetBankingApp.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("InternetBankingApp.Core.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Transacciones")
-                        .HasForeignKey("clienteId")
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

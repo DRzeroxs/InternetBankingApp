@@ -19,53 +19,6 @@
 }
 
 
-@* 
-<div class="d-flex align-items-center justify-content-center container mt-4">
-    <form method="post" class="w-25 bg-secondary p-3" asp-controller="Customer" asp-action="PagoBeneficiarios">
-        <div class="p-2 bg-light mb-2 ">
-            <h1 style="color: white;" class="text-center text-black">Pago Beneficiarios</h1>
-        </div> @Html.ValidationSummary(false, "", new { @class = "text-white" })
-
-
-        <label class="mb-1 text-white">Monto del Pago</label>
-
-        <input type="number" class="form-control mb-3" asp-for="Amount"  />
-
-        <input type="hidden" asp-for="userId" value="@user.Id" />
-
-        <input type="hidden" asp-for="Tipe" value="4" />
-
-        <label class="mb-1 text-white" asp-for="ProductDestinoIde">Cuentas de Beneficiarios</label>
-        <select class="form-control mb-3" asp-for="ProductDestinoIde">
-
-            @foreach (var item in beneficiario)
-            {
-                <option value="@item.AccountNumber">
-                    @item.Name
-                </option>
-            }
-        </select>
-
-        <label class="mb-1 text-white" asp-for="ProductOrigenIde">Tus Cuentas</label>
-        <select class="form-control mb-3" asp-for="ProductOrigenIde">
-
-            @foreach (var item in numCuentas)
-            {
-                <option value="@item">
-                    @item
-                </option>
-            }
-        </select>
-
-
-
-        <div class="d-flex  justify-content-end align-items-end " style="gap:10px ;">
-            <a asp-controller="Customer" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-danger  font-weight-bold  ">Cancelar</a>
-            <button type="submit" class="btn btn-primary font-weight-bold">Pagar</button>
-        </div>
-    </form>
-</div>
- *@
 
 <div class="row">
     <div class="container">

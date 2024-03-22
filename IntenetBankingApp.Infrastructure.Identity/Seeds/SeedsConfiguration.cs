@@ -26,10 +26,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Seeds
 
                     await DefaultRoles.SeedAsync(roleManager);
                     await DefaultAdminUser.SeedAsync(userManager);
-                    await DefaultCustomerUser.SeedAsync(userManager);
-
-
-
                 }
                 catch (Exception ex)
                 {

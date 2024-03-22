@@ -16,6 +16,7 @@ using InternetBankingApp.Core.Application.ViewModels.User;
 using InternetBankingApp.Core.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace InternetBankingApp.Controllers
 {
@@ -252,10 +253,18 @@ namespace InternetBankingApp.Controllers
 
         public async Task<IActionResult> DeleteProduct(string userId)
         {
+            ViewBag.Id = userId;
             ClienteViewModel cliente = await _clienteService.GetByIdentityId(userId);
-            ProductViewModel products = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
+            ProductViewModel product = await _dashBoardService.GetAllProductsByClientIdAsync(cliente.Id);
+            return View(product);
+        }
 
-            return View(products);
+        public async Task<IActionResult> EliminarProducto(int identifier, EProducts type, string userId)
+        {
+            ViewBag.Id = userId;
+            ViewBag.Identifier = identifier;    
+            ViewBag.Type = type;
+            return View();
         }
 
         [HttpPost]
