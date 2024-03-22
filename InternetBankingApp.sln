@@ -6,18 +6,21 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp", "InternetBankingApp\InternetBankingApp.csproj", "{C99D998D-3460-4E52-9217-9463A1ACAB19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{BBB5CB04-D488-420D-A499-1944D5F934B2}"
+	ProjectSection(SolutionItems) = preProject
+		Miembros.txt = Miembros.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B91E229F-DE53-4C37-B6AB-9CCC40DFD869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetBankingApp.Core.Application", "InternetBankingApp.Core.Application\InternetBankingApp.Core.Application.csproj", "{8DC088BD-991D-4A75-A6DF-5D7F3AB69553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp.Core.Application", "InternetBankingApp.Core.Application\InternetBankingApp.Core.Application.csproj", "{8DC088BD-991D-4A75-A6DF-5D7F3AB69553}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetBankingApp.Core.Domain", "InternetBankingApp.Core.Domain\InternetBankingApp.Core.Domain.csproj", "{D6332102-0ED2-4EFF-B4E9-BC01C7344CCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp.Core.Domain", "InternetBankingApp.Core.Domain\InternetBankingApp.Core.Domain.csproj", "{D6332102-0ED2-4EFF-B4E9-BC01C7344CCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{59E8A027-A76A-4D89-B8AD-E9A8242ACD55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetBankingApp.Infrastructure.Identity", "IntenetBankingApp.Infrastructure.Identity\InternetBankingApp.Infrastructure.Identity.csproj", "{AC3941B5-B7D6-4B6D-8C9F-DDFD70F24FCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp.Infrastructure.Identity", "IntenetBankingApp.Infrastructure.Identity\InternetBankingApp.Infrastructure.Identity.csproj", "{AC3941B5-B7D6-4B6D-8C9F-DDFD70F24FCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetBankingApp.Infrastructure.Persistence", "InternetBankingApp.Infrastructure.Persistence\InternetBankingApp.Infrastructure.Persistence.csproj", "{5B0F9422-980F-4CF2-AECC-20858D2CE9D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternetBankingApp.Infrastructure.Persistence", "InternetBankingApp.Infrastructure.Persistence\InternetBankingApp.Infrastructure.Persistence.csproj", "{5B0F9422-980F-4CF2-AECC-20858D2CE9D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{C62320CA-E9DE-4956-9B3B-417F55EF237E}"
 EndProject
