@@ -58,6 +58,7 @@
                 <div class="card-header text-light text-center" style="background: #023e8a">
                     <h6>Pago Expreso</h6>
                 </div>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="card-body">
                     
                     <form method="post" asp-controller="Customer" asp-action="PagoExpreso">

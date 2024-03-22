@@ -33,7 +33,5 @@ namespace InternetBankingApp.Core.Application.ViewModels.User
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "The  Password must be the same")]
         public string ConfirnPassword { get; set; }
-
-        public double AddAmount { get; set; }   
     }
 }

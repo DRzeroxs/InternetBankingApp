@@ -259,8 +259,6 @@ namespace InternetBankingApp.Infrastructure.Identity.Services
 
             var cuentadeAhorro = await _cuentaAhorro.GetByClientId(client.Id);
 
-            cuentadeAhorro.Balance = cuentadeAhorro.Balance + vm.AddAmount;
-
             await _cuentaAhorro.Editar(cuentadeAhorro, cuentadeAhorro.Id);
 
             if (user != null)
